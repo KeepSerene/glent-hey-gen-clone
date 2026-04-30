@@ -89,7 +89,7 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
-      <body className="selection:bg-primary selection:text-primary-foreground antialiased">
+      <body className="selection:bg-primary selection:text-primary-foreground font-sans antialiased">
         <ThemeProvider
           attribute="class"
           enableSystem
