@@ -1,0 +1,11 @@
+{
+  "name": "glent-hey-gen-clone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "keywords": [],
+  "author": "Dhrubajyoti Bhattacharjee",
+  "license": "Apache-2.0",
+  "packageManager": "pnpm@10.33.2"
+}
