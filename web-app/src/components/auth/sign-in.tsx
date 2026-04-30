@@ -82,9 +82,7 @@ export function SignIn({ className }: SignInProps) {
   return (
     <Card className={cn("w-full max-w-sm", className)}>
       <CardHeader>
-        <CardTitle className="text-xl font-semibold">
-          {localization.auth.signIn}
-        </CardTitle>
+        <CardTitle className="text-xl font-semibold">Log in to Glent</CardTitle>
       </CardHeader>
 
       <CardContent>

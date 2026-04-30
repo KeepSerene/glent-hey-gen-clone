@@ -47,13 +47,10 @@ const Logo = ({ size = 32, showText = true, className = "" }: LogoProps) => (
       <span
         style={{
           fontFamily:
-            "var(--font-sans), 'Geist', ui-sans-serif, system-ui, sans-serif",
+            "var(--font-heading), 'Outfit', ui-sans-serif, system-ui, sans-serif",
           fontSize: `${size * 0.72}px`,
-          fontWeight: 700,
-          letterSpacing: "-0.03em",
-          lineHeight: 1,
-          userSelect: "none",
         }}
+        className="leading-none font-semibold tracking-wide select-none"
       >
         Glent
       </span>

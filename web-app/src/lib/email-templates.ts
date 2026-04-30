@@ -14,6 +14,7 @@ export function getVerificationEmailHtml({
   const muted = "#4d5660";
   const border = "#c5ceda";
   const surfaceVariant = "#dbe5f2";
+  const footerBg = "#f8f9fc";
 
   return `
   <!DOCTYPE html>
@@ -60,7 +61,7 @@ export function getVerificationEmailHtml({
                     <tr>
                       <td align="center">
                         <a href="${url}" class="button" style="display: inline-block; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px;">
-                          Verify Email Address
+                          Verify my email
                         </a>
                       </td>
                     </tr>
@@ -69,7 +70,7 @@ export function getVerificationEmailHtml({
               </tr>
               
               <tr>
-                <td style="background-color: ${surfaceVariant}; padding: 24px 40px; border-top: 1px solid ${border}; text-align: center; color: ${muted}; font-size: 13px; line-height: 1.5;">
+                <td style="background-color: ${footerBg}; padding: 24px 40px; border-top: 1px solid ${border}; text-align: center; color: ${muted}; font-size: 13px; line-height: 1.5;">
                   <p style="margin: 0;">If you didn't create a Glent account, you can safely ignore this email.</p>
                   <p style="margin: 8px 0 0 0;">&copy; ${new Date().getFullYear()} Glent. All rights reserved.</p>
                 </td>

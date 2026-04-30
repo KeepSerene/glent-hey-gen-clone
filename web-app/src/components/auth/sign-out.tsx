@@ -3,9 +3,9 @@
 import { useAuth, useSignOut } from "@better-auth-ui/react";
 import { useEffect, useRef } from "react";
 import { toast } from "sonner";
-
 import { Spinner } from "~/components/ui/spinner";
 import { cn } from "~/lib/utils";
+import Logo from "../Logo";
 
 export type SignOutProps = {
   className?: string;
@@ -46,5 +46,32 @@ export function SignOut({ className }: SignOutProps) {
     signOut();
   }, [signOut]);
 
-  return <Spinner className={cn("mx-auto my-auto", className)} />;
+  return (
+    <div
+      className={cn(
+        "flex min-h-[50vh] flex-col items-center justify-center gap-6",
+        className,
+      )}
+    >
+      <div className="relative flex flex-col items-center justify-center gap-6">
+        {/* Subtle background glow */}
+        <div
+          aria-hidden="true"
+          className="bg-primary/10 absolute -z-10 size-32 rounded-full blur-2xl"
+        />
+
+        <div className="animate-pulse">
+          <Logo size={48} showText={false} className="text-primary" />
+        </div>
+
+        <div className="text-muted-foreground flex items-center gap-3">
+          <Spinner className="size-4" />
+
+          <p className="text-sm font-medium tracking-wide">
+            Signing out safely...
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }

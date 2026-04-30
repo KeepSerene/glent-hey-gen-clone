@@ -44,11 +44,11 @@ export function SignUp({ className }: SignUpProps) {
   const { mutate: signUpEmail, isPending } = useSignUpEmail({
     onError: (error) => {
       setPassword("");
-      toast.error(error.error?.message || error.message);
+      toast.error(error.error?.message || error.message, { duration: 8000 });
     },
     onSuccess: () => {
       if (emailAndPassword?.requireEmailVerification) {
-        toast.success(localization.auth.verifyYourEmail);
+        toast.success(localization.auth.verifyYourEmail, { duration: 8000 });
         navigate({ to: `${basePaths.auth}/${viewPaths.auth.signIn}` });
       } else {
         navigate({ to: redirectTo });
@@ -69,14 +69,14 @@ export function SignUp({ className }: SignUpProps) {
     const name = formData.get("name") as string;
     const email = formData.get("email") as string;
 
-    signUpEmail({ name, email, password });
+    signUpEmail({ name, email, password, callbackURL: redirectTo });
   };
 
   return (
     <Card className={cn("w-full max-w-sm", className)}>
       <CardHeader>
         <CardTitle className="text-xl font-semibold">
-          {localization.auth.signUp}
+          Create your Glent account
         </CardTitle>
       </CardHeader>
 

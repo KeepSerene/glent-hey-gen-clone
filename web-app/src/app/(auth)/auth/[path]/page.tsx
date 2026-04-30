@@ -34,8 +34,8 @@ export default async function AuthPage({ params }: AuthPageProps) {
   }
 
   return (
-    <main className="my-auto flex justify-center p-4 md:p-6">
-      <Auth path={path} />
+    <main className="w-full">
+      <Auth path={path} className="mx-auto" />
     </main>
   );
 }

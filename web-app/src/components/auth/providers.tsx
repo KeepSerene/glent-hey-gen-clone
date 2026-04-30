@@ -16,6 +16,34 @@ export function Providers({ children }: { children: ReactNode }) {
       authClient={authClient}
       appearance={{ theme, setTheme }}
       multiSession
+      emailAndPassword={{
+        enabled: true,
+        minPasswordLength: 8,
+        maxPasswordLength: 32,
+        forgotPassword: false,
+        requireEmailVerification: true,
+      }}
+      localization={{
+        auth: {
+          signIn: "Sign in",
+          signUp: "Sign up",
+          email: "Email address",
+          emailPlaceholder: "you@example.com",
+          password: "Password",
+          passwordPlaceholder: "Enter your password",
+          name: "Full Name",
+          namePlaceholder: "Jane Doe",
+          alreadyHaveAnAccount: "Already rendering videos?",
+          needToCreateAnAccount: "New to AI avatars?",
+          verifyYourEmail:
+            "Account created! Check your inbox to verify your email.",
+          verificationEmailSent:
+            "A new verification link has been sent to your inbox.",
+          resend: "Resend Link",
+          showPassword: "Show password",
+          hidePassword: "Hide password",
+        },
+      }}
       redirectTo="/dashboard"
       navigate={({ to, replace }) =>
         replace ? router.replace(to) : router.push(to)

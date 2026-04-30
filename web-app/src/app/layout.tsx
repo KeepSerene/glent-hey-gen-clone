@@ -1,11 +1,12 @@
 import "~/styles/globals.css";
 import { type Metadata } from "next";
-import { Geist } from "next/font/google";
+import { DM_Sans, Outfit } from "next/font/google";
 import { Toaster } from "~/components/ui/sonner";
 import { TooltipProvider } from "~/components/ui/tooltip";
 import ThemeProvider from "~/components/theme/ThemeProvider";
 import { Providers } from "~/components/auth/providers";
 import { env } from "~/env";
+import { cn } from "~/lib/utils";
 
 const APP_URL = env.NEXT_PUBLIC_APP_URL;
 const APP_TITLE = "Glent";
@@ -68,9 +69,14 @@ export const metadata: Metadata = {
   },
 };
 
-const geist = Geist({
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-geist-sans",
+  variable: "--font-heading",
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-sans",
 });
 
 export default function RootLayout({
@@ -79,11 +85,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={geist.variable}
+      className={cn(outfit.variable, dmSans.variable)}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
-      <body className="selection:bg-primary antialiased selection:text-white">
+      <body className="selection:bg-primary selection:text-primary-foreground antialiased">
         <ThemeProvider
           attribute="class"
           enableSystem
