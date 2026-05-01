@@ -9,6 +9,7 @@ import {
 import type { Session, User } from "better-auth";
 import { ArrowLeftRight, LogOut, MoreHorizontal } from "lucide-react";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import {
@@ -44,11 +45,17 @@ export function ManageAccount({
   deviceSession,
   isPending,
 }: ManageAccountProps) {
-  const { localization } = useAuth();
+  const { localization, basePaths, viewPaths, navigate } = useAuth();
   const { data: session } = useSession();
+  const router = useRouter();
 
   const { mutate: setActiveSession, isPending: isSwitching } =
-    useSetActiveSession();
+    useSetActiveSession({
+      onSuccess: () => {
+        toast.success("Account switched successfully");
+        router.refresh(); // Re-fetch the new session state for server components
+      },
+    });
 
   const { mutate: revokeSession, isPending: isRevoking } =
     useRevokeMultiSession({
@@ -64,25 +71,31 @@ export function ManageAccount({
       <CardContent className="flex items-center justify-between gap-3">
         <UserView user={deviceSession?.user} isPending={isPending} />
 
+        {/* ACTIVE SESSION */}
         {deviceSession && isActive && (
           <Button
-            className="shrink-0"
+            type="button"
             variant="outline"
             size="sm"
             onClick={() =>
-              revokeSession({ sessionToken: deviceSession.session.token })
+              navigate({
+                to: `${basePaths.auth}/${viewPaths.auth.signOut}`,
+              })
             }
             disabled={isBusy}
+            className="shrink-0"
           >
             {isRevoking ? <Spinner /> : <LogOut />}
             {localization.auth.signOut}
           </Button>
         )}
 
+        {/* INACTIVE SESSIONS */}
         {deviceSession && !isActive && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
+                type="button"
                 variant="ghost"
                 size="icon-sm"
                 className="shrink-0"
@@ -100,7 +113,7 @@ export function ManageAccount({
                   })
                 }
               >
-                <ArrowLeftRight className="text-muted-foreground" />
+                <ArrowLeftRight className="text-muted-foreground mr-2 size-4" />
                 {localization.auth.switchAccount}
               </DropdownMenuItem>
 
@@ -111,7 +124,7 @@ export function ManageAccount({
                   })
                 }
               >
-                <LogOut className="text-muted-foreground" />
+                <LogOut className="text-muted-foreground mr-2 size-4" />
                 {localization.auth.signOut}
               </DropdownMenuItem>
             </DropdownMenuContent>

@@ -5,6 +5,7 @@ import {
   useSendVerificationEmail,
   useSignInEmail,
 } from "@better-auth-ui/react";
+import { Eye, EyeOff } from "lucide-react";
 import { type SyntheticEvent, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "~/components/ui/button";
@@ -16,6 +17,12 @@ import {
   FieldGroup,
 } from "~/components/ui/field";
 import { Input } from "~/components/ui/input";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from "~/components/ui/input-group";
 import { Label } from "~/components/ui/label";
 import { Spinner } from "~/components/ui/spinner";
 import { cn } from "~/lib/utils";
@@ -37,6 +44,7 @@ export function SignIn({ className }: SignInProps) {
   } = useAuth();
 
   const [password, setPassword] = useState("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   // Needed to offer a "Resend verification email" action on EMAIL_NOT_VERIFIED errors
   const { mutate: sendVerificationEmail } = useSendVerificationEmail({
@@ -118,30 +126,51 @@ export function SignIn({ className }: SignInProps) {
             <Field data-invalid={!!fieldErrors.password}>
               <Label htmlFor="password">{localization.auth.password}</Label>
 
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                  setFieldErrors((prev) => ({ ...prev, password: undefined }));
-                }}
-                placeholder={localization.auth.passwordPlaceholder}
-                required
-                minLength={emailAndPassword?.minPasswordLength}
-                maxLength={emailAndPassword?.maxPasswordLength}
-                disabled={isPending}
-                onInvalid={(e) => {
-                  e.preventDefault();
-                  setFieldErrors((prev) => ({
-                    ...prev,
-                    password: (e.target as HTMLInputElement).validationMessage,
-                  }));
-                }}
-                aria-invalid={!!fieldErrors.password}
-              />
+              <InputGroup>
+                <InputGroupInput
+                  id="password"
+                  name="password"
+                  type={isPasswordVisible ? "text" : "password"}
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    setFieldErrors((prev) => ({
+                      ...prev,
+                      password: undefined,
+                    }));
+                  }}
+                  placeholder={localization.auth.passwordPlaceholder}
+                  required
+                  minLength={emailAndPassword?.minPasswordLength}
+                  maxLength={emailAndPassword?.maxPasswordLength}
+                  disabled={isPending}
+                  onInvalid={(e) => {
+                    e.preventDefault();
+                    setFieldErrors((prev) => ({
+                      ...prev,
+                      password: (e.target as HTMLInputElement)
+                        .validationMessage,
+                    }));
+                  }}
+                  aria-invalid={!!fieldErrors.password}
+                />
+
+                <InputGroupAddon align="inline-end">
+                  <InputGroupButton
+                    type="button"
+                    aria-label={
+                      isPasswordVisible
+                        ? localization.auth.hidePassword
+                        : localization.auth.showPassword
+                    }
+                    onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                    disabled={isPending}
+                  >
+                    {isPasswordVisible ? <EyeOff /> : <Eye />}
+                  </InputGroupButton>
+                </InputGroupAddon>
+              </InputGroup>
 
               <FieldError>{fieldErrors.password}</FieldError>
             </Field>

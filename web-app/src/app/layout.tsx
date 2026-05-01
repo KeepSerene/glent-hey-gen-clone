@@ -7,6 +7,7 @@ import ThemeProvider from "~/components/theme/ThemeProvider";
 import { Providers } from "~/components/auth/providers";
 import { env } from "~/env";
 import { cn } from "~/lib/utils";
+import { CheckCircle, Info, Loader2, TriangleAlert, X } from "lucide-react";
 
 const APP_URL = env.NEXT_PUBLIC_APP_URL;
 const APP_TITLE = "Glent";
@@ -100,7 +101,16 @@ export default function RootLayout({
             <TooltipProvider>{children}</TooltipProvider>
           </Providers>
 
-          <Toaster position="top-right" richColors />
+          <Toaster
+            position="top-right"
+            icons={{
+              success: <CheckCircle size={16} />,
+              error: <X size={16} />,
+              info: <Info size={16} />,
+              warning: <TriangleAlert size={16} />,
+              loading: <Loader2 size={16} />,
+            }}
+          />
         </ThemeProvider>
       </body>
     </html>

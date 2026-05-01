@@ -6,6 +6,7 @@ import { env } from "~/env";
 import { PASSWORD_REGEX } from "~/lib/constants";
 import { getVerificationEmailHtml } from "~/lib/email-templates";
 import { db } from "~/server/db";
+import { multiSession } from "better-auth/plugins/multi-session";
 
 const mailer = nodemailer.createTransport({
   service: "gmail",
@@ -66,6 +67,7 @@ export const auth = betterAuth({
       });
     },
   },
+  plugins: [multiSession()],
 });
 
 export type Session = typeof auth.$Infer.Session;

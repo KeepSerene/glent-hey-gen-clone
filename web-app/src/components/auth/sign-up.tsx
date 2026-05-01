@@ -172,6 +172,7 @@ export function SignUp({ className }: SignUpProps) {
 
                 <InputGroupAddon align="inline-end">
                   <InputGroupButton
+                    type="button"
                     aria-label={
                       isPasswordVisible
                         ? localization.auth.hidePassword

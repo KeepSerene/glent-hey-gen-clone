@@ -23,7 +23,6 @@ import { Label } from "~/components/ui/label";
 import { Skeleton } from "~/components/ui/skeleton";
 import { Spinner } from "~/components/ui/spinner";
 import { cn } from "~/lib/utils";
-import { ChangeAvatar } from "./change-avatar";
 
 export type UserProfileProps = {
   className?: string;
@@ -119,8 +118,6 @@ export function UserProfile({ className }: UserProfileProps) {
       <form onSubmit={handleSubmit}>
         <Card className={cn(className)}>
           <CardContent className="flex flex-col gap-6">
-            <ChangeAvatar />
-
             {usernameConfig?.enabled && (
               <Field
                 data-invalid={

@@ -5,6 +5,7 @@ import type { User } from "better-auth";
 import { Skeleton } from "~/components/ui/skeleton";
 import { cn } from "~/lib/utils";
 import { UserAvatar } from "./user-avatar";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 export type UserViewProps = {
   className?: string;
@@ -53,9 +54,15 @@ export function UserView({ className, isPending, user }: UserViewProps) {
         </span>
 
         {(resolvedUser?.displayUsername || resolvedUser?.name) && (
-          <span className="text-muted-foreground truncate text-xs">
-            {resolvedUser?.email}
-          </span>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <span className="text-muted-foreground truncate text-xs">
+                {resolvedUser?.email}
+              </span>
+            </TooltipTrigger>
+
+            <TooltipContent>{resolvedUser?.email}</TooltipContent>
+          </Tooltip>
         )}
       </div>
     </div>

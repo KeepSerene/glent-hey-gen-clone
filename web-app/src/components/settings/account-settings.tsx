@@ -3,8 +3,6 @@
 import { useAuth } from "@better-auth-ui/react";
 import type { ComponentProps } from "react";
 import { cn } from "~/lib/utils";
-import { Appearance } from "./appearance";
-import { ChangeEmail } from "./change-email";
 import { ManageAccounts } from "./manage-accounts";
 import { UserProfile } from "./user-profile";
 
@@ -26,12 +24,7 @@ export function AccountSettings({
   className,
   ...props
 }: AccountSettingsProps & ComponentProps<"div">) {
-  const {
-    multiSession,
-    emailAndPassword,
-    magicLink,
-    appearance: { setTheme },
-  } = useAuth();
+  const { multiSession } = useAuth();
 
   return (
     <div
@@ -39,8 +32,7 @@ export function AccountSettings({
       {...props}
     >
       <UserProfile />
-      {(emailAndPassword?.enabled || magicLink) && <ChangeEmail />}
-      {setTheme && <Appearance />}
+
       {multiSession && <ManageAccounts />}
     </div>
   );

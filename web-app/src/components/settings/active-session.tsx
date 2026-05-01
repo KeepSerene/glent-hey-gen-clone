@@ -89,7 +89,7 @@ export function ActiveSession({ activeSession }: ActiveSessionProps) {
         </div>
 
         <Button
-          className="ml-auto shrink-0"
+          type="button"
           variant="outline"
           size="sm"
           onClick={() =>
@@ -105,6 +105,7 @@ export function ActiveSession({ activeSession }: ActiveSessionProps) {
               ? localization.auth.signOut
               : localization.settings.revokeSession
           }
+          className="ml-auto shrink-0"
         >
           {isRevoking ? <Spinner /> : isCurrentSession ? <LogOut /> : <X />}
 
