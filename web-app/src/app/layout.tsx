@@ -1,6 +1,6 @@
 import "~/styles/globals.css";
 import { type Metadata } from "next";
-import { DM_Sans, Outfit } from "next/font/google";
+import { DM_Sans, Fraunces } from "next/font/google";
 import { Toaster } from "~/components/ui/sonner";
 import { TooltipProvider } from "~/components/ui/tooltip";
 import ThemeProvider from "~/components/theme/ThemeProvider";
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
   },
 };
 
-const outfit = Outfit({
+const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-heading",
 });
@@ -86,11 +86,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn(outfit.variable, dmSans.variable)}
+      className={cn(fraunces.variable, dmSans.variable)}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
-      <body className="selection:bg-primary selection:text-primary-foreground font-sans antialiased">
+      <body className="selection:bg-primary selection:text-primary-foreground antialiased">
         <ThemeProvider
           attribute="class"
           enableSystem

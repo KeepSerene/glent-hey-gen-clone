@@ -47,7 +47,7 @@ const Logo = ({ size = 32, showText = true, className = "" }: LogoProps) => (
       <span
         style={{
           fontFamily:
-            "var(--font-heading), 'Outfit', ui-sans-serif, system-ui, sans-serif",
+            "var(--font-heading), Fraunces, ui-sans-serif, system-ui, sans-serif",
           fontSize: `${size * 0.72}px`,
         }}
         className="leading-none font-semibold tracking-wide select-none"

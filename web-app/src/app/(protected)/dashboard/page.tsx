@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import DashboardClient from "~/components/DashboardClient";
 
 export const metadata: Metadata = {
   title: "Dashboard",
 };
 
 function DashboardPage() {
-  return <main>DashboardPage</main>;
+  return <DashboardClient />;
 }
 
 export default DashboardPage;
