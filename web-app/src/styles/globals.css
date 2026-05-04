@@ -10,6 +10,7 @@
     var(--font-heading), Fraunces, ui-sans-serif, system-ui, sans-serif;
   --font-sans:
     var(--font-sans), "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-emoji: var(--font-emoji), "Noto Color Emoji", sans-serif;
 
   /* Colors */
   --color-sidebar-ring: var(--sidebar-ring);

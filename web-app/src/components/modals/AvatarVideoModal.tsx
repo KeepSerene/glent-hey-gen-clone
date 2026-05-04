@@ -1,6 +1,6 @@
 "use client";
 
-import { Play, Trash2, UploadCloud } from "lucide-react";
+import { AudioLines, Pause, Play, Trash2, UploadCloud } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -11,7 +11,7 @@ import {
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { useRef, useState } from "react";
-import { SAMPLE_AVATARS } from "~/lib/constants";
+import { MAX_SCRIPT_LENGTH, SAMPLE_AVATARS } from "~/lib/constants";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
@@ -20,6 +20,7 @@ import AudioInputModal from "./AudioInputModal";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import { toast } from "sonner";
 import SampleVoiceModal, { type Voice } from "./SampleVoiceModal";
+import useAudioPlayer from "~/hooks/useAudioPlayer";
 
 interface AvatarVideoModalProps {
   isOpen: boolean;
@@ -38,14 +39,24 @@ function AvatarVideoModal({
   const [selectedAudioUrl, setSelectedAudioUrl] = useState<string | null>(null);
   const [selectedAudioTitle, setSelectedAudioTitle] =
     useState<string>("new_recording.wav");
+  const [voiceModalOpen, setVoiceModalOpen] = useState(false);
+  const [selectedVoice, setSelectedVoice] = useState<Voice | null>(null);
+  const [userAudioFile, setUserAudioFile] = useState<File | null>(null);
+  // Track play state for the uploaded/recorded audio preview (uses a local
+  // <audio> element, not the shared useAudioPlayer hook)
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  // Shared hook for sample voice playback in the textarea toolbar
+  const { audioSrc, togglePlay } = useAudioPlayer();
 
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     setAvatarError(null);
 
     if (file) {
-      if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+      if (![" image/jpeg", "image/png", "image/webp"].includes(file.type)) {
         setAvatarError("Only JPG, PNG, or WEBP allowed.");
         return;
       }
@@ -70,14 +81,18 @@ function AvatarVideoModal({
     setAvatarFile(null);
   };
 
+  // Toggle play/pause for the uploaded/recorded audio preview
   const handleAudioPreview = async () => {
     const audio = audioRef.current;
 
     if (!audio) return;
 
     try {
-      if (audio.paused) await audio.play();
-      else audio.pause();
+      if (audio.paused) {
+        await audio.play();
+      } else {
+        audio.pause();
+      }
     } catch (error) {
       console.error("Failed to play audio:", error);
       toast.error("Oops! Failed to play audio. Try again.");
@@ -207,7 +222,6 @@ function AvatarVideoModal({
                 <div className="relative">
                   {selectedAudioUrl ? (
                     <div className="bg-muted flex items-center gap-3 rounded p-3">
-                      {/* TODO: How to determine here if it's already playing or paused? */}
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <Button
@@ -215,15 +229,22 @@ function AvatarVideoModal({
                             variant="secondary"
                             size="icon"
                             onClick={handleAudioPreview}
-                            aria-label="Preview audio"
+                            aria-label={
+                              isAudioPlaying ? "Pause audio" : "Play audio"
+                            }
                             className="rounded-full"
                           >
-                            {/* TODO: Determine if it's playing or paused */}
-                            <Play className="size-4" />
+                            {isAudioPlaying ? (
+                              <Pause className="size-4" />
+                            ) : (
+                              <Play className="size-4" />
+                            )}
                           </Button>
                         </TooltipTrigger>
 
-                        <TooltipContent>Play</TooltipContent>
+                        <TooltipContent>
+                          {isAudioPlaying ? "Pause" : "Play"}
+                        </TooltipContent>
                       </Tooltip>
 
                       <p className="grow truncate text-sm font-medium">
@@ -236,7 +257,11 @@ function AvatarVideoModal({
                             type="button"
                             variant="destructive"
                             size="icon"
-                            onClick={() => setSelectedAudioUrl(null)}
+                            onClick={() => {
+                              audioRef.current?.pause();
+                              setIsAudioPlaying(false);
+                              setSelectedAudioUrl(null);
+                            }}
                             aria-label="Remove audio"
                             className="rounded-full"
                           >
@@ -251,6 +276,9 @@ function AvatarVideoModal({
                         id="audio-preview"
                         ref={audioRef}
                         src={selectedAudioUrl}
+                        onPlay={() => setIsAudioPlaying(true)}
+                        onPause={() => setIsAudioPlaying(false)}
+                        onEnded={() => setIsAudioPlaying(false)}
                         className="hidden"
                       />
                     </div>
@@ -260,7 +288,7 @@ function AvatarVideoModal({
                         value={script}
                         onChange={(e) => setScript(e.target.value)}
                         rows={10}
-                        maxLength={210}
+                        maxLength={MAX_SCRIPT_LENGTH}
                         placeholder="Type your script here,"
                         className="placeholder:text-muted-foreground/70 min-h-32 resize-none break-all"
                       />
@@ -277,6 +305,103 @@ function AvatarVideoModal({
                       >
                         upload or record audio
                       </Button>
+
+                      <div className="absolute bottom-2 flex w-full flex-col gap-2 px-3">
+                        <div className="mt-2 flex items-center justify-between gap-2">
+                          {!selectedAudioUrl &&
+                            (userAudioFile ? (
+                              <div className="flex items-center gap-2">
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button
+                                      type="button"
+                                      variant="ghost"
+                                      size="sm"
+                                      onClick={() => setVoiceModalOpen(true)}
+                                      aria-label="Listen to recorded/uploaded audio"
+                                    >
+                                      <AudioLines className="size-4" />
+                                      <span>{userAudioFile.name}</span>
+                                    </Button>
+                                  </TooltipTrigger>
+
+                                  <TooltipContent>Listen</TooltipContent>
+                                </Tooltip>
+                              </div>
+                            ) : selectedVoice ? (
+                              <div className="flex items-center">
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button
+                                      type="button"
+                                      variant="ghost"
+                                      size="sm"
+                                      onClick={() => setVoiceModalOpen(true)}
+                                      aria-label="Listen to selected voice"
+                                    >
+                                      <AudioLines className="size-4" />
+                                      <span>{selectedVoice.name}</span>
+                                    </Button>
+                                  </TooltipTrigger>
+
+                                  <TooltipContent>Listen</TooltipContent>
+                                </Tooltip>
+
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button
+                                      type="button"
+                                      variant="ghost"
+                                      size="icon-sm"
+                                      onClick={() => {
+                                        if (selectedVoice) {
+                                          void togglePlay(
+                                            selectedVoice.audioSrc,
+                                          );
+                                        }
+                                      }}
+                                      aria-label={
+                                        selectedVoice.audioSrc === audioSrc
+                                          ? "Pause selected voice"
+                                          : "Play selected voice"
+                                      }
+                                      className="rounded-full"
+                                    >
+                                      {selectedVoice.audioSrc === audioSrc ? (
+                                        <Pause className="size-3" />
+                                      ) : (
+                                        <Play className="size-3" />
+                                      )}
+                                    </Button>
+                                  </TooltipTrigger>
+
+                                  <TooltipContent>
+                                    {selectedVoice.audioSrc === audioSrc
+                                      ? "Pause"
+                                      : "Play"}
+                                  </TooltipContent>
+                                </Tooltip>
+                              </div>
+                            ) : (
+                              <Button
+                                variant="link"
+                                size="sm"
+                                onClick={() => setVoiceModalOpen(true)}
+                                className="px-0"
+                              >
+                                <AudioLines className="size-4" />
+                                Pick voice
+                              </Button>
+                            ))}
+
+                          {!selectedAudioUrl && (
+                            <p className="text-muted-foreground/70 text-xs select-none">
+                              {script.length} / {MAX_SCRIPT_LENGTH} (~10 sec
+                              audio)
+                            </p>
+                          )}
+                        </div>
+                      </div>
                     </>
                   )}
                 </div>
@@ -307,10 +432,18 @@ function AvatarVideoModal({
         />
 
         <SampleVoiceModal
-          isOpen={true}
-          onOpenStateChange={(isOpen: boolean) => {}}
-          onVoiceSelected={(voice: Voice) => {}}
-          onAudioUploaded={(file: File) => {}}
+          isOpen={voiceModalOpen}
+          onOpenStateChange={setVoiceModalOpen}
+          onVoiceSelected={(voice: Voice) => {
+            setSelectedVoice(voice);
+            setUserAudioFile(null);
+            setVoiceModalOpen(false);
+          }}
+          onAudioUploaded={(file: File) => {
+            setSelectedVoice(null);
+            setUserAudioFile(file);
+            setVoiceModalOpen(false);
+          }}
         />
       </DialogContent>
     </Dialog>

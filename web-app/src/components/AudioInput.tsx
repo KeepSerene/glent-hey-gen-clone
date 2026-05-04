@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { getAudioDuration } from "~/lib/utils";
 import { Button } from "./ui/button";
 import { Mic, StopCircle } from "lucide-react";
+import { MAX_AUDIO_DURATION_SECS } from "~/lib/constants";
 
 interface AudioInputProps {
   onAudioReady: (audioBlob: Blob) => void;
@@ -23,8 +24,10 @@ function AudioInput({ onAudioReady }: AudioInputProps) {
     try {
       const duration = await getAudioDuration(file);
 
-      if (duration > 5) {
-        toast.error("Audio duration must be 5 secs or less.");
+      if (duration > MAX_AUDIO_DURATION_SECS) {
+        toast.error(
+          `Audio duration must be ${MAX_AUDIO_DURATION_SECS} secs or less.`,
+        );
         return;
       }
 
@@ -76,17 +79,17 @@ function AudioInput({ onAudioReady }: AudioInputProps) {
     setIsRecording(false);
   };
 
-  // Update recording time...
+  // Update recording time; auto-stop at MAX_AUDIO_DURATION_SECS
   useEffect(() => {
     let timer: NodeJS.Timeout;
 
     if (isRecording) {
       timer = setInterval(() => {
         setRecordTime((prev) => {
-          if (prev + 1 >= 5) {
+          if (prev + 1 >= MAX_AUDIO_DURATION_SECS) {
             stopRecording();
 
-            return 5;
+            return MAX_AUDIO_DURATION_SECS;
           }
 
           return prev + 1;
@@ -104,6 +107,8 @@ function AudioInput({ onAudioReady }: AudioInputProps) {
       onAudioReady(audioBlob);
     }
   };
+
+  const maxLabel = String(MAX_AUDIO_DURATION_SECS).padStart(2, "0");
 
   return (
     <div className="flex flex-col gap-4">
@@ -146,7 +151,8 @@ function AudioInput({ onAudioReady }: AudioInputProps) {
           {isRecording ? (
             <div className="flex flex-col items-center gap-2">
               <span className="text-muted-foreground text-xs">
-                Recording... 00:{String(recordTime).padStart(2, "0")} / 00:05
+                Recording... 00:{String(recordTime).padStart(2, "0")} / 00:
+                {maxLabel}
               </span>
 
               <Button

@@ -1,6 +1,6 @@
 import "~/styles/globals.css";
 import { type Metadata } from "next";
-import { DM_Sans, Fraunces } from "next/font/google";
+import { DM_Sans, Fraunces, Noto_Color_Emoji } from "next/font/google";
 import { Toaster } from "~/components/ui/sonner";
 import { TooltipProvider } from "~/components/ui/tooltip";
 import ThemeProvider from "~/components/theme/ThemeProvider";
@@ -80,13 +80,23 @@ const dmSans = DM_Sans({
   variable: "--font-sans",
 });
 
+const notoColorEmoji = Noto_Color_Emoji({
+  weight: "400",
+  subsets: ["emoji"],
+  variable: "--font-emoji",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
-      className={cn(fraunces.variable, dmSans.variable)}
+      className={cn(
+        fraunces.variable,
+        dmSans.variable,
+        notoColorEmoji.variable,
+      )}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >

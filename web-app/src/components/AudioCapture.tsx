@@ -19,6 +19,7 @@ function AudioCapture({ onFileSelect }: AudioCaptureProps) {
       return;
     }
 
+    // 2MB comfortably covers 10s of WAV audio
     if (file.size > 2 * 1024 * 1024) {
       setError("Audio must be under 2MB.");
       return;
@@ -56,7 +57,7 @@ function AudioCapture({ onFileSelect }: AudioCaptureProps) {
         <span className="font-semibold">Upload/Drop Audio</span>
 
         <span className="text-muted-foreground text-sm">
-          Supported format: .wav (max 5s)
+          Supported format: .wav (max 10s)
         </span>
 
         <input

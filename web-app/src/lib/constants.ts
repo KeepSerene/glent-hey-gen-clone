@@ -75,6 +75,8 @@ export const SAMPLE_AVATARS = [
       "https://pub-7c4555bc118048e2bc8551884359e9a8.r2.dev/samples/avatars/avatar-03.jpg",
   },
 ];
+export const MAX_SCRIPT_LENGTH = 150; // ~10 sec of speech at average pace
+export const MAX_AUDIO_DURATION_SECS = 10;
 export const SAMPLE_VOICES: Voice[] = [
   {
     id: "voice_01_jasper",
