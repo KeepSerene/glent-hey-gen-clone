@@ -7,14 +7,14 @@ export function getVerificationEmailHtml({
   url: string;
   appUrl: string;
 }) {
-  const bg = "#fffefe";
-  const foreground = "#000613";
-  const primary = "#3c72b5";
-  const primaryHover = "#1d477c";
-  const muted = "#4d5660";
-  const border = "#c5ceda";
-  const surfaceVariant = "#dbe5f2";
-  const footerBg = "#f8f9fc";
+  const bg = "#f9f9ff";
+  const foreground = "#191c20";
+  const primary = "#415f91";
+  const primaryHover = "#284777";
+  const muted = "#44474E";
+  const border = "#c4c6D0";
+  const surfaceVariant = "#e0e2ec";
+  const footerBg = "#f3f3fa";
 
   return `
   <!DOCTYPE html>
@@ -22,7 +22,7 @@ export function getVerificationEmailHtml({
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="author" content="Glent">
+      <meta name="author" content="Glent — KeepSerene">
       <title>Verify your email</title>
 
       <style>
@@ -41,7 +41,7 @@ export function getVerificationEmailHtml({
       <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: ${surfaceVariant}; padding: 40px 20px;">
         <tr>
           <td align="center">
-            <table width="100%" max-width="600" border="0" cellspacing="0" cellpadding="0" style="background-color: ${bg}; border-radius: 12px; border: 1px solid ${border}; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); overflow: hidden; max-width: 600px;">
+            <table width="100%" max-width="600" border="0" cellspacing="0" cellpadding="0" style="background-color: ${bg}; border-radius: 12px; border: 1px solid ${border}; box-shadow: 0 4px 6px rgba(25, 28, 32, 0.08); overflow: hidden; max-width: 600px;">
               <tr>
                 <td style="padding: 40px 40px 20px 40px; text-align: center;">
                   <img src="${appUrl}/images/logo-email.png" alt="Glent Logo" width="64" height="64" style="display: block; margin: 0 auto; margin-bottom: 24px;" />

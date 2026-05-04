@@ -1,4 +1,3 @@
-import AudioCapture from "../AudioCapture";
 import AudioInput from "../AudioInput";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
@@ -49,8 +48,13 @@ function SampleVoiceModal({
 
         <Tabs defaultValue="glent-library">
           <TabsList>
-            <TabsTrigger value="my-voices">My Voices</TabsTrigger>
-            <TabsTrigger value="glent-library">Glent Library</TabsTrigger>
+            <TabsTrigger type="button" value="my-voices">
+              My Voices
+            </TabsTrigger>
+
+            <TabsTrigger type="button" value="glent-library">
+              Glent Library
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="my-voices" className="p-4">

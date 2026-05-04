@@ -201,37 +201,51 @@ function AvatarVideoModal({
               )}
             </div>
 
-            {/* Right: script + options */}
+            {/* Right: script + audio options */}
             <div className="flex grow flex-col gap-4">
               <div className="">
                 <div className="relative">
                   {selectedAudioUrl ? (
                     <div className="bg-muted flex items-center gap-3 rounded p-3">
-                      <Button
-                        type="button"
-                        variant="secondary"
-                        size="icon"
-                        onClick={handleAudioPreview}
-                        aria-label="Preview audio"
-                        className="rounded-full"
-                      >
-                        <Play className="size-4" />
-                      </Button>
+                      {/* TODO: How to determine here if it's already playing or paused? */}
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            type="button"
+                            variant="secondary"
+                            size="icon"
+                            onClick={handleAudioPreview}
+                            aria-label="Preview audio"
+                            className="rounded-full"
+                          >
+                            {/* TODO: Determine if it's playing or paused */}
+                            <Play className="size-4" />
+                          </Button>
+                        </TooltipTrigger>
+
+                        <TooltipContent>Play</TooltipContent>
+                      </Tooltip>
 
                       <p className="grow truncate text-sm font-medium">
                         {selectedAudioTitle}
                       </p>
 
-                      <Button
-                        type="button"
-                        variant="destructive"
-                        size="icon"
-                        onClick={() => setSelectedAudioUrl(null)}
-                        aria-label="Remove audio"
-                        className="rounded-full"
-                      >
-                        <Trash2 className="size-4" />
-                      </Button>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            type="button"
+                            variant="destructive"
+                            size="icon"
+                            onClick={() => setSelectedAudioUrl(null)}
+                            aria-label="Remove audio"
+                            className="rounded-full"
+                          >
+                            <Trash2 className="size-4" />
+                          </Button>
+                        </TooltipTrigger>
+
+                        <TooltipContent>Remove</TooltipContent>
+                      </Tooltip>
 
                       <audio
                         id="audio-preview"
