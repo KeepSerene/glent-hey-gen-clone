@@ -107,7 +107,7 @@ function SampleVoiceModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenStateChange}>
-      <DialogContent className="mx-4 sm:max-w-3xl">
+      <DialogContent className="sm:max-w-3xl">
         <DialogHeader>
           <DialogTitle>Pick a voice</DialogTitle>
         </DialogHeader>

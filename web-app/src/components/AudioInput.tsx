@@ -116,27 +116,29 @@ function AudioInput({ onAudioReady }: AudioInputProps) {
         <div className="flex flex-col items-center gap-2">
           <audio src={audioSrcUrl} controls className="w-full" />
 
-          <Button
-            type="button"
-            size="lg"
-            onClick={handleUseAudio}
-            className="w-full"
-          >
-            Use this audio
-          </Button>
+          <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2">
+            <Button
+              type="button"
+              size="lg"
+              onClick={handleUseAudio}
+              className="w-full"
+            >
+              Use this audio
+            </Button>
 
-          <Button
-            type="button"
-            variant="ghost"
-            size="lg"
-            onClick={() => {
-              setAudioBlob(null);
-              setAudioSrcUrl(null);
-            }}
-            className="w-full"
-          >
-            Record again
-          </Button>
+            <Button
+              type="button"
+              variant="secondary"
+              size="lg"
+              onClick={() => {
+                setAudioBlob(null);
+                setAudioSrcUrl(null);
+              }}
+              className="w-full"
+            >
+              Record again
+            </Button>
+          </div>
         </div>
       ) : (
         <>

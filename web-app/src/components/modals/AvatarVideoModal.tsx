@@ -10,7 +10,7 @@ import {
 } from "../ui/dialog";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MAX_SCRIPT_LENGTH, SAMPLE_AVATARS } from "~/lib/constants";
 import Image from "next/image";
 import { Button } from "../ui/button";
@@ -42,6 +42,7 @@ function AvatarVideoModal({
   const [voiceModalOpen, setVoiceModalOpen] = useState(false);
   const [selectedVoice, setSelectedVoice] = useState<Voice | null>(null);
   const [userAudioFile, setUserAudioFile] = useState<File | null>(null);
+  const [userAudioUrl, setUserAudioUrl] = useState<string | null>(null);
   // Track play state for the uploaded/recorded audio preview (uses a local
   // <audio> element, not the shared useAudioPlayer hook)
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
@@ -50,6 +51,17 @@ function AvatarVideoModal({
 
   // Shared hook for sample voice playback in the textarea toolbar
   const { audioSrc, togglePlay } = useAudioPlayer();
+
+  useEffect(() => {
+    if (userAudioFile) {
+      const url = URL.createObjectURL(userAudioFile);
+      setUserAudioUrl(url);
+
+      return () => URL.revokeObjectURL(url);
+    } else {
+      setUserAudioUrl(null);
+    }
+  }, [userAudioFile]);
 
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -226,7 +238,6 @@ function AvatarVideoModal({
                         <TooltipTrigger asChild>
                           <Button
                             type="button"
-                            variant="secondary"
                             size="icon"
                             onClick={handleAudioPreview}
                             aria-label={
@@ -310,7 +321,7 @@ function AvatarVideoModal({
                         <div className="mt-2 flex items-center justify-between gap-2">
                           {!selectedAudioUrl &&
                             (userAudioFile ? (
-                              <div className="flex items-center gap-2">
+                              <div className="flex items-center">
                                 <Tooltip>
                                   <TooltipTrigger asChild>
                                     <Button
@@ -318,15 +329,50 @@ function AvatarVideoModal({
                                       variant="ghost"
                                       size="sm"
                                       onClick={() => setVoiceModalOpen(true)}
-                                      aria-label="Listen to recorded/uploaded audio"
+                                      aria-label="Record or upload an audio, or pick a new sample voice"
                                     >
                                       <AudioLines className="size-4" />
                                       <span>{userAudioFile.name}</span>
                                     </Button>
                                   </TooltipTrigger>
 
-                                  <TooltipContent>Listen</TooltipContent>
+                                  <TooltipContent>
+                                    Record/Upload/Pick new
+                                  </TooltipContent>
                                 </Tooltip>
+
+                                {userAudioUrl && (
+                                  <Tooltip>
+                                    <TooltipTrigger asChild>
+                                      <Button
+                                        type="button"
+                                        variant="ghost"
+                                        size="icon-sm"
+                                        onClick={() => {
+                                          void togglePlay(userAudioUrl);
+                                        }}
+                                        aria-label={
+                                          userAudioUrl === audioSrc
+                                            ? "Pause custom voice"
+                                            : "Play custom voice"
+                                        }
+                                        className="rounded-full"
+                                      >
+                                        {userAudioUrl === audioSrc ? (
+                                          <Pause className="size-3" />
+                                        ) : (
+                                          <Play className="size-3" />
+                                        )}
+                                      </Button>
+                                    </TooltipTrigger>
+
+                                    <TooltipContent>
+                                      {userAudioUrl === audioSrc
+                                        ? "Pause"
+                                        : "Play"}
+                                    </TooltipContent>
+                                  </Tooltip>
+                                )}
                               </div>
                             ) : selectedVoice ? (
                               <div className="flex items-center">
@@ -337,14 +383,16 @@ function AvatarVideoModal({
                                       variant="ghost"
                                       size="sm"
                                       onClick={() => setVoiceModalOpen(true)}
-                                      aria-label="Listen to selected voice"
+                                      aria-label="Record or upload an audio, or pick a new sample voice"
                                     >
                                       <AudioLines className="size-4" />
                                       <span>{selectedVoice.name}</span>
                                     </Button>
                                   </TooltipTrigger>
 
-                                  <TooltipContent>Listen</TooltipContent>
+                                  <TooltipContent>
+                                    Record/Upload/Pick new
+                                  </TooltipContent>
                                 </Tooltip>
 
                                 <Tooltip>
@@ -417,10 +465,11 @@ function AvatarVideoModal({
             const url = URL.createObjectURL(audioBlob);
             setSelectedAudioUrl(url);
 
-            let title =
-              "new_recording_" +
-              new Date().toLocaleString().replace(/[\s:/]/g, "_") +
-              ".wav";
+            const timestamp = new Date()
+              .toISOString()
+              .replace(/[-:T]/g, "")
+              .slice(0, 14);
+            let title = `new_recording_${timestamp}.wav`;
 
             if ((audioBlob as File).name) {
               title = (audioBlob as File).name;
