@@ -1,6 +1,6 @@
 "use client";
 
-import { Trash2, UploadCloud } from "lucide-react";
+import { Play, Trash2, UploadCloud } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -10,29 +10,51 @@ import {
 } from "../ui/dialog";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { SAMPLE_AVATARS } from "~/lib/constants";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import { cn } from "~/lib/utils";
 import AudioInputModal from "./AudioInputModal";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { toast } from "sonner";
+import SampleVoiceModal, { type Voice } from "./SampleVoiceModal";
 
-interface VideoGenModalProps {
+interface AvatarVideoModalProps {
   isOpen: boolean;
   onOpenStateChange: (isOpen: boolean) => void;
 }
 
-function AvatarVideoModal({ isOpen, onOpenStateChange }: VideoGenModalProps) {
+function AvatarVideoModal({
+  isOpen,
+  onOpenStateChange,
+}: AvatarVideoModalProps) {
   const [avatarPreviewUrl, setAvatarPreviewUrl] = useState<string | null>(null);
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [avatarError, setAvatarError] = useState<string | null>(null);
   const [script, setScript] = useState("");
   const [audioInputModalOpen, setAudioInputModalOpen] = useState(false);
+  const [selectedAudioUrl, setSelectedAudioUrl] = useState<string | null>(null);
+  const [selectedAudioTitle, setSelectedAudioTitle] =
+    useState<string>("new_recording.wav");
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
+    setAvatarError(null);
 
     if (file) {
+      if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+        setAvatarError("Only JPG, PNG, or WEBP allowed.");
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        setAvatarError("Image must be under 5MB.");
+        return;
+      }
+
       setAvatarPreviewUrl(URL.createObjectURL(file));
       setAvatarFile(file);
     }
@@ -46,6 +68,20 @@ function AvatarVideoModal({ isOpen, onOpenStateChange }: VideoGenModalProps) {
   const handleAvatarRemove = () => {
     setAvatarPreviewUrl(null);
     setAvatarFile(null);
+  };
+
+  const handleAudioPreview = async () => {
+    const audio = audioRef.current;
+
+    if (!audio) return;
+
+    try {
+      if (audio.paused) await audio.play();
+      else audio.pause();
+    } catch (error) {
+      console.error("Failed to play audio:", error);
+      toast.error("Oops! Failed to play audio. Try again.");
+    }
   };
 
   return (
@@ -81,15 +117,22 @@ function AvatarVideoModal({ isOpen, onOpenStateChange }: VideoGenModalProps) {
                       className="img-scale-down-blur-up max-h-85 max-w-full rounded-xl border object-cover lg:max-w-85"
                     />
 
-                    <Button
-                      type="button"
-                      variant="destructive"
-                      size="icon"
-                      onClick={handleAvatarRemove}
-                      className="absolute top-2 right-2 rounded-full"
-                    >
-                      <Trash2 className="size-4" />
-                    </Button>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          type="button"
+                          variant="destructive"
+                          size="icon"
+                          onClick={handleAvatarRemove}
+                          aria-label="Remove avatar photo"
+                          className="absolute top-2 right-2 rounded-full"
+                        >
+                          <Trash2 className="size-4" />
+                        </Button>
+                      </TooltipTrigger>
+
+                      <TooltipContent>Remove</TooltipContent>
+                    </Tooltip>
                   </div>
                 </div>
               ) : (
@@ -101,11 +144,17 @@ function AvatarVideoModal({ isOpen, onOpenStateChange }: VideoGenModalProps) {
                       Upload to cloud
                       <Input
                         type="file"
-                        accept="image/*"
+                        accept="image/jpeg, image/png, image/webp"
                         onChange={handleAvatarChange}
                         className="hidden"
                       />
                     </Label>
+
+                    {avatarError && (
+                      <p className="text-destructive mt-2 text-sm font-medium">
+                        {avatarError}
+                      </p>
+                    )}
 
                     <p className="text-muted-foreground/80 mt-2 text-xs">
                       For best results, choose an avatar that is at least 720p.
@@ -156,27 +205,66 @@ function AvatarVideoModal({ isOpen, onOpenStateChange }: VideoGenModalProps) {
             <div className="flex grow flex-col gap-4">
               <div className="">
                 <div className="relative">
-                  <Textarea
-                    value={script}
-                    onChange={(e) => setScript(e.target.value)}
-                    rows={10}
-                    maxLength={210}
-                    placeholder="Type your script here,"
-                    className="min-h-32 resize-none break-all"
-                  />
+                  {selectedAudioUrl ? (
+                    <div className="bg-muted flex items-center gap-3 rounded p-3">
+                      <Button
+                        type="button"
+                        variant="secondary"
+                        size="icon"
+                        onClick={handleAudioPreview}
+                        aria-label="Preview audio"
+                        className="rounded-full"
+                      >
+                        <Play className="size-4" />
+                      </Button>
 
-                  <Button
-                    type="button"
-                    variant="link"
-                    size="sm"
-                    onClick={() => setAudioInputModalOpen(true)}
-                    className={cn(
-                      "absolute top-7 left-0.5 text-base lg:top-0.75 lg:left-36",
-                      { hidden: script },
-                    )}
-                  >
-                    upload or record audio
-                  </Button>
+                      <p className="grow truncate text-sm font-medium">
+                        {selectedAudioTitle}
+                      </p>
+
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        size="icon"
+                        onClick={() => setSelectedAudioUrl(null)}
+                        aria-label="Remove audio"
+                        className="rounded-full"
+                      >
+                        <Trash2 className="size-4" />
+                      </Button>
+
+                      <audio
+                        id="audio-preview"
+                        ref={audioRef}
+                        src={selectedAudioUrl}
+                        className="hidden"
+                      />
+                    </div>
+                  ) : (
+                    <>
+                      <Textarea
+                        value={script}
+                        onChange={(e) => setScript(e.target.value)}
+                        rows={10}
+                        maxLength={210}
+                        placeholder="Type your script here,"
+                        className="placeholder:text-muted-foreground/70 min-h-32 resize-none break-all"
+                      />
+
+                      <Button
+                        type="button"
+                        variant="link"
+                        size="sm"
+                        onClick={() => setAudioInputModalOpen(true)}
+                        className={cn(
+                          "absolute top-7 left-0.5 text-base lg:top-0.75 lg:left-36",
+                          { hidden: script },
+                        )}
+                      >
+                        upload or record audio
+                      </Button>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -186,7 +274,29 @@ function AvatarVideoModal({ isOpen, onOpenStateChange }: VideoGenModalProps) {
         <AudioInputModal
           isOpen={audioInputModalOpen}
           onOpenStateChange={setAudioInputModalOpen}
-          onAudioRecorded={(audioBlob: Blob) => {}}
+          onAudioRecorded={(audioBlob: Blob) => {
+            const url = URL.createObjectURL(audioBlob);
+            setSelectedAudioUrl(url);
+
+            let title =
+              "new_recording_" +
+              new Date().toLocaleString().replace(/[\s:/]/g, "_") +
+              ".wav";
+
+            if ((audioBlob as File).name) {
+              title = (audioBlob as File).name;
+            }
+
+            setSelectedAudioTitle(title);
+            setAudioInputModalOpen(false);
+          }}
+        />
+
+        <SampleVoiceModal
+          isOpen={true}
+          onOpenStateChange={(isOpen: boolean) => {}}
+          onVoiceSelected={(voice: Voice) => {}}
+          onAudioUploaded={(file: File) => {}}
         />
       </DialogContent>
     </Dialog>

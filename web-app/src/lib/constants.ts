@@ -6,6 +6,7 @@ import {
   Settings2,
   Video,
 } from "lucide-react";
+import type { Voice } from "~/components/modals/SampleVoiceModal";
 
 export const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,32}$/;
@@ -72,5 +73,37 @@ export const SAMPLE_AVATARS = [
     r2Key: "samples/avatars/avatar-03.jpg",
     publicUrl:
       "https://pub-7c4555bc118048e2bc8551884359e9a8.r2.dev/samples/avatars/avatar-03.jpg",
+  },
+];
+export const SAMPLE_VOICES: Voice[] = [
+  {
+    id: "voice_01_jasper",
+    name: "Jasper",
+    flag: "🇺🇸",
+    accent: "American (West Coast)",
+    tags: ["Corporate", "Commanding", "Direct", "Mature"],
+    r2Key: "samples/voices/voice-01.wav",
+    audioSrc:
+      "https://pub-7c4555bc118048e2bc8551884359e9a8.r2.dev/samples/voices/voice-01.wav",
+  },
+  {
+    id: "voice_02_ruby",
+    name: "Ruby",
+    flag: "🇨🇦",
+    accent: "North American",
+    tags: ["Authoritative", "Professional", "Expressive", "Dynamic"],
+    r2Key: "samples/voices/voice-02.wav",
+    audioSrc:
+      "https://pub-7c4555bc118048e2bc8551884359e9a8.r2.dev/samples/voices/voice-02.wav",
+  },
+  {
+    id: "voice_03_finn",
+    name: "Finn",
+    flag: "🇦🇺",
+    accent: "Australian (Neutral)",
+    tags: ["Analytical", "Calm", "Tech", "Conversational"],
+    r2Key: "samples/voices/voice-03.wav",
+    audioSrc:
+      "https://pub-7c4555bc118048e2bc8551884359e9a8.r2.dev/samples/voices/voice-03.wav",
   },
 ];

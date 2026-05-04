@@ -1,19 +1,36 @@
 "use client";
 
 import { UploadCloud } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 interface AudioCaptureProps {
   onFileSelect: (file: File) => void;
 }
 
 function AudioCapture({ onFileSelect }: AudioCaptureProps) {
+  const [error, setError] = useState<string | null>(null);
   const audioInputRef = useRef<HTMLInputElement>(null);
+
+  const validateAndSelectFile = (file: File) => {
+    setError(null);
+
+    if (file.type !== "audio/wav") {
+      setError("Only .wav files allowed.");
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      setError("Audio must be under 2MB.");
+      return;
+    }
+
+    onFileSelect(file);
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
 
-    if (file) onFileSelect(file);
+    if (file) validateAndSelectFile(file);
   };
 
   const handleDrop = (event: React.DragEvent<HTMLButtonElement>) => {
@@ -22,33 +39,41 @@ function AudioCapture({ onFileSelect }: AudioCaptureProps) {
 
     const file = event.dataTransfer.files?.[0];
 
-    if (file?.type.startsWith("audio/")) onFileSelect(file);
+    if (file) validateAndSelectFile(file);
   };
 
   return (
-    <button
-      type="button"
-      onClick={() => audioInputRef.current?.click()}
-      onDrop={handleDrop}
-      onDragOver={(e) => e.preventDefault()}
-      className="hover:bg-muted/20 flex h-48 flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed transition-colors duration-150"
-    >
-      <UploadCloud className="text-muted-foreground size-10" />
+    <div className="flex flex-col gap-2">
+      <button
+        type="button"
+        onClick={() => audioInputRef.current?.click()}
+        onDrop={handleDrop}
+        onDragOver={(e) => e.preventDefault()}
+        className="hover:bg-muted/20 focus-visible:ring-primary flex h-48 flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed transition-colors duration-150 focus-visible:ring-2 focus-visible:outline-none"
+      >
+        <UploadCloud className="text-muted-foreground size-10" />
 
-      <span className="font-semibold">Upload Audio</span>
+        <span className="font-semibold">Upload/Drop Audio</span>
 
-      <span className="text-muted-foreground text-sm">
-        Drop a file here or click to browse (.wav only)
-      </span>
+        <span className="text-muted-foreground text-sm">
+          Supported format: .wav (max 5s)
+        </span>
 
-      <input
-        ref={audioInputRef}
-        type="file"
-        accept="audio/wav"
-        onChange={handleChange}
-        className="hidden"
-      />
-    </button>
+        <input
+          ref={audioInputRef}
+          type="file"
+          accept="audio/wav"
+          onChange={handleChange}
+          className="hidden"
+        />
+      </button>
+
+      {error && (
+        <p className="text-destructive text-center text-sm font-medium">
+          {error}
+        </p>
+      )}
+    </div>
   );
 }
 

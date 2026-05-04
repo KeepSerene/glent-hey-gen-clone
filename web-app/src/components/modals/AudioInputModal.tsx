@@ -1,7 +1,7 @@
 import AudioInput from "../AudioInput";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 
-interface AudioModalProps {
+interface AudioInputModalProps {
   isOpen: boolean;
   onOpenStateChange: (isOpen: boolean) => void;
   onAudioRecorded: (audioBlob: Blob) => void;
@@ -11,7 +11,7 @@ function AudioInputModal({
   isOpen,
   onOpenStateChange,
   onAudioRecorded,
-}: AudioModalProps) {
+}: AudioInputModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onOpenStateChange}>
       <DialogContent className="max-w-md">
@@ -19,7 +19,12 @@ function AudioInputModal({
           <DialogTitle>Upload or record audio</DialogTitle>
         </DialogHeader>
 
-        <AudioInput onAudioReady={() => {}} />
+        <AudioInput
+          onAudioReady={(blob: Blob) => {
+            onAudioRecorded(blob);
+            onOpenStateChange(false);
+          }}
+        />
       </DialogContent>
     </Dialog>
   );
