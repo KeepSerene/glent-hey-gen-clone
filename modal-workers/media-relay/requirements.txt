@@ -1,4 +1,0 @@
-modal
-pydantic
-fastapi
-python-dotenv
