@@ -336,8 +336,6 @@ function AvatarVideoModal({
 
                       <p className="text-muted-foreground/80 mt-2 text-center text-xs">
                         Portrait photo in JPG, PNG, or WEBP.
-                        <br />
-                        You'll crop it to a square next.
                       </p>
                     </div>
 
