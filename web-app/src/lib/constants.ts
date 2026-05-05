@@ -16,8 +16,8 @@ export const PROTECTED_ROUTES = [
   "/settings",
   "/settings/account",
   "/settings/security",
-];
-export const AUTH_ROUTES = ["/auth"];
+] as const;
+export const AUTH_ROUTES = ["/auth"] as const;
 export const APP_SIDEBAR_MENU_ITEMS = [
   {
     title: "Dashboard",
@@ -34,7 +34,7 @@ export const APP_SIDEBAR_MENU_ITEMS = [
     href: "/settings/account",
     icon: Settings2,
   },
-];
+] as const;
 export const DASHBOARD_ACTIONS = [
   {
     mode: "avatar-video",
@@ -42,6 +42,7 @@ export const DASHBOARD_ACTIONS = [
     icon: Video,
     iconWrapperClassName: "bg-blue-50 text-blue-500",
     description: "Animate a portrait photo with generated speech.",
+    comingSoon: false,
   },
   {
     mode: "video-translation",
@@ -49,6 +50,7 @@ export const DASHBOARD_ACTIONS = [
     icon: Languages,
     iconWrapperClassName: "bg-orange-50 text-orange-500",
     description: "Translate speech while preserving voice and lip-sync.",
+    comingSoon: true,
   },
   {
     mode: "video-dubbing",
@@ -56,8 +58,9 @@ export const DASHBOARD_ACTIONS = [
     icon: Mic2,
     iconWrapperClassName: "bg-purple-50 text-purple-500",
     description: "Replace a video's audio track and sync lip movements.",
+    comingSoon: true,
   },
-];
+] as const;
 export const SAMPLE_AVATARS = [
   {
     r2Key: "samples/avatars/avatar-01.jpg",
@@ -74,9 +77,9 @@ export const SAMPLE_AVATARS = [
     publicUrl:
       "https://pub-7c4555bc118048e2bc8551884359e9a8.r2.dev/samples/avatars/avatar-03.jpg",
   },
-];
-export const MAX_SCRIPT_LENGTH = 150; // ~10 sec of speech at average pace
-export const MAX_AUDIO_DURATION_SECS = 10;
+] as const;
+export const MAX_SCRIPT_LENGTH = 150 as const; // ~10 sec of speech at average pace
+export const MAX_AUDIO_DURATION_SECS = 10 as const;
 export const SAMPLE_VOICES: Voice[] = [
   {
     id: "voice_01_jasper",
@@ -108,4 +111,30 @@ export const SAMPLE_VOICES: Voice[] = [
     audioSrc:
       "https://pub-7c4555bc118048e2bc8551884359e9a8.r2.dev/samples/voices/voice-03.wav",
   },
-];
+] as const;
+export const SUPPORTED_LANGUAGES = [
+  { code: "ar", name: "Arabic", flag: "🇸🇦" },
+  { code: "da", name: "Danish", flag: "🇩🇰" },
+  { code: "de", name: "German", flag: "🇩🇪" },
+  { code: "el", name: "Greek", flag: "🇬🇷" },
+  { code: "en", name: "English", flag: "🇺🇸" },
+  { code: "es", name: "Spanish", flag: "🇪🇸" },
+  { code: "fi", name: "Finnish", flag: "🇫🇮" },
+  { code: "fr", name: "French", flag: "🇫🇷" },
+  { code: "he", name: "Hebrew", flag: "🇮🇱" },
+  { code: "hi", name: "Hindi", flag: "🇮🇳" },
+  { code: "it", name: "Italian", flag: "🇮🇹" },
+  { code: "ja", name: "Japanese", flag: "🇯🇵" },
+  { code: "ko", name: "Korean", flag: "🇰🇷" },
+  { code: "ms", name: "Malay", flag: "🇲🇾" },
+  { code: "nl", name: "Dutch", flag: "🇳🇱" },
+  { code: "no", name: "Norwegian", flag: "🇳🇴" },
+  { code: "pl", name: "Polish", flag: "🇵🇱" },
+  { code: "pt", name: "Portuguese", flag: "🇵🇹" },
+  { code: "ru", name: "Russian", flag: "🇷🇺" },
+  { code: "sv", name: "Swedish", flag: "🇸🇪" },
+  { code: "sw", name: "Swahili", flag: "🇰🇪" },
+  { code: "tr", name: "Turkish", flag: "🇹🇷" },
+  { code: "zh", name: "Chinese", flag: "🇨🇳" },
+] as const;
+export type LanguageCode = (typeof SUPPORTED_LANGUAGES)[number]["code"];
