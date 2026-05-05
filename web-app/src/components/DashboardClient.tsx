@@ -5,15 +5,23 @@ import { DASHBOARD_ACTIONS } from "~/lib/constants";
 import { cn } from "~/lib/utils";
 import AvatarVideoModal from "./modals/AvatarVideoModal";
 import { Badge } from "./ui/badge";
+import AiVoiceStudioModal from "./modals/AiVoiceStudioModal";
 
-type ActionMode = "avatar-video" | "video-translation" | "video-dubbing";
+type ActionMode =
+  | "avatar-video"
+  | "ai-voice-studio"
+  | "video-translation"
+  | "video-dubbing";
 
 function DashboardClient() {
   const [videoModalOpen, setVideoModalOpen] = useState(false);
+  const [voiceStudioOpen, setVoiceStudioOpen] = useState(false);
 
   const handleModalOpen = (mode: ActionMode) => {
     if (mode === "avatar-video") {
       setVideoModalOpen(true);
+    } else if (mode === "ai-voice-studio") {
+      setVoiceStudioOpen(true);
     }
 
     // video-translation and video-dubbing are coming soon — no-op
@@ -21,9 +29,15 @@ function DashboardClient() {
 
   return (
     <main className="p-8">
-      <h2 className="font-heading mb-6 text-xl font-semibold tracking-wide">
-        Create something new
-      </h2>
+      <section className="mb-8 flex flex-col gap-1">
+        <h2 className="font-heading text-foreground text-2xl font-bold tracking-tight">
+          What are we producing today?
+        </h2>
+
+        <p className="text-muted-foreground text-sm">
+          Choose a Glent AI tool to bring your ideas to life.
+        </p>
+      </section>
 
       <ul className="mb-2 flex flex-wrap gap-5">
         {DASHBOARD_ACTIONS.map(
@@ -63,10 +77,7 @@ function DashboardClient() {
                     {label}
 
                     {comingSoon && (
-                      <Badge
-                        variant="secondary"
-                        className="bg-muted rounded-full px-2 py-0 text-[10px]"
-                      >
+                      <Badge className="rounded-full px-2 py-0 text-[10px] font-semibold">
                         Coming soon
                       </Badge>
                     )}
@@ -81,6 +92,11 @@ function DashboardClient() {
           ),
         )}
       </ul>
+
+      <AiVoiceStudioModal
+        isOpen={voiceStudioOpen}
+        onOpenStateChange={setVoiceStudioOpen}
+      />
 
       <AvatarVideoModal
         isOpen={videoModalOpen}

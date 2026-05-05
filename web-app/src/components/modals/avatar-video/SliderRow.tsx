@@ -33,7 +33,7 @@ const SliderRow = ({
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <Info className="text-muted-foreground size-3 cursor-help" />
+            <Info className="text-muted-foreground size-3.5 cursor-help" />
           </TooltipTrigger>
 
           <TooltipContent className="max-w-52 text-xs">

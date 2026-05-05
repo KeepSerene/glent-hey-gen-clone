@@ -24,6 +24,7 @@ import AvatarPicker from "./avatar-video/AvatarPicker";
 import ScriptAudioPanel from "./avatar-video/ScriptAudioPanel";
 import TtsSettingsPanel from "./avatar-video/TtsSettingsPanel";
 import { DEFAULT_TTS_SETTINGS, type TtsSettings } from "./avatar-video/types";
+import { MIN_SCRIPT_LENGTH } from "~/lib/constants";
 
 interface AvatarVideoModalProps {
   isOpen: boolean;
@@ -166,11 +167,11 @@ function AvatarVideoModal({
     value: TtsSettings[K],
   ) => setTtsSettings((prev) => ({ ...prev, [key]: value }));
 
-  // ── Validation ────────────────────────────────────────────────────────────
+  // ── Validations ────────────────────────────────────────────────────────────
   const hasAvatar = !!avatarPreviewUrl;
   const hasVoice = !!selectedVoice || !!userAudioFile;
-  const hasContent =
-    !!selectedAudioUrl || (script.trim().length > 0 && hasVoice);
+  const isScriptLongEnough = script.trim().length >= MIN_SCRIPT_LENGTH;
+  const hasContent = !!selectedAudioUrl || (isScriptLongEnough && hasVoice);
   const canGenerate = hasAvatar && hasContent;
 
   const handleGenerate = () => {
@@ -186,13 +187,14 @@ function AvatarVideoModal({
           <div className="flex flex-col gap-0">
             <DialogHeader>
               <DialogTitle className="text-2xl font-semibold">
-                Realistic talking video with{" "}
-                <span className="text-blue-500">AI Portrait Avatars</span>
+                Talk through any{" "}
+                <span className="text-blue-600 dark:text-blue-500">
+                  portrait avatar
+                </span>
               </DialogTitle>
 
-              <DialogDescription className="mt-2 text-base">
-                Turn a single avatar photo &amp; script into a high-quality
-                talking head avatar video using AI
+              <DialogDescription className="text-base">
+                Transform a single photo and script into a natural talking video
               </DialogDescription>
             </DialogHeader>
 
@@ -237,6 +239,7 @@ function AvatarVideoModal({
                 {!selectedAudioUrl && (
                   <TtsSettingsPanel
                     settings={ttsSettings}
+                    englishOnly={true}
                     onUpdate={updateTts}
                     onReset={() => setTtsSettings(DEFAULT_TTS_SETTINGS)}
                     advancedOpen={advancedOpen}

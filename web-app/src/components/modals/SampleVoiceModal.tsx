@@ -2,7 +2,13 @@
 
 import { SAMPLE_VOICES } from "~/lib/constants";
 import AudioInput from "../AudioInput";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "../ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Button } from "../ui/button";
 import { Pause, Play } from "lucide-react";
@@ -110,6 +116,11 @@ function SampleVoiceModal({
       <DialogContent className="sm:max-w-3xl">
         <DialogHeader>
           <DialogTitle>Pick a voice</DialogTitle>
+
+          <DialogDescription className="text-muted-foreground mt-1.5 text-sm">
+            Record or upload your own audio, or select a pre-made voice from our
+            library.
+          </DialogDescription>
         </DialogHeader>
 
         <Tabs defaultValue="glent-library">

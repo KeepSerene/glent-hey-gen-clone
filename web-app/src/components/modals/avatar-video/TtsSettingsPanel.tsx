@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
+import { AlertTriangle, ChevronDown } from "lucide-react";
 import { SUPPORTED_LANGUAGES, type LanguageCode } from "~/lib/constants";
 import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui/button";
@@ -22,6 +22,7 @@ import { type TtsSettings } from "./types";
 
 interface TtsSettingsPanelProps {
   settings: TtsSettings;
+  englishOnly: boolean;
   onUpdate: <K extends keyof TtsSettings>(
     key: K,
     value: TtsSettings[K],
@@ -33,6 +34,7 @@ interface TtsSettingsPanelProps {
 
 function TtsSettingsPanel({
   settings,
+  englishOnly,
   onUpdate,
   onReset,
   advancedOpen,
@@ -49,6 +51,7 @@ function TtsSettingsPanel({
         <Select
           value={settings.language}
           onValueChange={(v) => onUpdate("language", v as LanguageCode)}
+          disabled={englishOnly}
         >
           <SelectTrigger id="language-select" className="w-full">
             <SelectValue placeholder="Select language" />
@@ -67,9 +70,17 @@ function TtsSettingsPanel({
           </SelectContent>
         </Select>
 
-        <p className="text-muted-foreground text-xs">
-          Match the language of your script for best results.
-        </p>
+        {englishOnly ? (
+          <p className="mt-1 flex items-center gap-1 text-xs font-medium text-amber-600 dark:text-amber-500">
+            <AlertTriangle className="size-3" />
+            Locked to English to ensure perfect lip-sync accuracy for avatar
+            videos.
+          </p>
+        ) : (
+          <p className="text-muted-foreground text-xs">
+            Match the language of your script for best results.
+          </p>
+        )}
       </div>
 
       {/* ── Advanced options collapsible ──────────────────────────────────── */}

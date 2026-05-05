@@ -57,7 +57,7 @@ function AudioCapture({ onFileSelect }: AudioCaptureProps) {
         <span className="font-semibold">Upload/Drop Audio</span>
 
         <span className="text-muted-foreground text-sm">
-          Supported format: .wav (max 10s)
+          Supported format: .wav (Max 10s)
         </span>
 
         <input

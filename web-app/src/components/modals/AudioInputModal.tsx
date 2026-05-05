@@ -1,5 +1,11 @@
 import AudioInput from "../AudioInput";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "../ui/dialog";
 
 interface AudioInputModalProps {
   isOpen: boolean;
@@ -17,6 +23,10 @@ function AudioInputModal({
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle>Upload or record audio</DialogTitle>
+
+          <DialogDescription className="text-muted-foreground mt-1.5 text-sm">
+            Record your own audio, or upload/drop one you like.
+          </DialogDescription>
         </DialogHeader>
 
         <AudioInput

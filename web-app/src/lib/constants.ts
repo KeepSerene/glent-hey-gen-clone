@@ -1,4 +1,5 @@
 import {
+  AudioWaveform,
   CreditCard,
   Languages,
   LayoutDashboard,
@@ -40,15 +41,26 @@ export const DASHBOARD_ACTIONS = [
     mode: "avatar-video",
     label: "Avatar Video",
     icon: Video,
-    iconWrapperClassName: "bg-blue-50 text-blue-500",
+    iconWrapperClassName:
+      "bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-500",
     description: "Animate a portrait photo with generated speech.",
+    comingSoon: false,
+  },
+  {
+    mode: "ai-voice-studio",
+    label: "AI Voice Studio",
+    icon: AudioWaveform,
+    iconWrapperClassName:
+      "bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-500",
+    description: "Generate multi-lingual speech with AI voice cloning.",
     comingSoon: false,
   },
   {
     mode: "video-translation",
     label: "Video Translation",
     icon: Languages,
-    iconWrapperClassName: "bg-orange-50 text-orange-500",
+    iconWrapperClassName:
+      "bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-500",
     description: "Translate speech while preserving voice and lip-sync.",
     comingSoon: true,
   },
@@ -56,7 +68,8 @@ export const DASHBOARD_ACTIONS = [
     mode: "video-dubbing",
     label: "AI Dubbing",
     icon: Mic2,
-    iconWrapperClassName: "bg-purple-50 text-purple-500",
+    iconWrapperClassName:
+      "bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-500",
     description: "Replace a video's audio track and sync lip movements.",
     comingSoon: true,
   },
@@ -79,6 +92,9 @@ export const SAMPLE_AVATARS = [
   },
 ] as const;
 export const MAX_SCRIPT_LENGTH = 150 as const; // ~10 sec of speech at average pace
+export const MIN_SCRIPT_LENGTH = 10;
+export const MAX_TTS_SCRIPT_LENGTH = 240 as const; // ~16 sec
+export const MIN_TTS_SCRIPT_LENGTH = 10;
 export const MAX_AUDIO_DURATION_SECS = 10 as const;
 export const SAMPLE_VOICES: Voice[] = [
   {

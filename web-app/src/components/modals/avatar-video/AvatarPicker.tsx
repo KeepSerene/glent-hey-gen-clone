@@ -1,6 +1,6 @@
 "use client";
 
-import { Trash2, UploadCloud } from "lucide-react";
+import { ImagePlus, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { SAMPLE_AVATARS } from "~/lib/constants";
 import { Button } from "~/components/ui/button";
@@ -29,89 +29,112 @@ function AvatarPicker({
   onSampleSelect,
   onRemove,
 }: AvatarPickerProps) {
+  // ── Preview Mode ──────────────────────────────────────────────────────────
   if (previewUrl) {
     return (
-      <div className="flex flex-col items-center justify-center gap-4">
-        <div className="relative">
-          <Image
-            src={previewUrl}
-            alt={avatarFile ? avatarFile.name : "Selected avatar"}
-            width={512}
-            height={512}
-            onLoad={(e) => e.currentTarget.setAttribute("data-loaded", "true")}
-            className="img-scale-down-blur-up max-h-85 max-w-full rounded-xl border object-cover lg:max-w-85"
-          />
+      <div className="flex h-full w-full flex-col items-center justify-center gap-4">
+        <div className="group border-border/50 bg-muted/40 relative w-full overflow-hidden rounded-[2rem] border p-2 shadow-sm">
+          <div className="relative overflow-hidden rounded-[1.5rem] bg-black shadow-inner">
+            <Image
+              src={previewUrl}
+              alt={avatarFile ? avatarFile.name : "Selected avatar"}
+              width={512}
+              height={512}
+              onLoad={(e) =>
+                e.currentTarget.setAttribute("data-loaded", "true")
+              }
+              className="img-scale-down-blur-up aspect-square w-full object-cover"
+            />
 
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                type="button"
-                variant="destructive"
-                size="icon"
-                onClick={onRemove}
-                aria-label="Remove avatar photo"
-                className="absolute top-2 right-2 rounded-full"
-              >
-                <Trash2 className="size-4" />
-              </Button>
-            </TooltipTrigger>
+            {/* Gradient overlay for the trash button */}
+            <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-            <TooltipContent>Remove</TooltipContent>
-          </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="icon"
+                  onClick={onRemove}
+                  aria-label="Remove avatar photo"
+                  className="absolute right-4 bottom-4 size-11 translate-y-4 rounded-full opacity-0 shadow-xl transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 hover:scale-105 active:scale-95"
+                >
+                  <Trash2 className="size-5" />
+                </Button>
+              </TooltipTrigger>
+
+              <TooltipContent>Remove avatar</TooltipContent>
+            </Tooltip>
+          </div>
         </div>
       </div>
     );
   }
 
+  // ── Picker Mode ───────────────────────────────────────────────────────────
   return (
-    <div className="bg-muted border-accent flex h-full flex-col items-center rounded-xl border-2 border-dashed px-4 pt-8 pb-4">
-      <div className="flex grow flex-col items-center justify-center">
-        <UploadCloud className="text-muted-foreground mb-2 size-10" />
+    <div className="flex h-full flex-col gap-6">
+      {/* Upload area */}
+      <Label className="group border-primary/20 bg-primary/5 hover:border-primary/40 hover:bg-primary/10 focus-within:border-primary focus-within:ring-primary relative flex cursor-pointer flex-col items-center justify-center gap-4 rounded-[2rem] border-2 border-dashed px-6 py-10 text-center transition-all duration-300 focus-within:ring-2 focus-within:ring-offset-0 focus-within:outline-none active:scale-[0.98]">
+        <div className="bg-background text-primary group-hover:bg-primary group-hover:text-primary-foreground rounded-2xl p-4 shadow-sm transition-all duration-300 group-hover:scale-110 group-active:scale-95">
+          <ImagePlus className="size-8" />
+        </div>
 
-        <Label className="cursor-pointer font-medium underline">
-          Upload to cloud
-          <Input
-            type="file"
-            accept="image/jpeg,image/png,image/webp"
-            onChange={onFileChange}
-            className="hidden"
-          />
-        </Label>
+        <div className="flex flex-col gap-1.5">
+          <span className="text-foreground text-base font-semibold tracking-tight">
+            Upload Portrait Photo
+          </span>
 
-        {error && (
-          <p className="text-destructive mt-2 text-sm font-medium">{error}</p>
-        )}
+          <span className="text-muted-foreground text-xs font-medium">
+            JPG, PNG, or WEBP (Max 5MB)
+          </span>
+        </div>
 
-        <p className="text-muted-foreground/80 mt-2 text-center text-xs">
-          Portrait photo in JPG, PNG, or WEBP.
+        <Input
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          onChange={onFileChange}
+          className="sr-only"
+        />
+      </Label>
+
+      {error && (
+        <p className="text-destructive -mt-3 text-center text-sm font-medium">
+          {error}
         </p>
-      </div>
+      )}
 
-      <div className="mt-6 w-full">
-        <p className="text-muted-foreground text-xs">Try a sample avatar</p>
+      {/* Sample avatars */}
+      <div className="flex w-full flex-col gap-3">
+        <div className="flex items-center gap-4">
+          <div className="bg-border h-px grow" />
+          <span className="text-muted-foreground text-[10px] font-semibold tracking-widest uppercase">
+            Or try a sample
+          </span>
+          <div className="bg-border h-px grow" />
+        </div>
 
-        <ul className="mt-1 flex gap-2">
+        <ul className="grid grid-cols-3 gap-3">
           {SAMPLE_AVATARS.map(({ r2Key, publicUrl }) => (
-            <li
-              key={r2Key}
-              onClick={() => onSampleSelect(r2Key, publicUrl)}
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") onSampleSelect(r2Key, publicUrl);
-              }}
-              aria-label="Select sample avatar"
-              className="size-14 cursor-pointer overflow-hidden rounded border"
-            >
-              <Image
-                src={publicUrl}
-                alt="Sample avatar"
-                width={56}
-                height={56}
-                onLoad={(e) =>
-                  e.currentTarget.setAttribute("data-loaded", "true")
-                }
-                className="img-scale-down-blur-up size-full object-cover"
-              />
+            <li key={r2Key}>
+              <button
+                type="button"
+                onClick={() => onSampleSelect(r2Key, publicUrl)}
+                className="group border-border bg-muted/50 hover:border-primary/50 focus-visible:ring-primary relative flex aspect-square w-full overflow-hidden rounded-2xl border transition-all hover:shadow-md focus-visible:ring-2 focus-visible:outline-none active:scale-95"
+                aria-label="Select sample avatar"
+              >
+                <Image
+                  src={publicUrl}
+                  alt="Sample avatar"
+                  fill
+                  sizes="(max-width: 768px) 33vw, 150px"
+                  onLoad={(e) =>
+                    e.currentTarget.setAttribute("data-loaded", "true")
+                  }
+                  className="img-scale-down-blur-up object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/0 transition-colors duration-200 group-hover:bg-black/10" />
+              </button>
             </li>
           ))}
         </ul>
