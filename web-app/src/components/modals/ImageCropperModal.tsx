@@ -6,6 +6,7 @@ import type { Area } from "react-easy-crop";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -79,10 +80,10 @@ function ImageCropperModal({
           </DialogTitle>
         </DialogHeader>
 
-        <p className="text-muted-foreground text-xs leading-relaxed">
+        <DialogDescription className="text-muted-foreground text-xs leading-relaxed">
           Choose an aspect ratio and focus closely on the face for best
           lip-sync.
-        </p>
+        </DialogDescription>
 
         {/* Cropper container */}
         <div className="relative mt-1 h-72 w-full overflow-hidden rounded-lg border bg-black/5">
