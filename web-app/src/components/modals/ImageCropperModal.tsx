@@ -17,7 +17,6 @@ import { toast } from "sonner";
 import { Crop, RectangleHorizontal, Square, ZoomIn } from "lucide-react";
 import { ToggleGroup, ToggleGroupItem } from "~/components/ui/toggle-group";
 import { getCroppedImg } from "~/lib/utils";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 interface ImageCropperModalProps {
   isOpen: boolean;
@@ -36,7 +35,7 @@ function ImageCropperModal({
 }: ImageCropperModalProps) {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
-  const [aspectRatio, setAspectRatio] = useState<string>("1");
+  const [aspectRatio, setAspectRatio] = useState<string>("1"); // 1 -> 1:1 & 1.5 -> 3:2
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
 
@@ -68,7 +67,6 @@ function ImageCropperModal({
     if (!open) onCancel();
   };
 
-  // Convert the string state to a number for react-easy-crop
   const aspectNumber = parseFloat(aspectRatio);
 
   return (
@@ -113,39 +111,25 @@ function ImageCropperModal({
             size="sm"
             className="shrink-0"
           >
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <ToggleGroupItem
-                  type="button"
-                  value="1"
-                  aria-label="Square 1:1 aspect"
-                  className="gap-1.5 px-3"
-                >
-                  <Square className="size-3.5" />
+            <ToggleGroupItem
+              type="button"
+              value="1"
+              aria-label="Square 1:1 aspect"
+              className="gap-1.5 px-3"
+            >
+              <Square className="size-3.5" />
+              <span className="text-[11px]">1:1</span>
+            </ToggleGroupItem>
 
-                  <span className="text-[11px]">1:1</span>
-                </ToggleGroupItem>
-              </TooltipTrigger>
-
-              <TooltipContent>Square 1:1 aspect</TooltipContent>
-            </Tooltip>
-
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <ToggleGroupItem
-                  type="button"
-                  value="1.5"
-                  aria-label="Portrait 3:2 aspect"
-                  className="gap-1.5 px-3"
-                >
-                  <RectangleHorizontal className="size-3.5" />
-
-                  <span className="text-[11px]">3:2</span>
-                </ToggleGroupItem>
-              </TooltipTrigger>
-
-              <TooltipContent>Portrait 3:2 aspect</TooltipContent>
-            </Tooltip>
+            <ToggleGroupItem
+              type="button"
+              value="1.5"
+              aria-label="Portrait 3:2 aspect"
+              className="gap-1.5 px-3"
+            >
+              <RectangleHorizontal className="size-3.5" />
+              <span className="text-[11px]">3:2</span>
+            </ToggleGroupItem>
           </ToggleGroup>
 
           {/* Zoom Slider */}
