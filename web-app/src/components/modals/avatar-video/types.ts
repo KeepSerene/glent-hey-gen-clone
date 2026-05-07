@@ -5,6 +5,7 @@ export interface TtsSettings {
   exaggeration: number;
   cfgWeight: number;
   temperature: number;
+  seed: number;
 }
 
 export const DEFAULT_TTS_SETTINGS: TtsSettings = {
@@ -12,4 +13,5 @@ export const DEFAULT_TTS_SETTINGS: TtsSettings = {
   exaggeration: 0.5,
   cfgWeight: 0.5,
   temperature: 0.8,
+  seed: 0,
 };

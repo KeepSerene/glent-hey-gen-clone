@@ -9,6 +9,7 @@ import {
 } from "~/components/ui/tooltip";
 import { SidebarTrigger, useSidebar } from "./ui/sidebar";
 import ThemeToggle from "./theme/ThemeToggle";
+import GenerationQuotaBadge from "./GenerationQuotaBadge";
 
 function AppHeader() {
   const { open } = useSidebar();
@@ -35,7 +36,12 @@ function AppHeader() {
         <AppBreadcrumbs />
       </div>
 
-      <ThemeToggle />
+      <div className="flex items-center gap-2">
+        {/* Shows only when the user has hit a daily generation limit */}
+        <GenerationQuotaBadge />
+
+        <ThemeToggle />
+      </div>
     </header>
   );
 }

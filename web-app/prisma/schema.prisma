@@ -13,15 +13,18 @@ datasource db {
 }
 
 model User {
-  id            String    @id
-  name          String
-  email         String
-  emailVerified Boolean   @default(false)
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt
-  sessions      Session[]
-  accounts      Account[]
+  id               String            @id
+  name             String
+  email            String
+  emailVerified    Boolean           @default(false)
+  image            String?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @default(now()) @updatedAt
+  sessions         Session[]
+  accounts         Account[]
+  avatarVideos     AvatarVideo[]
+  voiceovers       Voiceover[]
+  generationEvents GenerationEvent[]
 
   @@unique([email])
   @@map("user")
@@ -70,4 +73,81 @@ model Verification {
   updatedAt  DateTime @default(now()) @updatedAt
 
   @@map("verification")
+}
+
+// Two input modes:
+//   Script mode:  script + voiceR2Key  -> Inngest: TTS -> Hallo3
+//   Audio mode:   audioR2Key           -> Inngest: Hallo3 directly
+model AvatarVideo {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // queued -> tts_generating -> video_generating -> completed
+  //        -> video_generating (audio mode)
+  //        -> failed (any stage)
+  status       String  @default("queued")
+  errorMessage String?
+
+  avatarR2Key String
+  audioR2Key  String? // direct upload OR filled after TTS step
+  script      String?
+  voiceR2Key  String?
+
+  language     String @default("en")
+  exaggeration Float  @default(0.5)
+  cfgWeight    Float  @default(0.5)
+  temperature  Float  @default(0.8)
+  seed         Int    @default(0)
+
+  videoR2Key String?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([userId, createdAt])
+  @@map("avatar_video")
+}
+
+model Voiceover {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // queued -> generating -> completed / failed
+  status       String  @default("queued")
+  errorMessage String?
+
+  script     String
+  voiceR2Key String?
+
+  language     String @default("en")
+  exaggeration Float  @default(0.5)
+  cfgWeight    Float  @default(0.5)
+  temperature  Float  @default(0.8)
+  seed         Int    @default(0)
+
+  audioR2Key String?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([userId, createdAt])
+  @@map("voiceover")
+}
+
+model GenerationEvent {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // "avatar-video" | "voiceover"
+  type   String
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // WHERE userId = ? AND type = ? AND createdAt >= <24h ago>
+  @@index([userId, type, createdAt])
+  @@map("generation_event")
 }

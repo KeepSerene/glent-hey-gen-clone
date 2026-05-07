@@ -75,11 +75,11 @@ function ScriptAudioPanel({
             <TooltipTrigger asChild>
               <Button
                 type="button"
-                variant="ghost"
+                variant="secondary"
                 size="icon"
                 onClick={onAudioPlayPause}
                 aria-label={isAudioPlaying ? "Pause audio" : "Play audio"}
-                className="bg-background hover:bg-background/80 rounded-full shadow-sm"
+                className="rounded-full shadow-sm hover:shadow-md"
               >
                 {isAudioPlaying ? (
                   <Pause className="size-4" />
@@ -88,6 +88,7 @@ function ScriptAudioPanel({
                 )}
               </Button>
             </TooltipTrigger>
+
             <TooltipContent>{isAudioPlaying ? "Pause" : "Play"}</TooltipContent>
           </Tooltip>
 
@@ -108,6 +109,7 @@ function ScriptAudioPanel({
                 <Trash2 className="size-4" />
               </Button>
             </TooltipTrigger>
+
             <TooltipContent>Remove</TooltipContent>
           </Tooltip>
 

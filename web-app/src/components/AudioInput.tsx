@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import AudioCapture from "./AudioCapture";
 import { toast } from "sonner";
-import { getAudioDuration } from "~/lib/utils";
+import { convertBlobToWav, getAudioDuration } from "~/lib/utils";
 import { Button } from "./ui/button";
 import { Mic, StopCircle } from "lucide-react";
 import { MAX_AUDIO_DURATION_SECS } from "~/lib/constants";
@@ -56,11 +56,20 @@ function AudioInput({ onAudioReady }: AudioInputProps) {
         }
       };
 
-      audioRecorder.onstop = () => {
-        const blob = new Blob(audioChunksRef.current, { type: "audio/webm" });
-        const url = URL.createObjectURL(blob);
-        setAudioBlob(blob);
-        setAudioSrcUrl(url);
+      audioRecorder.onstop = async () => {
+        const rawBlob = new Blob(audioChunksRef.current, {
+          type: "audio/webm",
+        });
+
+        try {
+          const wavBlob = await convertBlobToWav(rawBlob);
+          const url = URL.createObjectURL(wavBlob);
+          setAudioBlob(wavBlob);
+          setAudioSrcUrl(url);
+        } catch (err) {
+          console.error("WAV conversion failed:", err);
+          toast.error("Failed to process recording. Please try again.");
+        }
       };
 
       audioRecorder.start();
@@ -71,13 +80,13 @@ function AudioInput({ onAudioReady }: AudioInputProps) {
     }
   };
 
-  const stopRecording = async () => {
+  const stopRecording = useCallback(() => {
     if (audioRecorderRef.current?.state === "recording") {
       audioRecorderRef.current.stop();
     }
 
     setIsRecording(false);
-  };
+  }, []);
 
   // Update recording time; auto-stop at MAX_AUDIO_DURATION_SECS
   useEffect(() => {

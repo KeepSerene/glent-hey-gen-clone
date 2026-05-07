@@ -167,6 +167,49 @@ exports.Prisma.VerificationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AvatarVideoScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  status: 'status',
+  errorMessage: 'errorMessage',
+  avatarR2Key: 'avatarR2Key',
+  audioR2Key: 'audioR2Key',
+  script: 'script',
+  voiceR2Key: 'voiceR2Key',
+  language: 'language',
+  exaggeration: 'exaggeration',
+  cfgWeight: 'cfgWeight',
+  temperature: 'temperature',
+  seed: 'seed',
+  videoR2Key: 'videoR2Key',
+  userId: 'userId'
+};
+
+exports.Prisma.VoiceoverScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  status: 'status',
+  errorMessage: 'errorMessage',
+  script: 'script',
+  voiceR2Key: 'voiceR2Key',
+  language: 'language',
+  exaggeration: 'exaggeration',
+  cfgWeight: 'cfgWeight',
+  temperature: 'temperature',
+  seed: 'seed',
+  audioR2Key: 'audioR2Key',
+  userId: 'userId'
+};
+
+exports.Prisma.GenerationEventScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  type: 'type',
+  userId: 'userId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -187,7 +230,10 @@ exports.Prisma.ModelName = {
   User: 'User',
   Session: 'Session',
   Account: 'Account',
-  Verification: 'Verification'
+  Verification: 'Verification',
+  AvatarVideo: 'AvatarVideo',
+  Voiceover: 'Voiceover',
+  GenerationEvent: 'GenerationEvent'
 };
 
 /**

@@ -201,6 +201,7 @@ class VideoGenServer:
             #    Format expected by inference_long_batch.sh:
             #    transcript@@/absolute/photo/path@@/absolute/audio/path
             manifest_path = os.path.join(working_dir, "input.txt")
+
             with open(manifest_path, "w") as f:
                 f.write(f"{request.transcript}@@{photo_path}@@{audio_path}\n")
 

@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { DASHBOARD_ACTIONS } from "~/lib/constants";
+import { DASHBOARD_ACTIONS, DAILY_LIMITS } from "~/lib/constants";
 import { cn } from "~/lib/utils";
 import AvatarVideoModal from "./modals/AvatarVideoModal";
 import { Badge } from "./ui/badge";
 import AiVoiceStudioModal from "./modals/AiVoiceStudioModal";
+import useGenerationQuota from "~/hooks/useGenerationQuota";
 
 type ActionMode =
   | "avatar-video"
@@ -13,9 +14,21 @@ type ActionMode =
   | "video-translation"
   | "video-dubbing";
 
+const MODE_TO_QUOTA_KEY: Partial<
+  Record<ActionMode, keyof typeof DAILY_LIMITS>
+> = {
+  "avatar-video": "avatar-video",
+  "ai-voice-studio": "voiceover",
+};
+
 function DashboardClient() {
   const [videoModalOpen, setVideoModalOpen] = useState(false);
   const [voiceStudioOpen, setVoiceStudioOpen] = useState(false);
+
+  const { data: quota } = useGenerationQuota();
+
+  const isAvatarLimitReached = quota?.["avatar-video"].isExceeded ?? false;
+  const isVoiceoverLimitReached = quota?.["voiceover"].isExceeded ?? false;
 
   const handleModalOpen = (mode: ActionMode) => {
     if (mode === "avatar-video") {
@@ -25,6 +38,15 @@ function DashboardClient() {
     }
 
     // video-translation and video-dubbing are coming soon — no-op
+  };
+
+  // Determines whether a card should appear limited (dims it slightly)
+  const isCardLimited = (mode: string): boolean => {
+    const quotaKey = MODE_TO_QUOTA_KEY[mode as ActionMode];
+
+    if (!quotaKey || !quota) return false;
+
+    return quota[quotaKey].isExceeded;
   };
 
   return (
@@ -48,59 +70,81 @@ function DashboardClient() {
             iconWrapperClassName,
             description,
             comingSoon,
-          }) => (
-            <li key={label} className="max-w-md min-w-[320px] flex-1">
-              <button
-                type="button"
-                onClick={() =>
-                  !comingSoon && handleModalOpen(mode as ActionMode)
-                }
-                disabled={comingSoon}
-                className={cn(
-                  "group bg-card focus-visible:ring-primary relative flex w-full items-center gap-4 overflow-hidden rounded-2xl border p-4 text-left transition-all duration-300 ease-out focus-visible:ring-2 focus-visible:outline-none",
-                  comingSoon
-                    ? "cursor-not-allowed opacity-60 grayscale-[0.3]"
-                    : "hover:border-primary/20 hover:bg-secondary/20 cursor-pointer hover:shadow-md",
-                )}
-              >
-                <span
+          }) => {
+            const limited = isCardLimited(mode);
+
+            return (
+              <li key={label} className="max-w-md min-w-[320px] flex-1">
+                <button
+                  type="button"
+                  onClick={() =>
+                    !comingSoon && handleModalOpen(mode as ActionMode)
+                  }
+                  disabled={comingSoon}
                   className={cn(
-                    "flex shrink-0 items-center justify-center rounded-xl p-3.5 transition-transform duration-300 group-hover:scale-110",
-                    iconWrapperClassName,
+                    "group bg-card focus-visible:ring-primary relative flex w-full items-center gap-4 overflow-hidden rounded-2xl border p-4 text-left transition-all duration-300 ease-out focus-visible:ring-2 focus-visible:outline-none",
+                    comingSoon
+                      ? "cursor-not-allowed opacity-60 grayscale-[0.3]"
+                      : limited
+                        ? "hover:border-destructive/20 hover:bg-secondary/10 cursor-pointer hover:shadow-sm"
+                        : "hover:border-primary/20 hover:bg-secondary/20 cursor-pointer hover:shadow-md",
                   )}
                 >
-                  <Icon className="size-6" />
-                </span>
-
-                <span className="flex w-full flex-col justify-center overflow-hidden">
-                  <span className="flex items-center gap-2 text-base font-semibold transition-transform duration-300 group-hover:-translate-y-1">
-                    {label}
-
-                    {comingSoon && (
-                      <Badge className="rounded-full px-2 py-0 text-[10px] font-semibold">
-                        Coming soon
-                      </Badge>
+                  <span
+                    className={cn(
+                      "flex shrink-0 items-center justify-center rounded-xl p-3.5 transition-transform duration-300 group-hover:scale-110",
+                      iconWrapperClassName,
+                      limited && "opacity-50 grayscale",
                     )}
+                  >
+                    <Icon className="size-6" />
                   </span>
 
-                  <span className="text-muted-foreground max-h-0 text-sm opacity-0 transition-all duration-300 group-hover:max-h-10 group-hover:-translate-y-0.5 group-hover:opacity-100">
-                    {description}
+                  <span className="flex w-full flex-col justify-center overflow-hidden">
+                    <span className="flex items-center gap-2 text-base font-semibold transition-transform duration-300 group-hover:-translate-y-1">
+                      {label}
+
+                      {comingSoon && (
+                        <Badge className="rounded-full px-2 py-0 text-[10px] font-semibold">
+                          Coming soon
+                        </Badge>
+                      )}
+
+                      {!comingSoon && limited && (
+                        <Badge
+                          variant="destructive"
+                          className="rounded-full px-2 py-0 text-[10px] font-semibold"
+                        >
+                          Limit reached
+                        </Badge>
+                      )}
+                    </span>
+
+                    <span className="text-muted-foreground max-h-0 text-sm opacity-0 transition-all duration-300 group-hover:max-h-10 group-hover:-translate-y-0.5 group-hover:opacity-100">
+                      {limited
+                        ? "Daily limit reached — open to see when it resets."
+                        : description}
+                    </span>
                   </span>
-                </span>
-              </button>
-            </li>
-          ),
+                </button>
+              </li>
+            );
+          },
         )}
       </ul>
 
       <AiVoiceStudioModal
         isOpen={voiceStudioOpen}
         onOpenStateChange={setVoiceStudioOpen}
+        isLimitReached={isVoiceoverLimitReached}
+        resetsAt={quota?.["voiceover"].resetsAt ?? null}
       />
 
       <AvatarVideoModal
         isOpen={videoModalOpen}
         onOpenStateChange={setVideoModalOpen}
+        isLimitReached={isAvatarLimitReached}
+        resetsAt={quota?.["avatar-video"].resetsAt ?? null}
       />
     </main>
   );

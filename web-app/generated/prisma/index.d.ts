@@ -33,6 +33,21 @@ export type Account = $Result.DefaultSelection<Prisma.$AccountPayload>
  * 
  */
 export type Verification = $Result.DefaultSelection<Prisma.$VerificationPayload>
+/**
+ * Model AvatarVideo
+ * 
+ */
+export type AvatarVideo = $Result.DefaultSelection<Prisma.$AvatarVideoPayload>
+/**
+ * Model Voiceover
+ * 
+ */
+export type Voiceover = $Result.DefaultSelection<Prisma.$VoiceoverPayload>
+/**
+ * Model GenerationEvent
+ * 
+ */
+export type GenerationEvent = $Result.DefaultSelection<Prisma.$GenerationEventPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -191,6 +206,36 @@ export class PrismaClient<
     * ```
     */
   get verification(): Prisma.VerificationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.avatarVideo`: Exposes CRUD operations for the **AvatarVideo** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AvatarVideos
+    * const avatarVideos = await prisma.avatarVideo.findMany()
+    * ```
+    */
+  get avatarVideo(): Prisma.AvatarVideoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.voiceover`: Exposes CRUD operations for the **Voiceover** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Voiceovers
+    * const voiceovers = await prisma.voiceover.findMany()
+    * ```
+    */
+  get voiceover(): Prisma.VoiceoverDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.generationEvent`: Exposes CRUD operations for the **GenerationEvent** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GenerationEvents
+    * const generationEvents = await prisma.generationEvent.findMany()
+    * ```
+    */
+  get generationEvent(): Prisma.GenerationEventDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -635,7 +680,10 @@ export namespace Prisma {
     User: 'User',
     Session: 'Session',
     Account: 'Account',
-    Verification: 'Verification'
+    Verification: 'Verification',
+    AvatarVideo: 'AvatarVideo',
+    Voiceover: 'Voiceover',
+    GenerationEvent: 'GenerationEvent'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -654,7 +702,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "session" | "account" | "verification"
+      modelProps: "user" | "session" | "account" | "verification" | "avatarVideo" | "voiceover" | "generationEvent"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -954,6 +1002,228 @@ export namespace Prisma {
           }
         }
       }
+      AvatarVideo: {
+        payload: Prisma.$AvatarVideoPayload<ExtArgs>
+        fields: Prisma.AvatarVideoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AvatarVideoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarVideoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AvatarVideoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarVideoPayload>
+          }
+          findFirst: {
+            args: Prisma.AvatarVideoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarVideoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AvatarVideoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarVideoPayload>
+          }
+          findMany: {
+            args: Prisma.AvatarVideoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarVideoPayload>[]
+          }
+          create: {
+            args: Prisma.AvatarVideoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarVideoPayload>
+          }
+          createMany: {
+            args: Prisma.AvatarVideoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AvatarVideoCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarVideoPayload>[]
+          }
+          delete: {
+            args: Prisma.AvatarVideoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarVideoPayload>
+          }
+          update: {
+            args: Prisma.AvatarVideoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarVideoPayload>
+          }
+          deleteMany: {
+            args: Prisma.AvatarVideoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AvatarVideoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AvatarVideoUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarVideoPayload>[]
+          }
+          upsert: {
+            args: Prisma.AvatarVideoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvatarVideoPayload>
+          }
+          aggregate: {
+            args: Prisma.AvatarVideoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAvatarVideo>
+          }
+          groupBy: {
+            args: Prisma.AvatarVideoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AvatarVideoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AvatarVideoCountArgs<ExtArgs>
+            result: $Utils.Optional<AvatarVideoCountAggregateOutputType> | number
+          }
+        }
+      }
+      Voiceover: {
+        payload: Prisma.$VoiceoverPayload<ExtArgs>
+        fields: Prisma.VoiceoverFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.VoiceoverFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VoiceoverPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.VoiceoverFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VoiceoverPayload>
+          }
+          findFirst: {
+            args: Prisma.VoiceoverFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VoiceoverPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.VoiceoverFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VoiceoverPayload>
+          }
+          findMany: {
+            args: Prisma.VoiceoverFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VoiceoverPayload>[]
+          }
+          create: {
+            args: Prisma.VoiceoverCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VoiceoverPayload>
+          }
+          createMany: {
+            args: Prisma.VoiceoverCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.VoiceoverCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VoiceoverPayload>[]
+          }
+          delete: {
+            args: Prisma.VoiceoverDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VoiceoverPayload>
+          }
+          update: {
+            args: Prisma.VoiceoverUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VoiceoverPayload>
+          }
+          deleteMany: {
+            args: Prisma.VoiceoverDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.VoiceoverUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.VoiceoverUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VoiceoverPayload>[]
+          }
+          upsert: {
+            args: Prisma.VoiceoverUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VoiceoverPayload>
+          }
+          aggregate: {
+            args: Prisma.VoiceoverAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVoiceover>
+          }
+          groupBy: {
+            args: Prisma.VoiceoverGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VoiceoverGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.VoiceoverCountArgs<ExtArgs>
+            result: $Utils.Optional<VoiceoverCountAggregateOutputType> | number
+          }
+        }
+      }
+      GenerationEvent: {
+        payload: Prisma.$GenerationEventPayload<ExtArgs>
+        fields: Prisma.GenerationEventFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GenerationEventFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationEventPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GenerationEventFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationEventPayload>
+          }
+          findFirst: {
+            args: Prisma.GenerationEventFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationEventPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GenerationEventFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationEventPayload>
+          }
+          findMany: {
+            args: Prisma.GenerationEventFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationEventPayload>[]
+          }
+          create: {
+            args: Prisma.GenerationEventCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationEventPayload>
+          }
+          createMany: {
+            args: Prisma.GenerationEventCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GenerationEventCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationEventPayload>[]
+          }
+          delete: {
+            args: Prisma.GenerationEventDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationEventPayload>
+          }
+          update: {
+            args: Prisma.GenerationEventUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationEventPayload>
+          }
+          deleteMany: {
+            args: Prisma.GenerationEventDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GenerationEventUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GenerationEventUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationEventPayload>[]
+          }
+          upsert: {
+            args: Prisma.GenerationEventUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationEventPayload>
+          }
+          aggregate: {
+            args: Prisma.GenerationEventAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGenerationEvent>
+          }
+          groupBy: {
+            args: Prisma.GenerationEventGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GenerationEventGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GenerationEventCountArgs<ExtArgs>
+            result: $Utils.Optional<GenerationEventCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1054,6 +1324,9 @@ export namespace Prisma {
     session?: SessionOmit
     account?: AccountOmit
     verification?: VerificationOmit
+    avatarVideo?: AvatarVideoOmit
+    voiceover?: VoiceoverOmit
+    generationEvent?: GenerationEventOmit
   }
 
   /* Types for Logging */
@@ -1136,11 +1409,17 @@ export namespace Prisma {
   export type UserCountOutputType = {
     sessions: number
     accounts: number
+    avatarVideos: number
+    voiceovers: number
+    generationEvents: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
+    avatarVideos?: boolean | UserCountOutputTypeCountAvatarVideosArgs
+    voiceovers?: boolean | UserCountOutputTypeCountVoiceoversArgs
+    generationEvents?: boolean | UserCountOutputTypeCountGenerationEventsArgs
   }
 
   // Custom InputTypes
@@ -1166,6 +1445,27 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AccountWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAvatarVideosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AvatarVideoWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountVoiceoversArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VoiceoverWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountGenerationEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GenerationEventWhereInput
   }
 
 
@@ -1355,6 +1655,9 @@ export namespace Prisma {
     updatedAt?: boolean
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
+    avatarVideos?: boolean | User$avatarVideosArgs<ExtArgs>
+    voiceovers?: boolean | User$voiceoversArgs<ExtArgs>
+    generationEvents?: boolean | User$generationEventsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1392,6 +1695,9 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
+    avatarVideos?: boolean | User$avatarVideosArgs<ExtArgs>
+    voiceovers?: boolean | User$voiceoversArgs<ExtArgs>
+    generationEvents?: boolean | User$generationEventsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1402,6 +1708,9 @@ export namespace Prisma {
     objects: {
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       accounts: Prisma.$AccountPayload<ExtArgs>[]
+      avatarVideos: Prisma.$AvatarVideoPayload<ExtArgs>[]
+      voiceovers: Prisma.$VoiceoverPayload<ExtArgs>[]
+      generationEvents: Prisma.$GenerationEventPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1807,6 +2116,9 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    avatarVideos<T extends User$avatarVideosArgs<ExtArgs> = {}>(args?: Subset<T, User$avatarVideosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarVideoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    voiceovers<T extends User$voiceoversArgs<ExtArgs> = {}>(args?: Subset<T, User$voiceoversArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VoiceoverPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    generationEvents<T extends User$generationEventsArgs<ExtArgs> = {}>(args?: Subset<T, User$generationEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GenerationEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2276,6 +2588,78 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AccountScalarFieldEnum | AccountScalarFieldEnum[]
+  }
+
+  /**
+   * User.avatarVideos
+   */
+  export type User$avatarVideosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarVideo
+     */
+    select?: AvatarVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarVideo
+     */
+    omit?: AvatarVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarVideoInclude<ExtArgs> | null
+    where?: AvatarVideoWhereInput
+    orderBy?: AvatarVideoOrderByWithRelationInput | AvatarVideoOrderByWithRelationInput[]
+    cursor?: AvatarVideoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AvatarVideoScalarFieldEnum | AvatarVideoScalarFieldEnum[]
+  }
+
+  /**
+   * User.voiceovers
+   */
+  export type User$voiceoversArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Voiceover
+     */
+    select?: VoiceoverSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Voiceover
+     */
+    omit?: VoiceoverOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VoiceoverInclude<ExtArgs> | null
+    where?: VoiceoverWhereInput
+    orderBy?: VoiceoverOrderByWithRelationInput | VoiceoverOrderByWithRelationInput[]
+    cursor?: VoiceoverWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VoiceoverScalarFieldEnum | VoiceoverScalarFieldEnum[]
+  }
+
+  /**
+   * User.generationEvents
+   */
+  export type User$generationEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationEvent
+     */
+    select?: GenerationEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationEvent
+     */
+    omit?: GenerationEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationEventInclude<ExtArgs> | null
+    where?: GenerationEventWhereInput
+    orderBy?: GenerationEventOrderByWithRelationInput | GenerationEventOrderByWithRelationInput[]
+    cursor?: GenerationEventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GenerationEventScalarFieldEnum | GenerationEventScalarFieldEnum[]
   }
 
   /**
@@ -5565,6 +5949,3519 @@ export namespace Prisma {
 
 
   /**
+   * Model AvatarVideo
+   */
+
+  export type AggregateAvatarVideo = {
+    _count: AvatarVideoCountAggregateOutputType | null
+    _avg: AvatarVideoAvgAggregateOutputType | null
+    _sum: AvatarVideoSumAggregateOutputType | null
+    _min: AvatarVideoMinAggregateOutputType | null
+    _max: AvatarVideoMaxAggregateOutputType | null
+  }
+
+  export type AvatarVideoAvgAggregateOutputType = {
+    exaggeration: number | null
+    cfgWeight: number | null
+    temperature: number | null
+    seed: number | null
+  }
+
+  export type AvatarVideoSumAggregateOutputType = {
+    exaggeration: number | null
+    cfgWeight: number | null
+    temperature: number | null
+    seed: number | null
+  }
+
+  export type AvatarVideoMinAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    status: string | null
+    errorMessage: string | null
+    avatarR2Key: string | null
+    audioR2Key: string | null
+    script: string | null
+    voiceR2Key: string | null
+    language: string | null
+    exaggeration: number | null
+    cfgWeight: number | null
+    temperature: number | null
+    seed: number | null
+    videoR2Key: string | null
+    userId: string | null
+  }
+
+  export type AvatarVideoMaxAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    status: string | null
+    errorMessage: string | null
+    avatarR2Key: string | null
+    audioR2Key: string | null
+    script: string | null
+    voiceR2Key: string | null
+    language: string | null
+    exaggeration: number | null
+    cfgWeight: number | null
+    temperature: number | null
+    seed: number | null
+    videoR2Key: string | null
+    userId: string | null
+  }
+
+  export type AvatarVideoCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    updatedAt: number
+    status: number
+    errorMessage: number
+    avatarR2Key: number
+    audioR2Key: number
+    script: number
+    voiceR2Key: number
+    language: number
+    exaggeration: number
+    cfgWeight: number
+    temperature: number
+    seed: number
+    videoR2Key: number
+    userId: number
+    _all: number
+  }
+
+
+  export type AvatarVideoAvgAggregateInputType = {
+    exaggeration?: true
+    cfgWeight?: true
+    temperature?: true
+    seed?: true
+  }
+
+  export type AvatarVideoSumAggregateInputType = {
+    exaggeration?: true
+    cfgWeight?: true
+    temperature?: true
+    seed?: true
+  }
+
+  export type AvatarVideoMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    status?: true
+    errorMessage?: true
+    avatarR2Key?: true
+    audioR2Key?: true
+    script?: true
+    voiceR2Key?: true
+    language?: true
+    exaggeration?: true
+    cfgWeight?: true
+    temperature?: true
+    seed?: true
+    videoR2Key?: true
+    userId?: true
+  }
+
+  export type AvatarVideoMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    status?: true
+    errorMessage?: true
+    avatarR2Key?: true
+    audioR2Key?: true
+    script?: true
+    voiceR2Key?: true
+    language?: true
+    exaggeration?: true
+    cfgWeight?: true
+    temperature?: true
+    seed?: true
+    videoR2Key?: true
+    userId?: true
+  }
+
+  export type AvatarVideoCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    status?: true
+    errorMessage?: true
+    avatarR2Key?: true
+    audioR2Key?: true
+    script?: true
+    voiceR2Key?: true
+    language?: true
+    exaggeration?: true
+    cfgWeight?: true
+    temperature?: true
+    seed?: true
+    videoR2Key?: true
+    userId?: true
+    _all?: true
+  }
+
+  export type AvatarVideoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AvatarVideo to aggregate.
+     */
+    where?: AvatarVideoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AvatarVideos to fetch.
+     */
+    orderBy?: AvatarVideoOrderByWithRelationInput | AvatarVideoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AvatarVideoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AvatarVideos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AvatarVideos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AvatarVideos
+    **/
+    _count?: true | AvatarVideoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AvatarVideoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AvatarVideoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AvatarVideoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AvatarVideoMaxAggregateInputType
+  }
+
+  export type GetAvatarVideoAggregateType<T extends AvatarVideoAggregateArgs> = {
+        [P in keyof T & keyof AggregateAvatarVideo]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAvatarVideo[P]>
+      : GetScalarType<T[P], AggregateAvatarVideo[P]>
+  }
+
+
+
+
+  export type AvatarVideoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AvatarVideoWhereInput
+    orderBy?: AvatarVideoOrderByWithAggregationInput | AvatarVideoOrderByWithAggregationInput[]
+    by: AvatarVideoScalarFieldEnum[] | AvatarVideoScalarFieldEnum
+    having?: AvatarVideoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AvatarVideoCountAggregateInputType | true
+    _avg?: AvatarVideoAvgAggregateInputType
+    _sum?: AvatarVideoSumAggregateInputType
+    _min?: AvatarVideoMinAggregateInputType
+    _max?: AvatarVideoMaxAggregateInputType
+  }
+
+  export type AvatarVideoGroupByOutputType = {
+    id: string
+    createdAt: Date
+    updatedAt: Date
+    status: string
+    errorMessage: string | null
+    avatarR2Key: string
+    audioR2Key: string | null
+    script: string | null
+    voiceR2Key: string | null
+    language: string
+    exaggeration: number
+    cfgWeight: number
+    temperature: number
+    seed: number
+    videoR2Key: string | null
+    userId: string
+    _count: AvatarVideoCountAggregateOutputType | null
+    _avg: AvatarVideoAvgAggregateOutputType | null
+    _sum: AvatarVideoSumAggregateOutputType | null
+    _min: AvatarVideoMinAggregateOutputType | null
+    _max: AvatarVideoMaxAggregateOutputType | null
+  }
+
+  type GetAvatarVideoGroupByPayload<T extends AvatarVideoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AvatarVideoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AvatarVideoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AvatarVideoGroupByOutputType[P]>
+            : GetScalarType<T[P], AvatarVideoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AvatarVideoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    status?: boolean
+    errorMessage?: boolean
+    avatarR2Key?: boolean
+    audioR2Key?: boolean
+    script?: boolean
+    voiceR2Key?: boolean
+    language?: boolean
+    exaggeration?: boolean
+    cfgWeight?: boolean
+    temperature?: boolean
+    seed?: boolean
+    videoR2Key?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["avatarVideo"]>
+
+  export type AvatarVideoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    status?: boolean
+    errorMessage?: boolean
+    avatarR2Key?: boolean
+    audioR2Key?: boolean
+    script?: boolean
+    voiceR2Key?: boolean
+    language?: boolean
+    exaggeration?: boolean
+    cfgWeight?: boolean
+    temperature?: boolean
+    seed?: boolean
+    videoR2Key?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["avatarVideo"]>
+
+  export type AvatarVideoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    status?: boolean
+    errorMessage?: boolean
+    avatarR2Key?: boolean
+    audioR2Key?: boolean
+    script?: boolean
+    voiceR2Key?: boolean
+    language?: boolean
+    exaggeration?: boolean
+    cfgWeight?: boolean
+    temperature?: boolean
+    seed?: boolean
+    videoR2Key?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["avatarVideo"]>
+
+  export type AvatarVideoSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    status?: boolean
+    errorMessage?: boolean
+    avatarR2Key?: boolean
+    audioR2Key?: boolean
+    script?: boolean
+    voiceR2Key?: boolean
+    language?: boolean
+    exaggeration?: boolean
+    cfgWeight?: boolean
+    temperature?: boolean
+    seed?: boolean
+    videoR2Key?: boolean
+    userId?: boolean
+  }
+
+  export type AvatarVideoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "status" | "errorMessage" | "avatarR2Key" | "audioR2Key" | "script" | "voiceR2Key" | "language" | "exaggeration" | "cfgWeight" | "temperature" | "seed" | "videoR2Key" | "userId", ExtArgs["result"]["avatarVideo"]>
+  export type AvatarVideoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AvatarVideoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AvatarVideoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $AvatarVideoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AvatarVideo"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      createdAt: Date
+      updatedAt: Date
+      status: string
+      errorMessage: string | null
+      avatarR2Key: string
+      audioR2Key: string | null
+      script: string | null
+      voiceR2Key: string | null
+      language: string
+      exaggeration: number
+      cfgWeight: number
+      temperature: number
+      seed: number
+      videoR2Key: string | null
+      userId: string
+    }, ExtArgs["result"]["avatarVideo"]>
+    composites: {}
+  }
+
+  type AvatarVideoGetPayload<S extends boolean | null | undefined | AvatarVideoDefaultArgs> = $Result.GetResult<Prisma.$AvatarVideoPayload, S>
+
+  type AvatarVideoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AvatarVideoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AvatarVideoCountAggregateInputType | true
+    }
+
+  export interface AvatarVideoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AvatarVideo'], meta: { name: 'AvatarVideo' } }
+    /**
+     * Find zero or one AvatarVideo that matches the filter.
+     * @param {AvatarVideoFindUniqueArgs} args - Arguments to find a AvatarVideo
+     * @example
+     * // Get one AvatarVideo
+     * const avatarVideo = await prisma.avatarVideo.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AvatarVideoFindUniqueArgs>(args: SelectSubset<T, AvatarVideoFindUniqueArgs<ExtArgs>>): Prisma__AvatarVideoClient<$Result.GetResult<Prisma.$AvatarVideoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AvatarVideo that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AvatarVideoFindUniqueOrThrowArgs} args - Arguments to find a AvatarVideo
+     * @example
+     * // Get one AvatarVideo
+     * const avatarVideo = await prisma.avatarVideo.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AvatarVideoFindUniqueOrThrowArgs>(args: SelectSubset<T, AvatarVideoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AvatarVideoClient<$Result.GetResult<Prisma.$AvatarVideoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AvatarVideo that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvatarVideoFindFirstArgs} args - Arguments to find a AvatarVideo
+     * @example
+     * // Get one AvatarVideo
+     * const avatarVideo = await prisma.avatarVideo.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AvatarVideoFindFirstArgs>(args?: SelectSubset<T, AvatarVideoFindFirstArgs<ExtArgs>>): Prisma__AvatarVideoClient<$Result.GetResult<Prisma.$AvatarVideoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AvatarVideo that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvatarVideoFindFirstOrThrowArgs} args - Arguments to find a AvatarVideo
+     * @example
+     * // Get one AvatarVideo
+     * const avatarVideo = await prisma.avatarVideo.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AvatarVideoFindFirstOrThrowArgs>(args?: SelectSubset<T, AvatarVideoFindFirstOrThrowArgs<ExtArgs>>): Prisma__AvatarVideoClient<$Result.GetResult<Prisma.$AvatarVideoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AvatarVideos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvatarVideoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AvatarVideos
+     * const avatarVideos = await prisma.avatarVideo.findMany()
+     * 
+     * // Get first 10 AvatarVideos
+     * const avatarVideos = await prisma.avatarVideo.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const avatarVideoWithIdOnly = await prisma.avatarVideo.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AvatarVideoFindManyArgs>(args?: SelectSubset<T, AvatarVideoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarVideoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AvatarVideo.
+     * @param {AvatarVideoCreateArgs} args - Arguments to create a AvatarVideo.
+     * @example
+     * // Create one AvatarVideo
+     * const AvatarVideo = await prisma.avatarVideo.create({
+     *   data: {
+     *     // ... data to create a AvatarVideo
+     *   }
+     * })
+     * 
+     */
+    create<T extends AvatarVideoCreateArgs>(args: SelectSubset<T, AvatarVideoCreateArgs<ExtArgs>>): Prisma__AvatarVideoClient<$Result.GetResult<Prisma.$AvatarVideoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AvatarVideos.
+     * @param {AvatarVideoCreateManyArgs} args - Arguments to create many AvatarVideos.
+     * @example
+     * // Create many AvatarVideos
+     * const avatarVideo = await prisma.avatarVideo.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AvatarVideoCreateManyArgs>(args?: SelectSubset<T, AvatarVideoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AvatarVideos and returns the data saved in the database.
+     * @param {AvatarVideoCreateManyAndReturnArgs} args - Arguments to create many AvatarVideos.
+     * @example
+     * // Create many AvatarVideos
+     * const avatarVideo = await prisma.avatarVideo.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AvatarVideos and only return the `id`
+     * const avatarVideoWithIdOnly = await prisma.avatarVideo.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AvatarVideoCreateManyAndReturnArgs>(args?: SelectSubset<T, AvatarVideoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarVideoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AvatarVideo.
+     * @param {AvatarVideoDeleteArgs} args - Arguments to delete one AvatarVideo.
+     * @example
+     * // Delete one AvatarVideo
+     * const AvatarVideo = await prisma.avatarVideo.delete({
+     *   where: {
+     *     // ... filter to delete one AvatarVideo
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AvatarVideoDeleteArgs>(args: SelectSubset<T, AvatarVideoDeleteArgs<ExtArgs>>): Prisma__AvatarVideoClient<$Result.GetResult<Prisma.$AvatarVideoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AvatarVideo.
+     * @param {AvatarVideoUpdateArgs} args - Arguments to update one AvatarVideo.
+     * @example
+     * // Update one AvatarVideo
+     * const avatarVideo = await prisma.avatarVideo.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AvatarVideoUpdateArgs>(args: SelectSubset<T, AvatarVideoUpdateArgs<ExtArgs>>): Prisma__AvatarVideoClient<$Result.GetResult<Prisma.$AvatarVideoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AvatarVideos.
+     * @param {AvatarVideoDeleteManyArgs} args - Arguments to filter AvatarVideos to delete.
+     * @example
+     * // Delete a few AvatarVideos
+     * const { count } = await prisma.avatarVideo.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AvatarVideoDeleteManyArgs>(args?: SelectSubset<T, AvatarVideoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AvatarVideos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvatarVideoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AvatarVideos
+     * const avatarVideo = await prisma.avatarVideo.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AvatarVideoUpdateManyArgs>(args: SelectSubset<T, AvatarVideoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AvatarVideos and returns the data updated in the database.
+     * @param {AvatarVideoUpdateManyAndReturnArgs} args - Arguments to update many AvatarVideos.
+     * @example
+     * // Update many AvatarVideos
+     * const avatarVideo = await prisma.avatarVideo.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AvatarVideos and only return the `id`
+     * const avatarVideoWithIdOnly = await prisma.avatarVideo.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AvatarVideoUpdateManyAndReturnArgs>(args: SelectSubset<T, AvatarVideoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvatarVideoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AvatarVideo.
+     * @param {AvatarVideoUpsertArgs} args - Arguments to update or create a AvatarVideo.
+     * @example
+     * // Update or create a AvatarVideo
+     * const avatarVideo = await prisma.avatarVideo.upsert({
+     *   create: {
+     *     // ... data to create a AvatarVideo
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AvatarVideo we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AvatarVideoUpsertArgs>(args: SelectSubset<T, AvatarVideoUpsertArgs<ExtArgs>>): Prisma__AvatarVideoClient<$Result.GetResult<Prisma.$AvatarVideoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AvatarVideos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvatarVideoCountArgs} args - Arguments to filter AvatarVideos to count.
+     * @example
+     * // Count the number of AvatarVideos
+     * const count = await prisma.avatarVideo.count({
+     *   where: {
+     *     // ... the filter for the AvatarVideos we want to count
+     *   }
+     * })
+    **/
+    count<T extends AvatarVideoCountArgs>(
+      args?: Subset<T, AvatarVideoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AvatarVideoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AvatarVideo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvatarVideoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AvatarVideoAggregateArgs>(args: Subset<T, AvatarVideoAggregateArgs>): Prisma.PrismaPromise<GetAvatarVideoAggregateType<T>>
+
+    /**
+     * Group by AvatarVideo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvatarVideoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AvatarVideoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AvatarVideoGroupByArgs['orderBy'] }
+        : { orderBy?: AvatarVideoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AvatarVideoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAvatarVideoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AvatarVideo model
+   */
+  readonly fields: AvatarVideoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AvatarVideo.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AvatarVideoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AvatarVideo model
+   */
+  interface AvatarVideoFieldRefs {
+    readonly id: FieldRef<"AvatarVideo", 'String'>
+    readonly createdAt: FieldRef<"AvatarVideo", 'DateTime'>
+    readonly updatedAt: FieldRef<"AvatarVideo", 'DateTime'>
+    readonly status: FieldRef<"AvatarVideo", 'String'>
+    readonly errorMessage: FieldRef<"AvatarVideo", 'String'>
+    readonly avatarR2Key: FieldRef<"AvatarVideo", 'String'>
+    readonly audioR2Key: FieldRef<"AvatarVideo", 'String'>
+    readonly script: FieldRef<"AvatarVideo", 'String'>
+    readonly voiceR2Key: FieldRef<"AvatarVideo", 'String'>
+    readonly language: FieldRef<"AvatarVideo", 'String'>
+    readonly exaggeration: FieldRef<"AvatarVideo", 'Float'>
+    readonly cfgWeight: FieldRef<"AvatarVideo", 'Float'>
+    readonly temperature: FieldRef<"AvatarVideo", 'Float'>
+    readonly seed: FieldRef<"AvatarVideo", 'Int'>
+    readonly videoR2Key: FieldRef<"AvatarVideo", 'String'>
+    readonly userId: FieldRef<"AvatarVideo", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AvatarVideo findUnique
+   */
+  export type AvatarVideoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarVideo
+     */
+    select?: AvatarVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarVideo
+     */
+    omit?: AvatarVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarVideoInclude<ExtArgs> | null
+    /**
+     * Filter, which AvatarVideo to fetch.
+     */
+    where: AvatarVideoWhereUniqueInput
+  }
+
+  /**
+   * AvatarVideo findUniqueOrThrow
+   */
+  export type AvatarVideoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarVideo
+     */
+    select?: AvatarVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarVideo
+     */
+    omit?: AvatarVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarVideoInclude<ExtArgs> | null
+    /**
+     * Filter, which AvatarVideo to fetch.
+     */
+    where: AvatarVideoWhereUniqueInput
+  }
+
+  /**
+   * AvatarVideo findFirst
+   */
+  export type AvatarVideoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarVideo
+     */
+    select?: AvatarVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarVideo
+     */
+    omit?: AvatarVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarVideoInclude<ExtArgs> | null
+    /**
+     * Filter, which AvatarVideo to fetch.
+     */
+    where?: AvatarVideoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AvatarVideos to fetch.
+     */
+    orderBy?: AvatarVideoOrderByWithRelationInput | AvatarVideoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AvatarVideos.
+     */
+    cursor?: AvatarVideoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AvatarVideos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AvatarVideos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AvatarVideos.
+     */
+    distinct?: AvatarVideoScalarFieldEnum | AvatarVideoScalarFieldEnum[]
+  }
+
+  /**
+   * AvatarVideo findFirstOrThrow
+   */
+  export type AvatarVideoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarVideo
+     */
+    select?: AvatarVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarVideo
+     */
+    omit?: AvatarVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarVideoInclude<ExtArgs> | null
+    /**
+     * Filter, which AvatarVideo to fetch.
+     */
+    where?: AvatarVideoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AvatarVideos to fetch.
+     */
+    orderBy?: AvatarVideoOrderByWithRelationInput | AvatarVideoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AvatarVideos.
+     */
+    cursor?: AvatarVideoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AvatarVideos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AvatarVideos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AvatarVideos.
+     */
+    distinct?: AvatarVideoScalarFieldEnum | AvatarVideoScalarFieldEnum[]
+  }
+
+  /**
+   * AvatarVideo findMany
+   */
+  export type AvatarVideoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarVideo
+     */
+    select?: AvatarVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarVideo
+     */
+    omit?: AvatarVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarVideoInclude<ExtArgs> | null
+    /**
+     * Filter, which AvatarVideos to fetch.
+     */
+    where?: AvatarVideoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AvatarVideos to fetch.
+     */
+    orderBy?: AvatarVideoOrderByWithRelationInput | AvatarVideoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AvatarVideos.
+     */
+    cursor?: AvatarVideoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AvatarVideos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AvatarVideos.
+     */
+    skip?: number
+    distinct?: AvatarVideoScalarFieldEnum | AvatarVideoScalarFieldEnum[]
+  }
+
+  /**
+   * AvatarVideo create
+   */
+  export type AvatarVideoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarVideo
+     */
+    select?: AvatarVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarVideo
+     */
+    omit?: AvatarVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarVideoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AvatarVideo.
+     */
+    data: XOR<AvatarVideoCreateInput, AvatarVideoUncheckedCreateInput>
+  }
+
+  /**
+   * AvatarVideo createMany
+   */
+  export type AvatarVideoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AvatarVideos.
+     */
+    data: AvatarVideoCreateManyInput | AvatarVideoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AvatarVideo createManyAndReturn
+   */
+  export type AvatarVideoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarVideo
+     */
+    select?: AvatarVideoSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarVideo
+     */
+    omit?: AvatarVideoOmit<ExtArgs> | null
+    /**
+     * The data used to create many AvatarVideos.
+     */
+    data: AvatarVideoCreateManyInput | AvatarVideoCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarVideoIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AvatarVideo update
+   */
+  export type AvatarVideoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarVideo
+     */
+    select?: AvatarVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarVideo
+     */
+    omit?: AvatarVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarVideoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AvatarVideo.
+     */
+    data: XOR<AvatarVideoUpdateInput, AvatarVideoUncheckedUpdateInput>
+    /**
+     * Choose, which AvatarVideo to update.
+     */
+    where: AvatarVideoWhereUniqueInput
+  }
+
+  /**
+   * AvatarVideo updateMany
+   */
+  export type AvatarVideoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AvatarVideos.
+     */
+    data: XOR<AvatarVideoUpdateManyMutationInput, AvatarVideoUncheckedUpdateManyInput>
+    /**
+     * Filter which AvatarVideos to update
+     */
+    where?: AvatarVideoWhereInput
+    /**
+     * Limit how many AvatarVideos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AvatarVideo updateManyAndReturn
+   */
+  export type AvatarVideoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarVideo
+     */
+    select?: AvatarVideoSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarVideo
+     */
+    omit?: AvatarVideoOmit<ExtArgs> | null
+    /**
+     * The data used to update AvatarVideos.
+     */
+    data: XOR<AvatarVideoUpdateManyMutationInput, AvatarVideoUncheckedUpdateManyInput>
+    /**
+     * Filter which AvatarVideos to update
+     */
+    where?: AvatarVideoWhereInput
+    /**
+     * Limit how many AvatarVideos to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarVideoIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AvatarVideo upsert
+   */
+  export type AvatarVideoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarVideo
+     */
+    select?: AvatarVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarVideo
+     */
+    omit?: AvatarVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarVideoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AvatarVideo to update in case it exists.
+     */
+    where: AvatarVideoWhereUniqueInput
+    /**
+     * In case the AvatarVideo found by the `where` argument doesn't exist, create a new AvatarVideo with this data.
+     */
+    create: XOR<AvatarVideoCreateInput, AvatarVideoUncheckedCreateInput>
+    /**
+     * In case the AvatarVideo was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AvatarVideoUpdateInput, AvatarVideoUncheckedUpdateInput>
+  }
+
+  /**
+   * AvatarVideo delete
+   */
+  export type AvatarVideoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarVideo
+     */
+    select?: AvatarVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarVideo
+     */
+    omit?: AvatarVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarVideoInclude<ExtArgs> | null
+    /**
+     * Filter which AvatarVideo to delete.
+     */
+    where: AvatarVideoWhereUniqueInput
+  }
+
+  /**
+   * AvatarVideo deleteMany
+   */
+  export type AvatarVideoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AvatarVideos to delete
+     */
+    where?: AvatarVideoWhereInput
+    /**
+     * Limit how many AvatarVideos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AvatarVideo without action
+   */
+  export type AvatarVideoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvatarVideo
+     */
+    select?: AvatarVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvatarVideo
+     */
+    omit?: AvatarVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvatarVideoInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Voiceover
+   */
+
+  export type AggregateVoiceover = {
+    _count: VoiceoverCountAggregateOutputType | null
+    _avg: VoiceoverAvgAggregateOutputType | null
+    _sum: VoiceoverSumAggregateOutputType | null
+    _min: VoiceoverMinAggregateOutputType | null
+    _max: VoiceoverMaxAggregateOutputType | null
+  }
+
+  export type VoiceoverAvgAggregateOutputType = {
+    exaggeration: number | null
+    cfgWeight: number | null
+    temperature: number | null
+    seed: number | null
+  }
+
+  export type VoiceoverSumAggregateOutputType = {
+    exaggeration: number | null
+    cfgWeight: number | null
+    temperature: number | null
+    seed: number | null
+  }
+
+  export type VoiceoverMinAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    status: string | null
+    errorMessage: string | null
+    script: string | null
+    voiceR2Key: string | null
+    language: string | null
+    exaggeration: number | null
+    cfgWeight: number | null
+    temperature: number | null
+    seed: number | null
+    audioR2Key: string | null
+    userId: string | null
+  }
+
+  export type VoiceoverMaxAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    status: string | null
+    errorMessage: string | null
+    script: string | null
+    voiceR2Key: string | null
+    language: string | null
+    exaggeration: number | null
+    cfgWeight: number | null
+    temperature: number | null
+    seed: number | null
+    audioR2Key: string | null
+    userId: string | null
+  }
+
+  export type VoiceoverCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    updatedAt: number
+    status: number
+    errorMessage: number
+    script: number
+    voiceR2Key: number
+    language: number
+    exaggeration: number
+    cfgWeight: number
+    temperature: number
+    seed: number
+    audioR2Key: number
+    userId: number
+    _all: number
+  }
+
+
+  export type VoiceoverAvgAggregateInputType = {
+    exaggeration?: true
+    cfgWeight?: true
+    temperature?: true
+    seed?: true
+  }
+
+  export type VoiceoverSumAggregateInputType = {
+    exaggeration?: true
+    cfgWeight?: true
+    temperature?: true
+    seed?: true
+  }
+
+  export type VoiceoverMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    status?: true
+    errorMessage?: true
+    script?: true
+    voiceR2Key?: true
+    language?: true
+    exaggeration?: true
+    cfgWeight?: true
+    temperature?: true
+    seed?: true
+    audioR2Key?: true
+    userId?: true
+  }
+
+  export type VoiceoverMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    status?: true
+    errorMessage?: true
+    script?: true
+    voiceR2Key?: true
+    language?: true
+    exaggeration?: true
+    cfgWeight?: true
+    temperature?: true
+    seed?: true
+    audioR2Key?: true
+    userId?: true
+  }
+
+  export type VoiceoverCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    status?: true
+    errorMessage?: true
+    script?: true
+    voiceR2Key?: true
+    language?: true
+    exaggeration?: true
+    cfgWeight?: true
+    temperature?: true
+    seed?: true
+    audioR2Key?: true
+    userId?: true
+    _all?: true
+  }
+
+  export type VoiceoverAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Voiceover to aggregate.
+     */
+    where?: VoiceoverWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Voiceovers to fetch.
+     */
+    orderBy?: VoiceoverOrderByWithRelationInput | VoiceoverOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: VoiceoverWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Voiceovers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Voiceovers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Voiceovers
+    **/
+    _count?: true | VoiceoverCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: VoiceoverAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: VoiceoverSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VoiceoverMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VoiceoverMaxAggregateInputType
+  }
+
+  export type GetVoiceoverAggregateType<T extends VoiceoverAggregateArgs> = {
+        [P in keyof T & keyof AggregateVoiceover]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVoiceover[P]>
+      : GetScalarType<T[P], AggregateVoiceover[P]>
+  }
+
+
+
+
+  export type VoiceoverGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VoiceoverWhereInput
+    orderBy?: VoiceoverOrderByWithAggregationInput | VoiceoverOrderByWithAggregationInput[]
+    by: VoiceoverScalarFieldEnum[] | VoiceoverScalarFieldEnum
+    having?: VoiceoverScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VoiceoverCountAggregateInputType | true
+    _avg?: VoiceoverAvgAggregateInputType
+    _sum?: VoiceoverSumAggregateInputType
+    _min?: VoiceoverMinAggregateInputType
+    _max?: VoiceoverMaxAggregateInputType
+  }
+
+  export type VoiceoverGroupByOutputType = {
+    id: string
+    createdAt: Date
+    updatedAt: Date
+    status: string
+    errorMessage: string | null
+    script: string
+    voiceR2Key: string | null
+    language: string
+    exaggeration: number
+    cfgWeight: number
+    temperature: number
+    seed: number
+    audioR2Key: string | null
+    userId: string
+    _count: VoiceoverCountAggregateOutputType | null
+    _avg: VoiceoverAvgAggregateOutputType | null
+    _sum: VoiceoverSumAggregateOutputType | null
+    _min: VoiceoverMinAggregateOutputType | null
+    _max: VoiceoverMaxAggregateOutputType | null
+  }
+
+  type GetVoiceoverGroupByPayload<T extends VoiceoverGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VoiceoverGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VoiceoverGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VoiceoverGroupByOutputType[P]>
+            : GetScalarType<T[P], VoiceoverGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type VoiceoverSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    status?: boolean
+    errorMessage?: boolean
+    script?: boolean
+    voiceR2Key?: boolean
+    language?: boolean
+    exaggeration?: boolean
+    cfgWeight?: boolean
+    temperature?: boolean
+    seed?: boolean
+    audioR2Key?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["voiceover"]>
+
+  export type VoiceoverSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    status?: boolean
+    errorMessage?: boolean
+    script?: boolean
+    voiceR2Key?: boolean
+    language?: boolean
+    exaggeration?: boolean
+    cfgWeight?: boolean
+    temperature?: boolean
+    seed?: boolean
+    audioR2Key?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["voiceover"]>
+
+  export type VoiceoverSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    status?: boolean
+    errorMessage?: boolean
+    script?: boolean
+    voiceR2Key?: boolean
+    language?: boolean
+    exaggeration?: boolean
+    cfgWeight?: boolean
+    temperature?: boolean
+    seed?: boolean
+    audioR2Key?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["voiceover"]>
+
+  export type VoiceoverSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    status?: boolean
+    errorMessage?: boolean
+    script?: boolean
+    voiceR2Key?: boolean
+    language?: boolean
+    exaggeration?: boolean
+    cfgWeight?: boolean
+    temperature?: boolean
+    seed?: boolean
+    audioR2Key?: boolean
+    userId?: boolean
+  }
+
+  export type VoiceoverOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "status" | "errorMessage" | "script" | "voiceR2Key" | "language" | "exaggeration" | "cfgWeight" | "temperature" | "seed" | "audioR2Key" | "userId", ExtArgs["result"]["voiceover"]>
+  export type VoiceoverInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type VoiceoverIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type VoiceoverIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $VoiceoverPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Voiceover"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      createdAt: Date
+      updatedAt: Date
+      status: string
+      errorMessage: string | null
+      script: string
+      voiceR2Key: string | null
+      language: string
+      exaggeration: number
+      cfgWeight: number
+      temperature: number
+      seed: number
+      audioR2Key: string | null
+      userId: string
+    }, ExtArgs["result"]["voiceover"]>
+    composites: {}
+  }
+
+  type VoiceoverGetPayload<S extends boolean | null | undefined | VoiceoverDefaultArgs> = $Result.GetResult<Prisma.$VoiceoverPayload, S>
+
+  type VoiceoverCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<VoiceoverFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: VoiceoverCountAggregateInputType | true
+    }
+
+  export interface VoiceoverDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Voiceover'], meta: { name: 'Voiceover' } }
+    /**
+     * Find zero or one Voiceover that matches the filter.
+     * @param {VoiceoverFindUniqueArgs} args - Arguments to find a Voiceover
+     * @example
+     * // Get one Voiceover
+     * const voiceover = await prisma.voiceover.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends VoiceoverFindUniqueArgs>(args: SelectSubset<T, VoiceoverFindUniqueArgs<ExtArgs>>): Prisma__VoiceoverClient<$Result.GetResult<Prisma.$VoiceoverPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Voiceover that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {VoiceoverFindUniqueOrThrowArgs} args - Arguments to find a Voiceover
+     * @example
+     * // Get one Voiceover
+     * const voiceover = await prisma.voiceover.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends VoiceoverFindUniqueOrThrowArgs>(args: SelectSubset<T, VoiceoverFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VoiceoverClient<$Result.GetResult<Prisma.$VoiceoverPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Voiceover that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VoiceoverFindFirstArgs} args - Arguments to find a Voiceover
+     * @example
+     * // Get one Voiceover
+     * const voiceover = await prisma.voiceover.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends VoiceoverFindFirstArgs>(args?: SelectSubset<T, VoiceoverFindFirstArgs<ExtArgs>>): Prisma__VoiceoverClient<$Result.GetResult<Prisma.$VoiceoverPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Voiceover that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VoiceoverFindFirstOrThrowArgs} args - Arguments to find a Voiceover
+     * @example
+     * // Get one Voiceover
+     * const voiceover = await prisma.voiceover.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends VoiceoverFindFirstOrThrowArgs>(args?: SelectSubset<T, VoiceoverFindFirstOrThrowArgs<ExtArgs>>): Prisma__VoiceoverClient<$Result.GetResult<Prisma.$VoiceoverPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Voiceovers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VoiceoverFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Voiceovers
+     * const voiceovers = await prisma.voiceover.findMany()
+     * 
+     * // Get first 10 Voiceovers
+     * const voiceovers = await prisma.voiceover.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const voiceoverWithIdOnly = await prisma.voiceover.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends VoiceoverFindManyArgs>(args?: SelectSubset<T, VoiceoverFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VoiceoverPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Voiceover.
+     * @param {VoiceoverCreateArgs} args - Arguments to create a Voiceover.
+     * @example
+     * // Create one Voiceover
+     * const Voiceover = await prisma.voiceover.create({
+     *   data: {
+     *     // ... data to create a Voiceover
+     *   }
+     * })
+     * 
+     */
+    create<T extends VoiceoverCreateArgs>(args: SelectSubset<T, VoiceoverCreateArgs<ExtArgs>>): Prisma__VoiceoverClient<$Result.GetResult<Prisma.$VoiceoverPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Voiceovers.
+     * @param {VoiceoverCreateManyArgs} args - Arguments to create many Voiceovers.
+     * @example
+     * // Create many Voiceovers
+     * const voiceover = await prisma.voiceover.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends VoiceoverCreateManyArgs>(args?: SelectSubset<T, VoiceoverCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Voiceovers and returns the data saved in the database.
+     * @param {VoiceoverCreateManyAndReturnArgs} args - Arguments to create many Voiceovers.
+     * @example
+     * // Create many Voiceovers
+     * const voiceover = await prisma.voiceover.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Voiceovers and only return the `id`
+     * const voiceoverWithIdOnly = await prisma.voiceover.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends VoiceoverCreateManyAndReturnArgs>(args?: SelectSubset<T, VoiceoverCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VoiceoverPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Voiceover.
+     * @param {VoiceoverDeleteArgs} args - Arguments to delete one Voiceover.
+     * @example
+     * // Delete one Voiceover
+     * const Voiceover = await prisma.voiceover.delete({
+     *   where: {
+     *     // ... filter to delete one Voiceover
+     *   }
+     * })
+     * 
+     */
+    delete<T extends VoiceoverDeleteArgs>(args: SelectSubset<T, VoiceoverDeleteArgs<ExtArgs>>): Prisma__VoiceoverClient<$Result.GetResult<Prisma.$VoiceoverPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Voiceover.
+     * @param {VoiceoverUpdateArgs} args - Arguments to update one Voiceover.
+     * @example
+     * // Update one Voiceover
+     * const voiceover = await prisma.voiceover.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends VoiceoverUpdateArgs>(args: SelectSubset<T, VoiceoverUpdateArgs<ExtArgs>>): Prisma__VoiceoverClient<$Result.GetResult<Prisma.$VoiceoverPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Voiceovers.
+     * @param {VoiceoverDeleteManyArgs} args - Arguments to filter Voiceovers to delete.
+     * @example
+     * // Delete a few Voiceovers
+     * const { count } = await prisma.voiceover.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends VoiceoverDeleteManyArgs>(args?: SelectSubset<T, VoiceoverDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Voiceovers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VoiceoverUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Voiceovers
+     * const voiceover = await prisma.voiceover.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends VoiceoverUpdateManyArgs>(args: SelectSubset<T, VoiceoverUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Voiceovers and returns the data updated in the database.
+     * @param {VoiceoverUpdateManyAndReturnArgs} args - Arguments to update many Voiceovers.
+     * @example
+     * // Update many Voiceovers
+     * const voiceover = await prisma.voiceover.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Voiceovers and only return the `id`
+     * const voiceoverWithIdOnly = await prisma.voiceover.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends VoiceoverUpdateManyAndReturnArgs>(args: SelectSubset<T, VoiceoverUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VoiceoverPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Voiceover.
+     * @param {VoiceoverUpsertArgs} args - Arguments to update or create a Voiceover.
+     * @example
+     * // Update or create a Voiceover
+     * const voiceover = await prisma.voiceover.upsert({
+     *   create: {
+     *     // ... data to create a Voiceover
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Voiceover we want to update
+     *   }
+     * })
+     */
+    upsert<T extends VoiceoverUpsertArgs>(args: SelectSubset<T, VoiceoverUpsertArgs<ExtArgs>>): Prisma__VoiceoverClient<$Result.GetResult<Prisma.$VoiceoverPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Voiceovers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VoiceoverCountArgs} args - Arguments to filter Voiceovers to count.
+     * @example
+     * // Count the number of Voiceovers
+     * const count = await prisma.voiceover.count({
+     *   where: {
+     *     // ... the filter for the Voiceovers we want to count
+     *   }
+     * })
+    **/
+    count<T extends VoiceoverCountArgs>(
+      args?: Subset<T, VoiceoverCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VoiceoverCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Voiceover.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VoiceoverAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VoiceoverAggregateArgs>(args: Subset<T, VoiceoverAggregateArgs>): Prisma.PrismaPromise<GetVoiceoverAggregateType<T>>
+
+    /**
+     * Group by Voiceover.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VoiceoverGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends VoiceoverGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: VoiceoverGroupByArgs['orderBy'] }
+        : { orderBy?: VoiceoverGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, VoiceoverGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVoiceoverGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Voiceover model
+   */
+  readonly fields: VoiceoverFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Voiceover.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__VoiceoverClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Voiceover model
+   */
+  interface VoiceoverFieldRefs {
+    readonly id: FieldRef<"Voiceover", 'String'>
+    readonly createdAt: FieldRef<"Voiceover", 'DateTime'>
+    readonly updatedAt: FieldRef<"Voiceover", 'DateTime'>
+    readonly status: FieldRef<"Voiceover", 'String'>
+    readonly errorMessage: FieldRef<"Voiceover", 'String'>
+    readonly script: FieldRef<"Voiceover", 'String'>
+    readonly voiceR2Key: FieldRef<"Voiceover", 'String'>
+    readonly language: FieldRef<"Voiceover", 'String'>
+    readonly exaggeration: FieldRef<"Voiceover", 'Float'>
+    readonly cfgWeight: FieldRef<"Voiceover", 'Float'>
+    readonly temperature: FieldRef<"Voiceover", 'Float'>
+    readonly seed: FieldRef<"Voiceover", 'Int'>
+    readonly audioR2Key: FieldRef<"Voiceover", 'String'>
+    readonly userId: FieldRef<"Voiceover", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Voiceover findUnique
+   */
+  export type VoiceoverFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Voiceover
+     */
+    select?: VoiceoverSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Voiceover
+     */
+    omit?: VoiceoverOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VoiceoverInclude<ExtArgs> | null
+    /**
+     * Filter, which Voiceover to fetch.
+     */
+    where: VoiceoverWhereUniqueInput
+  }
+
+  /**
+   * Voiceover findUniqueOrThrow
+   */
+  export type VoiceoverFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Voiceover
+     */
+    select?: VoiceoverSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Voiceover
+     */
+    omit?: VoiceoverOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VoiceoverInclude<ExtArgs> | null
+    /**
+     * Filter, which Voiceover to fetch.
+     */
+    where: VoiceoverWhereUniqueInput
+  }
+
+  /**
+   * Voiceover findFirst
+   */
+  export type VoiceoverFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Voiceover
+     */
+    select?: VoiceoverSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Voiceover
+     */
+    omit?: VoiceoverOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VoiceoverInclude<ExtArgs> | null
+    /**
+     * Filter, which Voiceover to fetch.
+     */
+    where?: VoiceoverWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Voiceovers to fetch.
+     */
+    orderBy?: VoiceoverOrderByWithRelationInput | VoiceoverOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Voiceovers.
+     */
+    cursor?: VoiceoverWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Voiceovers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Voiceovers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Voiceovers.
+     */
+    distinct?: VoiceoverScalarFieldEnum | VoiceoverScalarFieldEnum[]
+  }
+
+  /**
+   * Voiceover findFirstOrThrow
+   */
+  export type VoiceoverFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Voiceover
+     */
+    select?: VoiceoverSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Voiceover
+     */
+    omit?: VoiceoverOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VoiceoverInclude<ExtArgs> | null
+    /**
+     * Filter, which Voiceover to fetch.
+     */
+    where?: VoiceoverWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Voiceovers to fetch.
+     */
+    orderBy?: VoiceoverOrderByWithRelationInput | VoiceoverOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Voiceovers.
+     */
+    cursor?: VoiceoverWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Voiceovers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Voiceovers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Voiceovers.
+     */
+    distinct?: VoiceoverScalarFieldEnum | VoiceoverScalarFieldEnum[]
+  }
+
+  /**
+   * Voiceover findMany
+   */
+  export type VoiceoverFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Voiceover
+     */
+    select?: VoiceoverSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Voiceover
+     */
+    omit?: VoiceoverOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VoiceoverInclude<ExtArgs> | null
+    /**
+     * Filter, which Voiceovers to fetch.
+     */
+    where?: VoiceoverWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Voiceovers to fetch.
+     */
+    orderBy?: VoiceoverOrderByWithRelationInput | VoiceoverOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Voiceovers.
+     */
+    cursor?: VoiceoverWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Voiceovers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Voiceovers.
+     */
+    skip?: number
+    distinct?: VoiceoverScalarFieldEnum | VoiceoverScalarFieldEnum[]
+  }
+
+  /**
+   * Voiceover create
+   */
+  export type VoiceoverCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Voiceover
+     */
+    select?: VoiceoverSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Voiceover
+     */
+    omit?: VoiceoverOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VoiceoverInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Voiceover.
+     */
+    data: XOR<VoiceoverCreateInput, VoiceoverUncheckedCreateInput>
+  }
+
+  /**
+   * Voiceover createMany
+   */
+  export type VoiceoverCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Voiceovers.
+     */
+    data: VoiceoverCreateManyInput | VoiceoverCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Voiceover createManyAndReturn
+   */
+  export type VoiceoverCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Voiceover
+     */
+    select?: VoiceoverSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Voiceover
+     */
+    omit?: VoiceoverOmit<ExtArgs> | null
+    /**
+     * The data used to create many Voiceovers.
+     */
+    data: VoiceoverCreateManyInput | VoiceoverCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VoiceoverIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Voiceover update
+   */
+  export type VoiceoverUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Voiceover
+     */
+    select?: VoiceoverSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Voiceover
+     */
+    omit?: VoiceoverOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VoiceoverInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Voiceover.
+     */
+    data: XOR<VoiceoverUpdateInput, VoiceoverUncheckedUpdateInput>
+    /**
+     * Choose, which Voiceover to update.
+     */
+    where: VoiceoverWhereUniqueInput
+  }
+
+  /**
+   * Voiceover updateMany
+   */
+  export type VoiceoverUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Voiceovers.
+     */
+    data: XOR<VoiceoverUpdateManyMutationInput, VoiceoverUncheckedUpdateManyInput>
+    /**
+     * Filter which Voiceovers to update
+     */
+    where?: VoiceoverWhereInput
+    /**
+     * Limit how many Voiceovers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Voiceover updateManyAndReturn
+   */
+  export type VoiceoverUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Voiceover
+     */
+    select?: VoiceoverSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Voiceover
+     */
+    omit?: VoiceoverOmit<ExtArgs> | null
+    /**
+     * The data used to update Voiceovers.
+     */
+    data: XOR<VoiceoverUpdateManyMutationInput, VoiceoverUncheckedUpdateManyInput>
+    /**
+     * Filter which Voiceovers to update
+     */
+    where?: VoiceoverWhereInput
+    /**
+     * Limit how many Voiceovers to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VoiceoverIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Voiceover upsert
+   */
+  export type VoiceoverUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Voiceover
+     */
+    select?: VoiceoverSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Voiceover
+     */
+    omit?: VoiceoverOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VoiceoverInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Voiceover to update in case it exists.
+     */
+    where: VoiceoverWhereUniqueInput
+    /**
+     * In case the Voiceover found by the `where` argument doesn't exist, create a new Voiceover with this data.
+     */
+    create: XOR<VoiceoverCreateInput, VoiceoverUncheckedCreateInput>
+    /**
+     * In case the Voiceover was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<VoiceoverUpdateInput, VoiceoverUncheckedUpdateInput>
+  }
+
+  /**
+   * Voiceover delete
+   */
+  export type VoiceoverDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Voiceover
+     */
+    select?: VoiceoverSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Voiceover
+     */
+    omit?: VoiceoverOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VoiceoverInclude<ExtArgs> | null
+    /**
+     * Filter which Voiceover to delete.
+     */
+    where: VoiceoverWhereUniqueInput
+  }
+
+  /**
+   * Voiceover deleteMany
+   */
+  export type VoiceoverDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Voiceovers to delete
+     */
+    where?: VoiceoverWhereInput
+    /**
+     * Limit how many Voiceovers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Voiceover without action
+   */
+  export type VoiceoverDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Voiceover
+     */
+    select?: VoiceoverSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Voiceover
+     */
+    omit?: VoiceoverOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VoiceoverInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model GenerationEvent
+   */
+
+  export type AggregateGenerationEvent = {
+    _count: GenerationEventCountAggregateOutputType | null
+    _min: GenerationEventMinAggregateOutputType | null
+    _max: GenerationEventMaxAggregateOutputType | null
+  }
+
+  export type GenerationEventMinAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    type: string | null
+    userId: string | null
+  }
+
+  export type GenerationEventMaxAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    type: string | null
+    userId: string | null
+  }
+
+  export type GenerationEventCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    type: number
+    userId: number
+    _all: number
+  }
+
+
+  export type GenerationEventMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    type?: true
+    userId?: true
+  }
+
+  export type GenerationEventMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    type?: true
+    userId?: true
+  }
+
+  export type GenerationEventCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    type?: true
+    userId?: true
+    _all?: true
+  }
+
+  export type GenerationEventAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GenerationEvent to aggregate.
+     */
+    where?: GenerationEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GenerationEvents to fetch.
+     */
+    orderBy?: GenerationEventOrderByWithRelationInput | GenerationEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GenerationEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GenerationEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GenerationEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GenerationEvents
+    **/
+    _count?: true | GenerationEventCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GenerationEventMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GenerationEventMaxAggregateInputType
+  }
+
+  export type GetGenerationEventAggregateType<T extends GenerationEventAggregateArgs> = {
+        [P in keyof T & keyof AggregateGenerationEvent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGenerationEvent[P]>
+      : GetScalarType<T[P], AggregateGenerationEvent[P]>
+  }
+
+
+
+
+  export type GenerationEventGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GenerationEventWhereInput
+    orderBy?: GenerationEventOrderByWithAggregationInput | GenerationEventOrderByWithAggregationInput[]
+    by: GenerationEventScalarFieldEnum[] | GenerationEventScalarFieldEnum
+    having?: GenerationEventScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GenerationEventCountAggregateInputType | true
+    _min?: GenerationEventMinAggregateInputType
+    _max?: GenerationEventMaxAggregateInputType
+  }
+
+  export type GenerationEventGroupByOutputType = {
+    id: string
+    createdAt: Date
+    type: string
+    userId: string
+    _count: GenerationEventCountAggregateOutputType | null
+    _min: GenerationEventMinAggregateOutputType | null
+    _max: GenerationEventMaxAggregateOutputType | null
+  }
+
+  type GetGenerationEventGroupByPayload<T extends GenerationEventGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GenerationEventGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GenerationEventGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GenerationEventGroupByOutputType[P]>
+            : GetScalarType<T[P], GenerationEventGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GenerationEventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    type?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["generationEvent"]>
+
+  export type GenerationEventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    type?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["generationEvent"]>
+
+  export type GenerationEventSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    type?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["generationEvent"]>
+
+  export type GenerationEventSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    type?: boolean
+    userId?: boolean
+  }
+
+  export type GenerationEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "type" | "userId", ExtArgs["result"]["generationEvent"]>
+  export type GenerationEventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type GenerationEventIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type GenerationEventIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $GenerationEventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GenerationEvent"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      createdAt: Date
+      type: string
+      userId: string
+    }, ExtArgs["result"]["generationEvent"]>
+    composites: {}
+  }
+
+  type GenerationEventGetPayload<S extends boolean | null | undefined | GenerationEventDefaultArgs> = $Result.GetResult<Prisma.$GenerationEventPayload, S>
+
+  type GenerationEventCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GenerationEventFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GenerationEventCountAggregateInputType | true
+    }
+
+  export interface GenerationEventDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GenerationEvent'], meta: { name: 'GenerationEvent' } }
+    /**
+     * Find zero or one GenerationEvent that matches the filter.
+     * @param {GenerationEventFindUniqueArgs} args - Arguments to find a GenerationEvent
+     * @example
+     * // Get one GenerationEvent
+     * const generationEvent = await prisma.generationEvent.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GenerationEventFindUniqueArgs>(args: SelectSubset<T, GenerationEventFindUniqueArgs<ExtArgs>>): Prisma__GenerationEventClient<$Result.GetResult<Prisma.$GenerationEventPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GenerationEvent that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GenerationEventFindUniqueOrThrowArgs} args - Arguments to find a GenerationEvent
+     * @example
+     * // Get one GenerationEvent
+     * const generationEvent = await prisma.generationEvent.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GenerationEventFindUniqueOrThrowArgs>(args: SelectSubset<T, GenerationEventFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GenerationEventClient<$Result.GetResult<Prisma.$GenerationEventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GenerationEvent that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GenerationEventFindFirstArgs} args - Arguments to find a GenerationEvent
+     * @example
+     * // Get one GenerationEvent
+     * const generationEvent = await prisma.generationEvent.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GenerationEventFindFirstArgs>(args?: SelectSubset<T, GenerationEventFindFirstArgs<ExtArgs>>): Prisma__GenerationEventClient<$Result.GetResult<Prisma.$GenerationEventPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GenerationEvent that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GenerationEventFindFirstOrThrowArgs} args - Arguments to find a GenerationEvent
+     * @example
+     * // Get one GenerationEvent
+     * const generationEvent = await prisma.generationEvent.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GenerationEventFindFirstOrThrowArgs>(args?: SelectSubset<T, GenerationEventFindFirstOrThrowArgs<ExtArgs>>): Prisma__GenerationEventClient<$Result.GetResult<Prisma.$GenerationEventPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GenerationEvents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GenerationEventFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GenerationEvents
+     * const generationEvents = await prisma.generationEvent.findMany()
+     * 
+     * // Get first 10 GenerationEvents
+     * const generationEvents = await prisma.generationEvent.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const generationEventWithIdOnly = await prisma.generationEvent.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GenerationEventFindManyArgs>(args?: SelectSubset<T, GenerationEventFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GenerationEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GenerationEvent.
+     * @param {GenerationEventCreateArgs} args - Arguments to create a GenerationEvent.
+     * @example
+     * // Create one GenerationEvent
+     * const GenerationEvent = await prisma.generationEvent.create({
+     *   data: {
+     *     // ... data to create a GenerationEvent
+     *   }
+     * })
+     * 
+     */
+    create<T extends GenerationEventCreateArgs>(args: SelectSubset<T, GenerationEventCreateArgs<ExtArgs>>): Prisma__GenerationEventClient<$Result.GetResult<Prisma.$GenerationEventPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GenerationEvents.
+     * @param {GenerationEventCreateManyArgs} args - Arguments to create many GenerationEvents.
+     * @example
+     * // Create many GenerationEvents
+     * const generationEvent = await prisma.generationEvent.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GenerationEventCreateManyArgs>(args?: SelectSubset<T, GenerationEventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GenerationEvents and returns the data saved in the database.
+     * @param {GenerationEventCreateManyAndReturnArgs} args - Arguments to create many GenerationEvents.
+     * @example
+     * // Create many GenerationEvents
+     * const generationEvent = await prisma.generationEvent.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GenerationEvents and only return the `id`
+     * const generationEventWithIdOnly = await prisma.generationEvent.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GenerationEventCreateManyAndReturnArgs>(args?: SelectSubset<T, GenerationEventCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GenerationEventPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GenerationEvent.
+     * @param {GenerationEventDeleteArgs} args - Arguments to delete one GenerationEvent.
+     * @example
+     * // Delete one GenerationEvent
+     * const GenerationEvent = await prisma.generationEvent.delete({
+     *   where: {
+     *     // ... filter to delete one GenerationEvent
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GenerationEventDeleteArgs>(args: SelectSubset<T, GenerationEventDeleteArgs<ExtArgs>>): Prisma__GenerationEventClient<$Result.GetResult<Prisma.$GenerationEventPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GenerationEvent.
+     * @param {GenerationEventUpdateArgs} args - Arguments to update one GenerationEvent.
+     * @example
+     * // Update one GenerationEvent
+     * const generationEvent = await prisma.generationEvent.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GenerationEventUpdateArgs>(args: SelectSubset<T, GenerationEventUpdateArgs<ExtArgs>>): Prisma__GenerationEventClient<$Result.GetResult<Prisma.$GenerationEventPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GenerationEvents.
+     * @param {GenerationEventDeleteManyArgs} args - Arguments to filter GenerationEvents to delete.
+     * @example
+     * // Delete a few GenerationEvents
+     * const { count } = await prisma.generationEvent.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GenerationEventDeleteManyArgs>(args?: SelectSubset<T, GenerationEventDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GenerationEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GenerationEventUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GenerationEvents
+     * const generationEvent = await prisma.generationEvent.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GenerationEventUpdateManyArgs>(args: SelectSubset<T, GenerationEventUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GenerationEvents and returns the data updated in the database.
+     * @param {GenerationEventUpdateManyAndReturnArgs} args - Arguments to update many GenerationEvents.
+     * @example
+     * // Update many GenerationEvents
+     * const generationEvent = await prisma.generationEvent.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GenerationEvents and only return the `id`
+     * const generationEventWithIdOnly = await prisma.generationEvent.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GenerationEventUpdateManyAndReturnArgs>(args: SelectSubset<T, GenerationEventUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GenerationEventPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GenerationEvent.
+     * @param {GenerationEventUpsertArgs} args - Arguments to update or create a GenerationEvent.
+     * @example
+     * // Update or create a GenerationEvent
+     * const generationEvent = await prisma.generationEvent.upsert({
+     *   create: {
+     *     // ... data to create a GenerationEvent
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GenerationEvent we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GenerationEventUpsertArgs>(args: SelectSubset<T, GenerationEventUpsertArgs<ExtArgs>>): Prisma__GenerationEventClient<$Result.GetResult<Prisma.$GenerationEventPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GenerationEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GenerationEventCountArgs} args - Arguments to filter GenerationEvents to count.
+     * @example
+     * // Count the number of GenerationEvents
+     * const count = await prisma.generationEvent.count({
+     *   where: {
+     *     // ... the filter for the GenerationEvents we want to count
+     *   }
+     * })
+    **/
+    count<T extends GenerationEventCountArgs>(
+      args?: Subset<T, GenerationEventCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GenerationEventCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GenerationEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GenerationEventAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GenerationEventAggregateArgs>(args: Subset<T, GenerationEventAggregateArgs>): Prisma.PrismaPromise<GetGenerationEventAggregateType<T>>
+
+    /**
+     * Group by GenerationEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GenerationEventGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GenerationEventGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GenerationEventGroupByArgs['orderBy'] }
+        : { orderBy?: GenerationEventGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GenerationEventGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGenerationEventGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GenerationEvent model
+   */
+  readonly fields: GenerationEventFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GenerationEvent.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GenerationEventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GenerationEvent model
+   */
+  interface GenerationEventFieldRefs {
+    readonly id: FieldRef<"GenerationEvent", 'String'>
+    readonly createdAt: FieldRef<"GenerationEvent", 'DateTime'>
+    readonly type: FieldRef<"GenerationEvent", 'String'>
+    readonly userId: FieldRef<"GenerationEvent", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GenerationEvent findUnique
+   */
+  export type GenerationEventFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationEvent
+     */
+    select?: GenerationEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationEvent
+     */
+    omit?: GenerationEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationEventInclude<ExtArgs> | null
+    /**
+     * Filter, which GenerationEvent to fetch.
+     */
+    where: GenerationEventWhereUniqueInput
+  }
+
+  /**
+   * GenerationEvent findUniqueOrThrow
+   */
+  export type GenerationEventFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationEvent
+     */
+    select?: GenerationEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationEvent
+     */
+    omit?: GenerationEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationEventInclude<ExtArgs> | null
+    /**
+     * Filter, which GenerationEvent to fetch.
+     */
+    where: GenerationEventWhereUniqueInput
+  }
+
+  /**
+   * GenerationEvent findFirst
+   */
+  export type GenerationEventFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationEvent
+     */
+    select?: GenerationEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationEvent
+     */
+    omit?: GenerationEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationEventInclude<ExtArgs> | null
+    /**
+     * Filter, which GenerationEvent to fetch.
+     */
+    where?: GenerationEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GenerationEvents to fetch.
+     */
+    orderBy?: GenerationEventOrderByWithRelationInput | GenerationEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GenerationEvents.
+     */
+    cursor?: GenerationEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GenerationEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GenerationEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GenerationEvents.
+     */
+    distinct?: GenerationEventScalarFieldEnum | GenerationEventScalarFieldEnum[]
+  }
+
+  /**
+   * GenerationEvent findFirstOrThrow
+   */
+  export type GenerationEventFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationEvent
+     */
+    select?: GenerationEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationEvent
+     */
+    omit?: GenerationEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationEventInclude<ExtArgs> | null
+    /**
+     * Filter, which GenerationEvent to fetch.
+     */
+    where?: GenerationEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GenerationEvents to fetch.
+     */
+    orderBy?: GenerationEventOrderByWithRelationInput | GenerationEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GenerationEvents.
+     */
+    cursor?: GenerationEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GenerationEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GenerationEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GenerationEvents.
+     */
+    distinct?: GenerationEventScalarFieldEnum | GenerationEventScalarFieldEnum[]
+  }
+
+  /**
+   * GenerationEvent findMany
+   */
+  export type GenerationEventFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationEvent
+     */
+    select?: GenerationEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationEvent
+     */
+    omit?: GenerationEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationEventInclude<ExtArgs> | null
+    /**
+     * Filter, which GenerationEvents to fetch.
+     */
+    where?: GenerationEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GenerationEvents to fetch.
+     */
+    orderBy?: GenerationEventOrderByWithRelationInput | GenerationEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GenerationEvents.
+     */
+    cursor?: GenerationEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GenerationEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GenerationEvents.
+     */
+    skip?: number
+    distinct?: GenerationEventScalarFieldEnum | GenerationEventScalarFieldEnum[]
+  }
+
+  /**
+   * GenerationEvent create
+   */
+  export type GenerationEventCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationEvent
+     */
+    select?: GenerationEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationEvent
+     */
+    omit?: GenerationEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationEventInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GenerationEvent.
+     */
+    data: XOR<GenerationEventCreateInput, GenerationEventUncheckedCreateInput>
+  }
+
+  /**
+   * GenerationEvent createMany
+   */
+  export type GenerationEventCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GenerationEvents.
+     */
+    data: GenerationEventCreateManyInput | GenerationEventCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GenerationEvent createManyAndReturn
+   */
+  export type GenerationEventCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationEvent
+     */
+    select?: GenerationEventSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationEvent
+     */
+    omit?: GenerationEventOmit<ExtArgs> | null
+    /**
+     * The data used to create many GenerationEvents.
+     */
+    data: GenerationEventCreateManyInput | GenerationEventCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationEventIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GenerationEvent update
+   */
+  export type GenerationEventUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationEvent
+     */
+    select?: GenerationEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationEvent
+     */
+    omit?: GenerationEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationEventInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GenerationEvent.
+     */
+    data: XOR<GenerationEventUpdateInput, GenerationEventUncheckedUpdateInput>
+    /**
+     * Choose, which GenerationEvent to update.
+     */
+    where: GenerationEventWhereUniqueInput
+  }
+
+  /**
+   * GenerationEvent updateMany
+   */
+  export type GenerationEventUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GenerationEvents.
+     */
+    data: XOR<GenerationEventUpdateManyMutationInput, GenerationEventUncheckedUpdateManyInput>
+    /**
+     * Filter which GenerationEvents to update
+     */
+    where?: GenerationEventWhereInput
+    /**
+     * Limit how many GenerationEvents to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GenerationEvent updateManyAndReturn
+   */
+  export type GenerationEventUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationEvent
+     */
+    select?: GenerationEventSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationEvent
+     */
+    omit?: GenerationEventOmit<ExtArgs> | null
+    /**
+     * The data used to update GenerationEvents.
+     */
+    data: XOR<GenerationEventUpdateManyMutationInput, GenerationEventUncheckedUpdateManyInput>
+    /**
+     * Filter which GenerationEvents to update
+     */
+    where?: GenerationEventWhereInput
+    /**
+     * Limit how many GenerationEvents to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationEventIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GenerationEvent upsert
+   */
+  export type GenerationEventUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationEvent
+     */
+    select?: GenerationEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationEvent
+     */
+    omit?: GenerationEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationEventInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GenerationEvent to update in case it exists.
+     */
+    where: GenerationEventWhereUniqueInput
+    /**
+     * In case the GenerationEvent found by the `where` argument doesn't exist, create a new GenerationEvent with this data.
+     */
+    create: XOR<GenerationEventCreateInput, GenerationEventUncheckedCreateInput>
+    /**
+     * In case the GenerationEvent was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GenerationEventUpdateInput, GenerationEventUncheckedUpdateInput>
+  }
+
+  /**
+   * GenerationEvent delete
+   */
+  export type GenerationEventDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationEvent
+     */
+    select?: GenerationEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationEvent
+     */
+    omit?: GenerationEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationEventInclude<ExtArgs> | null
+    /**
+     * Filter which GenerationEvent to delete.
+     */
+    where: GenerationEventWhereUniqueInput
+  }
+
+  /**
+   * GenerationEvent deleteMany
+   */
+  export type GenerationEventDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GenerationEvents to delete
+     */
+    where?: GenerationEventWhereInput
+    /**
+     * Limit how many GenerationEvents to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GenerationEvent without action
+   */
+  export type GenerationEventDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationEvent
+     */
+    select?: GenerationEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationEvent
+     */
+    omit?: GenerationEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationEventInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -5636,6 +9533,58 @@ export namespace Prisma {
   export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
 
 
+  export const AvatarVideoScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    status: 'status',
+    errorMessage: 'errorMessage',
+    avatarR2Key: 'avatarR2Key',
+    audioR2Key: 'audioR2Key',
+    script: 'script',
+    voiceR2Key: 'voiceR2Key',
+    language: 'language',
+    exaggeration: 'exaggeration',
+    cfgWeight: 'cfgWeight',
+    temperature: 'temperature',
+    seed: 'seed',
+    videoR2Key: 'videoR2Key',
+    userId: 'userId'
+  };
+
+  export type AvatarVideoScalarFieldEnum = (typeof AvatarVideoScalarFieldEnum)[keyof typeof AvatarVideoScalarFieldEnum]
+
+
+  export const VoiceoverScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    status: 'status',
+    errorMessage: 'errorMessage',
+    script: 'script',
+    voiceR2Key: 'voiceR2Key',
+    language: 'language',
+    exaggeration: 'exaggeration',
+    cfgWeight: 'cfgWeight',
+    temperature: 'temperature',
+    seed: 'seed',
+    audioR2Key: 'audioR2Key',
+    userId: 'userId'
+  };
+
+  export type VoiceoverScalarFieldEnum = (typeof VoiceoverScalarFieldEnum)[keyof typeof VoiceoverScalarFieldEnum]
+
+
+  export const GenerationEventScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    type: 'type',
+    userId: 'userId'
+  };
+
+  export type GenerationEventScalarFieldEnum = (typeof GenerationEventScalarFieldEnum)[keyof typeof GenerationEventScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -5701,6 +9650,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -5730,6 +9693,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
+    avatarVideos?: AvatarVideoListRelationFilter
+    voiceovers?: VoiceoverListRelationFilter
+    generationEvents?: GenerationEventListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -5742,6 +9708,9 @@ export namespace Prisma {
     updatedAt?: SortOrder
     sessions?: SessionOrderByRelationAggregateInput
     accounts?: AccountOrderByRelationAggregateInput
+    avatarVideos?: AvatarVideoOrderByRelationAggregateInput
+    voiceovers?: VoiceoverOrderByRelationAggregateInput
+    generationEvents?: GenerationEventOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -5757,6 +9726,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
+    avatarVideos?: AvatarVideoListRelationFilter
+    voiceovers?: VoiceoverListRelationFilter
+    generationEvents?: GenerationEventListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -6007,6 +9979,270 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Verification"> | Date | string
   }
 
+  export type AvatarVideoWhereInput = {
+    AND?: AvatarVideoWhereInput | AvatarVideoWhereInput[]
+    OR?: AvatarVideoWhereInput[]
+    NOT?: AvatarVideoWhereInput | AvatarVideoWhereInput[]
+    id?: StringFilter<"AvatarVideo"> | string
+    createdAt?: DateTimeFilter<"AvatarVideo"> | Date | string
+    updatedAt?: DateTimeFilter<"AvatarVideo"> | Date | string
+    status?: StringFilter<"AvatarVideo"> | string
+    errorMessage?: StringNullableFilter<"AvatarVideo"> | string | null
+    avatarR2Key?: StringFilter<"AvatarVideo"> | string
+    audioR2Key?: StringNullableFilter<"AvatarVideo"> | string | null
+    script?: StringNullableFilter<"AvatarVideo"> | string | null
+    voiceR2Key?: StringNullableFilter<"AvatarVideo"> | string | null
+    language?: StringFilter<"AvatarVideo"> | string
+    exaggeration?: FloatFilter<"AvatarVideo"> | number
+    cfgWeight?: FloatFilter<"AvatarVideo"> | number
+    temperature?: FloatFilter<"AvatarVideo"> | number
+    seed?: IntFilter<"AvatarVideo"> | number
+    videoR2Key?: StringNullableFilter<"AvatarVideo"> | string | null
+    userId?: StringFilter<"AvatarVideo"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type AvatarVideoOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    status?: SortOrder
+    errorMessage?: SortOrderInput | SortOrder
+    avatarR2Key?: SortOrder
+    audioR2Key?: SortOrderInput | SortOrder
+    script?: SortOrderInput | SortOrder
+    voiceR2Key?: SortOrderInput | SortOrder
+    language?: SortOrder
+    exaggeration?: SortOrder
+    cfgWeight?: SortOrder
+    temperature?: SortOrder
+    seed?: SortOrder
+    videoR2Key?: SortOrderInput | SortOrder
+    userId?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type AvatarVideoWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AvatarVideoWhereInput | AvatarVideoWhereInput[]
+    OR?: AvatarVideoWhereInput[]
+    NOT?: AvatarVideoWhereInput | AvatarVideoWhereInput[]
+    createdAt?: DateTimeFilter<"AvatarVideo"> | Date | string
+    updatedAt?: DateTimeFilter<"AvatarVideo"> | Date | string
+    status?: StringFilter<"AvatarVideo"> | string
+    errorMessage?: StringNullableFilter<"AvatarVideo"> | string | null
+    avatarR2Key?: StringFilter<"AvatarVideo"> | string
+    audioR2Key?: StringNullableFilter<"AvatarVideo"> | string | null
+    script?: StringNullableFilter<"AvatarVideo"> | string | null
+    voiceR2Key?: StringNullableFilter<"AvatarVideo"> | string | null
+    language?: StringFilter<"AvatarVideo"> | string
+    exaggeration?: FloatFilter<"AvatarVideo"> | number
+    cfgWeight?: FloatFilter<"AvatarVideo"> | number
+    temperature?: FloatFilter<"AvatarVideo"> | number
+    seed?: IntFilter<"AvatarVideo"> | number
+    videoR2Key?: StringNullableFilter<"AvatarVideo"> | string | null
+    userId?: StringFilter<"AvatarVideo"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type AvatarVideoOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    status?: SortOrder
+    errorMessage?: SortOrderInput | SortOrder
+    avatarR2Key?: SortOrder
+    audioR2Key?: SortOrderInput | SortOrder
+    script?: SortOrderInput | SortOrder
+    voiceR2Key?: SortOrderInput | SortOrder
+    language?: SortOrder
+    exaggeration?: SortOrder
+    cfgWeight?: SortOrder
+    temperature?: SortOrder
+    seed?: SortOrder
+    videoR2Key?: SortOrderInput | SortOrder
+    userId?: SortOrder
+    _count?: AvatarVideoCountOrderByAggregateInput
+    _avg?: AvatarVideoAvgOrderByAggregateInput
+    _max?: AvatarVideoMaxOrderByAggregateInput
+    _min?: AvatarVideoMinOrderByAggregateInput
+    _sum?: AvatarVideoSumOrderByAggregateInput
+  }
+
+  export type AvatarVideoScalarWhereWithAggregatesInput = {
+    AND?: AvatarVideoScalarWhereWithAggregatesInput | AvatarVideoScalarWhereWithAggregatesInput[]
+    OR?: AvatarVideoScalarWhereWithAggregatesInput[]
+    NOT?: AvatarVideoScalarWhereWithAggregatesInput | AvatarVideoScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AvatarVideo"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"AvatarVideo"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AvatarVideo"> | Date | string
+    status?: StringWithAggregatesFilter<"AvatarVideo"> | string
+    errorMessage?: StringNullableWithAggregatesFilter<"AvatarVideo"> | string | null
+    avatarR2Key?: StringWithAggregatesFilter<"AvatarVideo"> | string
+    audioR2Key?: StringNullableWithAggregatesFilter<"AvatarVideo"> | string | null
+    script?: StringNullableWithAggregatesFilter<"AvatarVideo"> | string | null
+    voiceR2Key?: StringNullableWithAggregatesFilter<"AvatarVideo"> | string | null
+    language?: StringWithAggregatesFilter<"AvatarVideo"> | string
+    exaggeration?: FloatWithAggregatesFilter<"AvatarVideo"> | number
+    cfgWeight?: FloatWithAggregatesFilter<"AvatarVideo"> | number
+    temperature?: FloatWithAggregatesFilter<"AvatarVideo"> | number
+    seed?: IntWithAggregatesFilter<"AvatarVideo"> | number
+    videoR2Key?: StringNullableWithAggregatesFilter<"AvatarVideo"> | string | null
+    userId?: StringWithAggregatesFilter<"AvatarVideo"> | string
+  }
+
+  export type VoiceoverWhereInput = {
+    AND?: VoiceoverWhereInput | VoiceoverWhereInput[]
+    OR?: VoiceoverWhereInput[]
+    NOT?: VoiceoverWhereInput | VoiceoverWhereInput[]
+    id?: StringFilter<"Voiceover"> | string
+    createdAt?: DateTimeFilter<"Voiceover"> | Date | string
+    updatedAt?: DateTimeFilter<"Voiceover"> | Date | string
+    status?: StringFilter<"Voiceover"> | string
+    errorMessage?: StringNullableFilter<"Voiceover"> | string | null
+    script?: StringFilter<"Voiceover"> | string
+    voiceR2Key?: StringNullableFilter<"Voiceover"> | string | null
+    language?: StringFilter<"Voiceover"> | string
+    exaggeration?: FloatFilter<"Voiceover"> | number
+    cfgWeight?: FloatFilter<"Voiceover"> | number
+    temperature?: FloatFilter<"Voiceover"> | number
+    seed?: IntFilter<"Voiceover"> | number
+    audioR2Key?: StringNullableFilter<"Voiceover"> | string | null
+    userId?: StringFilter<"Voiceover"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type VoiceoverOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    status?: SortOrder
+    errorMessage?: SortOrderInput | SortOrder
+    script?: SortOrder
+    voiceR2Key?: SortOrderInput | SortOrder
+    language?: SortOrder
+    exaggeration?: SortOrder
+    cfgWeight?: SortOrder
+    temperature?: SortOrder
+    seed?: SortOrder
+    audioR2Key?: SortOrderInput | SortOrder
+    userId?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type VoiceoverWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: VoiceoverWhereInput | VoiceoverWhereInput[]
+    OR?: VoiceoverWhereInput[]
+    NOT?: VoiceoverWhereInput | VoiceoverWhereInput[]
+    createdAt?: DateTimeFilter<"Voiceover"> | Date | string
+    updatedAt?: DateTimeFilter<"Voiceover"> | Date | string
+    status?: StringFilter<"Voiceover"> | string
+    errorMessage?: StringNullableFilter<"Voiceover"> | string | null
+    script?: StringFilter<"Voiceover"> | string
+    voiceR2Key?: StringNullableFilter<"Voiceover"> | string | null
+    language?: StringFilter<"Voiceover"> | string
+    exaggeration?: FloatFilter<"Voiceover"> | number
+    cfgWeight?: FloatFilter<"Voiceover"> | number
+    temperature?: FloatFilter<"Voiceover"> | number
+    seed?: IntFilter<"Voiceover"> | number
+    audioR2Key?: StringNullableFilter<"Voiceover"> | string | null
+    userId?: StringFilter<"Voiceover"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type VoiceoverOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    status?: SortOrder
+    errorMessage?: SortOrderInput | SortOrder
+    script?: SortOrder
+    voiceR2Key?: SortOrderInput | SortOrder
+    language?: SortOrder
+    exaggeration?: SortOrder
+    cfgWeight?: SortOrder
+    temperature?: SortOrder
+    seed?: SortOrder
+    audioR2Key?: SortOrderInput | SortOrder
+    userId?: SortOrder
+    _count?: VoiceoverCountOrderByAggregateInput
+    _avg?: VoiceoverAvgOrderByAggregateInput
+    _max?: VoiceoverMaxOrderByAggregateInput
+    _min?: VoiceoverMinOrderByAggregateInput
+    _sum?: VoiceoverSumOrderByAggregateInput
+  }
+
+  export type VoiceoverScalarWhereWithAggregatesInput = {
+    AND?: VoiceoverScalarWhereWithAggregatesInput | VoiceoverScalarWhereWithAggregatesInput[]
+    OR?: VoiceoverScalarWhereWithAggregatesInput[]
+    NOT?: VoiceoverScalarWhereWithAggregatesInput | VoiceoverScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Voiceover"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Voiceover"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Voiceover"> | Date | string
+    status?: StringWithAggregatesFilter<"Voiceover"> | string
+    errorMessage?: StringNullableWithAggregatesFilter<"Voiceover"> | string | null
+    script?: StringWithAggregatesFilter<"Voiceover"> | string
+    voiceR2Key?: StringNullableWithAggregatesFilter<"Voiceover"> | string | null
+    language?: StringWithAggregatesFilter<"Voiceover"> | string
+    exaggeration?: FloatWithAggregatesFilter<"Voiceover"> | number
+    cfgWeight?: FloatWithAggregatesFilter<"Voiceover"> | number
+    temperature?: FloatWithAggregatesFilter<"Voiceover"> | number
+    seed?: IntWithAggregatesFilter<"Voiceover"> | number
+    audioR2Key?: StringNullableWithAggregatesFilter<"Voiceover"> | string | null
+    userId?: StringWithAggregatesFilter<"Voiceover"> | string
+  }
+
+  export type GenerationEventWhereInput = {
+    AND?: GenerationEventWhereInput | GenerationEventWhereInput[]
+    OR?: GenerationEventWhereInput[]
+    NOT?: GenerationEventWhereInput | GenerationEventWhereInput[]
+    id?: StringFilter<"GenerationEvent"> | string
+    createdAt?: DateTimeFilter<"GenerationEvent"> | Date | string
+    type?: StringFilter<"GenerationEvent"> | string
+    userId?: StringFilter<"GenerationEvent"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type GenerationEventOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    type?: SortOrder
+    userId?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type GenerationEventWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: GenerationEventWhereInput | GenerationEventWhereInput[]
+    OR?: GenerationEventWhereInput[]
+    NOT?: GenerationEventWhereInput | GenerationEventWhereInput[]
+    createdAt?: DateTimeFilter<"GenerationEvent"> | Date | string
+    type?: StringFilter<"GenerationEvent"> | string
+    userId?: StringFilter<"GenerationEvent"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type GenerationEventOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    type?: SortOrder
+    userId?: SortOrder
+    _count?: GenerationEventCountOrderByAggregateInput
+    _max?: GenerationEventMaxOrderByAggregateInput
+    _min?: GenerationEventMinOrderByAggregateInput
+  }
+
+  export type GenerationEventScalarWhereWithAggregatesInput = {
+    AND?: GenerationEventScalarWhereWithAggregatesInput | GenerationEventScalarWhereWithAggregatesInput[]
+    OR?: GenerationEventScalarWhereWithAggregatesInput[]
+    NOT?: GenerationEventScalarWhereWithAggregatesInput | GenerationEventScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"GenerationEvent"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"GenerationEvent"> | Date | string
+    type?: StringWithAggregatesFilter<"GenerationEvent"> | string
+    userId?: StringWithAggregatesFilter<"GenerationEvent"> | string
+  }
+
   export type UserCreateInput = {
     id: string
     name: string
@@ -6017,6 +10253,9 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
+    avatarVideos?: AvatarVideoCreateNestedManyWithoutUserInput
+    voiceovers?: VoiceoverCreateNestedManyWithoutUserInput
+    generationEvents?: GenerationEventCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -6029,6 +10268,9 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    avatarVideos?: AvatarVideoUncheckedCreateNestedManyWithoutUserInput
+    voiceovers?: VoiceoverUncheckedCreateNestedManyWithoutUserInput
+    generationEvents?: GenerationEventUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -6041,6 +10283,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
+    avatarVideos?: AvatarVideoUpdateManyWithoutUserNestedInput
+    voiceovers?: VoiceoverUpdateManyWithoutUserNestedInput
+    generationEvents?: GenerationEventUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -6053,6 +10298,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    avatarVideos?: AvatarVideoUncheckedUpdateManyWithoutUserNestedInput
+    voiceovers?: VoiceoverUncheckedUpdateManyWithoutUserNestedInput
+    generationEvents?: GenerationEventUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -6335,6 +10583,304 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AvatarVideoCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    errorMessage?: string | null
+    avatarR2Key: string
+    audioR2Key?: string | null
+    script?: string | null
+    voiceR2Key?: string | null
+    language?: string
+    exaggeration?: number
+    cfgWeight?: number
+    temperature?: number
+    seed?: number
+    videoR2Key?: string | null
+    user: UserCreateNestedOneWithoutAvatarVideosInput
+  }
+
+  export type AvatarVideoUncheckedCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    errorMessage?: string | null
+    avatarR2Key: string
+    audioR2Key?: string | null
+    script?: string | null
+    voiceR2Key?: string | null
+    language?: string
+    exaggeration?: number
+    cfgWeight?: number
+    temperature?: number
+    seed?: number
+    videoR2Key?: string | null
+    userId: string
+  }
+
+  export type AvatarVideoUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarR2Key?: StringFieldUpdateOperationsInput | string
+    audioR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    script?: NullableStringFieldUpdateOperationsInput | string | null
+    voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exaggeration?: FloatFieldUpdateOperationsInput | number
+    cfgWeight?: FloatFieldUpdateOperationsInput | number
+    temperature?: FloatFieldUpdateOperationsInput | number
+    seed?: IntFieldUpdateOperationsInput | number
+    videoR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutAvatarVideosNestedInput
+  }
+
+  export type AvatarVideoUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarR2Key?: StringFieldUpdateOperationsInput | string
+    audioR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    script?: NullableStringFieldUpdateOperationsInput | string | null
+    voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exaggeration?: FloatFieldUpdateOperationsInput | number
+    cfgWeight?: FloatFieldUpdateOperationsInput | number
+    temperature?: FloatFieldUpdateOperationsInput | number
+    seed?: IntFieldUpdateOperationsInput | number
+    videoR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AvatarVideoCreateManyInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    errorMessage?: string | null
+    avatarR2Key: string
+    audioR2Key?: string | null
+    script?: string | null
+    voiceR2Key?: string | null
+    language?: string
+    exaggeration?: number
+    cfgWeight?: number
+    temperature?: number
+    seed?: number
+    videoR2Key?: string | null
+    userId: string
+  }
+
+  export type AvatarVideoUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarR2Key?: StringFieldUpdateOperationsInput | string
+    audioR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    script?: NullableStringFieldUpdateOperationsInput | string | null
+    voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exaggeration?: FloatFieldUpdateOperationsInput | number
+    cfgWeight?: FloatFieldUpdateOperationsInput | number
+    temperature?: FloatFieldUpdateOperationsInput | number
+    seed?: IntFieldUpdateOperationsInput | number
+    videoR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AvatarVideoUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarR2Key?: StringFieldUpdateOperationsInput | string
+    audioR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    script?: NullableStringFieldUpdateOperationsInput | string | null
+    voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exaggeration?: FloatFieldUpdateOperationsInput | number
+    cfgWeight?: FloatFieldUpdateOperationsInput | number
+    temperature?: FloatFieldUpdateOperationsInput | number
+    seed?: IntFieldUpdateOperationsInput | number
+    videoR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VoiceoverCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    errorMessage?: string | null
+    script: string
+    voiceR2Key?: string | null
+    language?: string
+    exaggeration?: number
+    cfgWeight?: number
+    temperature?: number
+    seed?: number
+    audioR2Key?: string | null
+    user: UserCreateNestedOneWithoutVoiceoversInput
+  }
+
+  export type VoiceoverUncheckedCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    errorMessage?: string | null
+    script: string
+    voiceR2Key?: string | null
+    language?: string
+    exaggeration?: number
+    cfgWeight?: number
+    temperature?: number
+    seed?: number
+    audioR2Key?: string | null
+    userId: string
+  }
+
+  export type VoiceoverUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    script?: StringFieldUpdateOperationsInput | string
+    voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exaggeration?: FloatFieldUpdateOperationsInput | number
+    cfgWeight?: FloatFieldUpdateOperationsInput | number
+    temperature?: FloatFieldUpdateOperationsInput | number
+    seed?: IntFieldUpdateOperationsInput | number
+    audioR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutVoiceoversNestedInput
+  }
+
+  export type VoiceoverUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    script?: StringFieldUpdateOperationsInput | string
+    voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exaggeration?: FloatFieldUpdateOperationsInput | number
+    cfgWeight?: FloatFieldUpdateOperationsInput | number
+    temperature?: FloatFieldUpdateOperationsInput | number
+    seed?: IntFieldUpdateOperationsInput | number
+    audioR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VoiceoverCreateManyInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    errorMessage?: string | null
+    script: string
+    voiceR2Key?: string | null
+    language?: string
+    exaggeration?: number
+    cfgWeight?: number
+    temperature?: number
+    seed?: number
+    audioR2Key?: string | null
+    userId: string
+  }
+
+  export type VoiceoverUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    script?: StringFieldUpdateOperationsInput | string
+    voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exaggeration?: FloatFieldUpdateOperationsInput | number
+    cfgWeight?: FloatFieldUpdateOperationsInput | number
+    temperature?: FloatFieldUpdateOperationsInput | number
+    seed?: IntFieldUpdateOperationsInput | number
+    audioR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type VoiceoverUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    script?: StringFieldUpdateOperationsInput | string
+    voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exaggeration?: FloatFieldUpdateOperationsInput | number
+    cfgWeight?: FloatFieldUpdateOperationsInput | number
+    temperature?: FloatFieldUpdateOperationsInput | number
+    seed?: IntFieldUpdateOperationsInput | number
+    audioR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GenerationEventCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    type: string
+    user: UserCreateNestedOneWithoutGenerationEventsInput
+  }
+
+  export type GenerationEventUncheckedCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    type: string
+    userId: string
+  }
+
+  export type GenerationEventUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutGenerationEventsNestedInput
+  }
+
+  export type GenerationEventUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GenerationEventCreateManyInput = {
+    id?: string
+    createdAt?: Date | string
+    type: string
+    userId: string
+  }
+
+  export type GenerationEventUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GenerationEventUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -6393,6 +10939,24 @@ export namespace Prisma {
     none?: AccountWhereInput
   }
 
+  export type AvatarVideoListRelationFilter = {
+    every?: AvatarVideoWhereInput
+    some?: AvatarVideoWhereInput
+    none?: AvatarVideoWhereInput
+  }
+
+  export type VoiceoverListRelationFilter = {
+    every?: VoiceoverWhereInput
+    some?: VoiceoverWhereInput
+    none?: VoiceoverWhereInput
+  }
+
+  export type GenerationEventListRelationFilter = {
+    every?: GenerationEventWhereInput
+    some?: GenerationEventWhereInput
+    none?: GenerationEventWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -6403,6 +10967,18 @@ export namespace Prisma {
   }
 
   export type AccountOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AvatarVideoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type VoiceoverOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GenerationEventOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -6632,6 +11208,217 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type AvatarVideoCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    status?: SortOrder
+    errorMessage?: SortOrder
+    avatarR2Key?: SortOrder
+    audioR2Key?: SortOrder
+    script?: SortOrder
+    voiceR2Key?: SortOrder
+    language?: SortOrder
+    exaggeration?: SortOrder
+    cfgWeight?: SortOrder
+    temperature?: SortOrder
+    seed?: SortOrder
+    videoR2Key?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type AvatarVideoAvgOrderByAggregateInput = {
+    exaggeration?: SortOrder
+    cfgWeight?: SortOrder
+    temperature?: SortOrder
+    seed?: SortOrder
+  }
+
+  export type AvatarVideoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    status?: SortOrder
+    errorMessage?: SortOrder
+    avatarR2Key?: SortOrder
+    audioR2Key?: SortOrder
+    script?: SortOrder
+    voiceR2Key?: SortOrder
+    language?: SortOrder
+    exaggeration?: SortOrder
+    cfgWeight?: SortOrder
+    temperature?: SortOrder
+    seed?: SortOrder
+    videoR2Key?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type AvatarVideoMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    status?: SortOrder
+    errorMessage?: SortOrder
+    avatarR2Key?: SortOrder
+    audioR2Key?: SortOrder
+    script?: SortOrder
+    voiceR2Key?: SortOrder
+    language?: SortOrder
+    exaggeration?: SortOrder
+    cfgWeight?: SortOrder
+    temperature?: SortOrder
+    seed?: SortOrder
+    videoR2Key?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type AvatarVideoSumOrderByAggregateInput = {
+    exaggeration?: SortOrder
+    cfgWeight?: SortOrder
+    temperature?: SortOrder
+    seed?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type VoiceoverCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    status?: SortOrder
+    errorMessage?: SortOrder
+    script?: SortOrder
+    voiceR2Key?: SortOrder
+    language?: SortOrder
+    exaggeration?: SortOrder
+    cfgWeight?: SortOrder
+    temperature?: SortOrder
+    seed?: SortOrder
+    audioR2Key?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type VoiceoverAvgOrderByAggregateInput = {
+    exaggeration?: SortOrder
+    cfgWeight?: SortOrder
+    temperature?: SortOrder
+    seed?: SortOrder
+  }
+
+  export type VoiceoverMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    status?: SortOrder
+    errorMessage?: SortOrder
+    script?: SortOrder
+    voiceR2Key?: SortOrder
+    language?: SortOrder
+    exaggeration?: SortOrder
+    cfgWeight?: SortOrder
+    temperature?: SortOrder
+    seed?: SortOrder
+    audioR2Key?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type VoiceoverMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    status?: SortOrder
+    errorMessage?: SortOrder
+    script?: SortOrder
+    voiceR2Key?: SortOrder
+    language?: SortOrder
+    exaggeration?: SortOrder
+    cfgWeight?: SortOrder
+    temperature?: SortOrder
+    seed?: SortOrder
+    audioR2Key?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type VoiceoverSumOrderByAggregateInput = {
+    exaggeration?: SortOrder
+    cfgWeight?: SortOrder
+    temperature?: SortOrder
+    seed?: SortOrder
+  }
+
+  export type GenerationEventCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    type?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type GenerationEventMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    type?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type GenerationEventMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    type?: SortOrder
+    userId?: SortOrder
+  }
+
   export type SessionCreateNestedManyWithoutUserInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -6646,6 +11433,27 @@ export namespace Prisma {
     connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
   }
 
+  export type AvatarVideoCreateNestedManyWithoutUserInput = {
+    create?: XOR<AvatarVideoCreateWithoutUserInput, AvatarVideoUncheckedCreateWithoutUserInput> | AvatarVideoCreateWithoutUserInput[] | AvatarVideoUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AvatarVideoCreateOrConnectWithoutUserInput | AvatarVideoCreateOrConnectWithoutUserInput[]
+    createMany?: AvatarVideoCreateManyUserInputEnvelope
+    connect?: AvatarVideoWhereUniqueInput | AvatarVideoWhereUniqueInput[]
+  }
+
+  export type VoiceoverCreateNestedManyWithoutUserInput = {
+    create?: XOR<VoiceoverCreateWithoutUserInput, VoiceoverUncheckedCreateWithoutUserInput> | VoiceoverCreateWithoutUserInput[] | VoiceoverUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: VoiceoverCreateOrConnectWithoutUserInput | VoiceoverCreateOrConnectWithoutUserInput[]
+    createMany?: VoiceoverCreateManyUserInputEnvelope
+    connect?: VoiceoverWhereUniqueInput | VoiceoverWhereUniqueInput[]
+  }
+
+  export type GenerationEventCreateNestedManyWithoutUserInput = {
+    create?: XOR<GenerationEventCreateWithoutUserInput, GenerationEventUncheckedCreateWithoutUserInput> | GenerationEventCreateWithoutUserInput[] | GenerationEventUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GenerationEventCreateOrConnectWithoutUserInput | GenerationEventCreateOrConnectWithoutUserInput[]
+    createMany?: GenerationEventCreateManyUserInputEnvelope
+    connect?: GenerationEventWhereUniqueInput | GenerationEventWhereUniqueInput[]
+  }
+
   export type SessionUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -6658,6 +11466,27 @@ export namespace Prisma {
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
     createMany?: AccountCreateManyUserInputEnvelope
     connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+  }
+
+  export type AvatarVideoUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AvatarVideoCreateWithoutUserInput, AvatarVideoUncheckedCreateWithoutUserInput> | AvatarVideoCreateWithoutUserInput[] | AvatarVideoUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AvatarVideoCreateOrConnectWithoutUserInput | AvatarVideoCreateOrConnectWithoutUserInput[]
+    createMany?: AvatarVideoCreateManyUserInputEnvelope
+    connect?: AvatarVideoWhereUniqueInput | AvatarVideoWhereUniqueInput[]
+  }
+
+  export type VoiceoverUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<VoiceoverCreateWithoutUserInput, VoiceoverUncheckedCreateWithoutUserInput> | VoiceoverCreateWithoutUserInput[] | VoiceoverUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: VoiceoverCreateOrConnectWithoutUserInput | VoiceoverCreateOrConnectWithoutUserInput[]
+    createMany?: VoiceoverCreateManyUserInputEnvelope
+    connect?: VoiceoverWhereUniqueInput | VoiceoverWhereUniqueInput[]
+  }
+
+  export type GenerationEventUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<GenerationEventCreateWithoutUserInput, GenerationEventUncheckedCreateWithoutUserInput> | GenerationEventCreateWithoutUserInput[] | GenerationEventUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GenerationEventCreateOrConnectWithoutUserInput | GenerationEventCreateOrConnectWithoutUserInput[]
+    createMany?: GenerationEventCreateManyUserInputEnvelope
+    connect?: GenerationEventWhereUniqueInput | GenerationEventWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -6704,6 +11533,48 @@ export namespace Prisma {
     deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[]
   }
 
+  export type AvatarVideoUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AvatarVideoCreateWithoutUserInput, AvatarVideoUncheckedCreateWithoutUserInput> | AvatarVideoCreateWithoutUserInput[] | AvatarVideoUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AvatarVideoCreateOrConnectWithoutUserInput | AvatarVideoCreateOrConnectWithoutUserInput[]
+    upsert?: AvatarVideoUpsertWithWhereUniqueWithoutUserInput | AvatarVideoUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AvatarVideoCreateManyUserInputEnvelope
+    set?: AvatarVideoWhereUniqueInput | AvatarVideoWhereUniqueInput[]
+    disconnect?: AvatarVideoWhereUniqueInput | AvatarVideoWhereUniqueInput[]
+    delete?: AvatarVideoWhereUniqueInput | AvatarVideoWhereUniqueInput[]
+    connect?: AvatarVideoWhereUniqueInput | AvatarVideoWhereUniqueInput[]
+    update?: AvatarVideoUpdateWithWhereUniqueWithoutUserInput | AvatarVideoUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AvatarVideoUpdateManyWithWhereWithoutUserInput | AvatarVideoUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AvatarVideoScalarWhereInput | AvatarVideoScalarWhereInput[]
+  }
+
+  export type VoiceoverUpdateManyWithoutUserNestedInput = {
+    create?: XOR<VoiceoverCreateWithoutUserInput, VoiceoverUncheckedCreateWithoutUserInput> | VoiceoverCreateWithoutUserInput[] | VoiceoverUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: VoiceoverCreateOrConnectWithoutUserInput | VoiceoverCreateOrConnectWithoutUserInput[]
+    upsert?: VoiceoverUpsertWithWhereUniqueWithoutUserInput | VoiceoverUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: VoiceoverCreateManyUserInputEnvelope
+    set?: VoiceoverWhereUniqueInput | VoiceoverWhereUniqueInput[]
+    disconnect?: VoiceoverWhereUniqueInput | VoiceoverWhereUniqueInput[]
+    delete?: VoiceoverWhereUniqueInput | VoiceoverWhereUniqueInput[]
+    connect?: VoiceoverWhereUniqueInput | VoiceoverWhereUniqueInput[]
+    update?: VoiceoverUpdateWithWhereUniqueWithoutUserInput | VoiceoverUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: VoiceoverUpdateManyWithWhereWithoutUserInput | VoiceoverUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: VoiceoverScalarWhereInput | VoiceoverScalarWhereInput[]
+  }
+
+  export type GenerationEventUpdateManyWithoutUserNestedInput = {
+    create?: XOR<GenerationEventCreateWithoutUserInput, GenerationEventUncheckedCreateWithoutUserInput> | GenerationEventCreateWithoutUserInput[] | GenerationEventUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GenerationEventCreateOrConnectWithoutUserInput | GenerationEventCreateOrConnectWithoutUserInput[]
+    upsert?: GenerationEventUpsertWithWhereUniqueWithoutUserInput | GenerationEventUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: GenerationEventCreateManyUserInputEnvelope
+    set?: GenerationEventWhereUniqueInput | GenerationEventWhereUniqueInput[]
+    disconnect?: GenerationEventWhereUniqueInput | GenerationEventWhereUniqueInput[]
+    delete?: GenerationEventWhereUniqueInput | GenerationEventWhereUniqueInput[]
+    connect?: GenerationEventWhereUniqueInput | GenerationEventWhereUniqueInput[]
+    update?: GenerationEventUpdateWithWhereUniqueWithoutUserInput | GenerationEventUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: GenerationEventUpdateManyWithWhereWithoutUserInput | GenerationEventUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: GenerationEventScalarWhereInput | GenerationEventScalarWhereInput[]
+  }
+
   export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -6730,6 +11601,48 @@ export namespace Prisma {
     update?: AccountUpdateWithWhereUniqueWithoutUserInput | AccountUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: AccountUpdateManyWithWhereWithoutUserInput | AccountUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[]
+  }
+
+  export type AvatarVideoUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AvatarVideoCreateWithoutUserInput, AvatarVideoUncheckedCreateWithoutUserInput> | AvatarVideoCreateWithoutUserInput[] | AvatarVideoUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AvatarVideoCreateOrConnectWithoutUserInput | AvatarVideoCreateOrConnectWithoutUserInput[]
+    upsert?: AvatarVideoUpsertWithWhereUniqueWithoutUserInput | AvatarVideoUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AvatarVideoCreateManyUserInputEnvelope
+    set?: AvatarVideoWhereUniqueInput | AvatarVideoWhereUniqueInput[]
+    disconnect?: AvatarVideoWhereUniqueInput | AvatarVideoWhereUniqueInput[]
+    delete?: AvatarVideoWhereUniqueInput | AvatarVideoWhereUniqueInput[]
+    connect?: AvatarVideoWhereUniqueInput | AvatarVideoWhereUniqueInput[]
+    update?: AvatarVideoUpdateWithWhereUniqueWithoutUserInput | AvatarVideoUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AvatarVideoUpdateManyWithWhereWithoutUserInput | AvatarVideoUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AvatarVideoScalarWhereInput | AvatarVideoScalarWhereInput[]
+  }
+
+  export type VoiceoverUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<VoiceoverCreateWithoutUserInput, VoiceoverUncheckedCreateWithoutUserInput> | VoiceoverCreateWithoutUserInput[] | VoiceoverUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: VoiceoverCreateOrConnectWithoutUserInput | VoiceoverCreateOrConnectWithoutUserInput[]
+    upsert?: VoiceoverUpsertWithWhereUniqueWithoutUserInput | VoiceoverUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: VoiceoverCreateManyUserInputEnvelope
+    set?: VoiceoverWhereUniqueInput | VoiceoverWhereUniqueInput[]
+    disconnect?: VoiceoverWhereUniqueInput | VoiceoverWhereUniqueInput[]
+    delete?: VoiceoverWhereUniqueInput | VoiceoverWhereUniqueInput[]
+    connect?: VoiceoverWhereUniqueInput | VoiceoverWhereUniqueInput[]
+    update?: VoiceoverUpdateWithWhereUniqueWithoutUserInput | VoiceoverUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: VoiceoverUpdateManyWithWhereWithoutUserInput | VoiceoverUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: VoiceoverScalarWhereInput | VoiceoverScalarWhereInput[]
+  }
+
+  export type GenerationEventUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<GenerationEventCreateWithoutUserInput, GenerationEventUncheckedCreateWithoutUserInput> | GenerationEventCreateWithoutUserInput[] | GenerationEventUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GenerationEventCreateOrConnectWithoutUserInput | GenerationEventCreateOrConnectWithoutUserInput[]
+    upsert?: GenerationEventUpsertWithWhereUniqueWithoutUserInput | GenerationEventUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: GenerationEventCreateManyUserInputEnvelope
+    set?: GenerationEventWhereUniqueInput | GenerationEventWhereUniqueInput[]
+    disconnect?: GenerationEventWhereUniqueInput | GenerationEventWhereUniqueInput[]
+    delete?: GenerationEventWhereUniqueInput | GenerationEventWhereUniqueInput[]
+    connect?: GenerationEventWhereUniqueInput | GenerationEventWhereUniqueInput[]
+    update?: GenerationEventUpdateWithWhereUniqueWithoutUserInput | GenerationEventUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: GenerationEventUpdateManyWithWhereWithoutUserInput | GenerationEventUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: GenerationEventScalarWhereInput | GenerationEventScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutSessionsInput = {
@@ -6762,6 +11675,64 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutAccountsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAccountsInput, UserUpdateWithoutAccountsInput>, UserUncheckedUpdateWithoutAccountsInput>
+  }
+
+  export type UserCreateNestedOneWithoutAvatarVideosInput = {
+    create?: XOR<UserCreateWithoutAvatarVideosInput, UserUncheckedCreateWithoutAvatarVideosInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAvatarVideosInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutAvatarVideosNestedInput = {
+    create?: XOR<UserCreateWithoutAvatarVideosInput, UserUncheckedCreateWithoutAvatarVideosInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAvatarVideosInput
+    upsert?: UserUpsertWithoutAvatarVideosInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAvatarVideosInput, UserUpdateWithoutAvatarVideosInput>, UserUncheckedUpdateWithoutAvatarVideosInput>
+  }
+
+  export type UserCreateNestedOneWithoutVoiceoversInput = {
+    create?: XOR<UserCreateWithoutVoiceoversInput, UserUncheckedCreateWithoutVoiceoversInput>
+    connectOrCreate?: UserCreateOrConnectWithoutVoiceoversInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutVoiceoversNestedInput = {
+    create?: XOR<UserCreateWithoutVoiceoversInput, UserUncheckedCreateWithoutVoiceoversInput>
+    connectOrCreate?: UserCreateOrConnectWithoutVoiceoversInput
+    upsert?: UserUpsertWithoutVoiceoversInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutVoiceoversInput, UserUpdateWithoutVoiceoversInput>, UserUncheckedUpdateWithoutVoiceoversInput>
+  }
+
+  export type UserCreateNestedOneWithoutGenerationEventsInput = {
+    create?: XOR<UserCreateWithoutGenerationEventsInput, UserUncheckedCreateWithoutGenerationEventsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGenerationEventsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutGenerationEventsNestedInput = {
+    create?: XOR<UserCreateWithoutGenerationEventsInput, UserUncheckedCreateWithoutGenerationEventsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGenerationEventsInput
+    upsert?: UserUpsertWithoutGenerationEventsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutGenerationEventsInput, UserUpdateWithoutGenerationEventsInput>, UserUncheckedUpdateWithoutGenerationEventsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -6911,6 +11882,49 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
   export type SessionCreateWithoutUserInput = {
     id: string
     expiresAt: Date | string
@@ -6981,6 +11995,116 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AvatarVideoCreateWithoutUserInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    errorMessage?: string | null
+    avatarR2Key: string
+    audioR2Key?: string | null
+    script?: string | null
+    voiceR2Key?: string | null
+    language?: string
+    exaggeration?: number
+    cfgWeight?: number
+    temperature?: number
+    seed?: number
+    videoR2Key?: string | null
+  }
+
+  export type AvatarVideoUncheckedCreateWithoutUserInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    errorMessage?: string | null
+    avatarR2Key: string
+    audioR2Key?: string | null
+    script?: string | null
+    voiceR2Key?: string | null
+    language?: string
+    exaggeration?: number
+    cfgWeight?: number
+    temperature?: number
+    seed?: number
+    videoR2Key?: string | null
+  }
+
+  export type AvatarVideoCreateOrConnectWithoutUserInput = {
+    where: AvatarVideoWhereUniqueInput
+    create: XOR<AvatarVideoCreateWithoutUserInput, AvatarVideoUncheckedCreateWithoutUserInput>
+  }
+
+  export type AvatarVideoCreateManyUserInputEnvelope = {
+    data: AvatarVideoCreateManyUserInput | AvatarVideoCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VoiceoverCreateWithoutUserInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    errorMessage?: string | null
+    script: string
+    voiceR2Key?: string | null
+    language?: string
+    exaggeration?: number
+    cfgWeight?: number
+    temperature?: number
+    seed?: number
+    audioR2Key?: string | null
+  }
+
+  export type VoiceoverUncheckedCreateWithoutUserInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    errorMessage?: string | null
+    script: string
+    voiceR2Key?: string | null
+    language?: string
+    exaggeration?: number
+    cfgWeight?: number
+    temperature?: number
+    seed?: number
+    audioR2Key?: string | null
+  }
+
+  export type VoiceoverCreateOrConnectWithoutUserInput = {
+    where: VoiceoverWhereUniqueInput
+    create: XOR<VoiceoverCreateWithoutUserInput, VoiceoverUncheckedCreateWithoutUserInput>
+  }
+
+  export type VoiceoverCreateManyUserInputEnvelope = {
+    data: VoiceoverCreateManyUserInput | VoiceoverCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GenerationEventCreateWithoutUserInput = {
+    id?: string
+    createdAt?: Date | string
+    type: string
+  }
+
+  export type GenerationEventUncheckedCreateWithoutUserInput = {
+    id?: string
+    createdAt?: Date | string
+    type: string
+  }
+
+  export type GenerationEventCreateOrConnectWithoutUserInput = {
+    where: GenerationEventWhereUniqueInput
+    create: XOR<GenerationEventCreateWithoutUserInput, GenerationEventUncheckedCreateWithoutUserInput>
+  }
+
+  export type GenerationEventCreateManyUserInputEnvelope = {
+    data: GenerationEventCreateManyUserInput | GenerationEventCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SessionUpsertWithWhereUniqueWithoutUserInput = {
     where: SessionWhereUniqueInput
     update: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
@@ -7046,6 +12170,106 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Account"> | Date | string
   }
 
+  export type AvatarVideoUpsertWithWhereUniqueWithoutUserInput = {
+    where: AvatarVideoWhereUniqueInput
+    update: XOR<AvatarVideoUpdateWithoutUserInput, AvatarVideoUncheckedUpdateWithoutUserInput>
+    create: XOR<AvatarVideoCreateWithoutUserInput, AvatarVideoUncheckedCreateWithoutUserInput>
+  }
+
+  export type AvatarVideoUpdateWithWhereUniqueWithoutUserInput = {
+    where: AvatarVideoWhereUniqueInput
+    data: XOR<AvatarVideoUpdateWithoutUserInput, AvatarVideoUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AvatarVideoUpdateManyWithWhereWithoutUserInput = {
+    where: AvatarVideoScalarWhereInput
+    data: XOR<AvatarVideoUpdateManyMutationInput, AvatarVideoUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AvatarVideoScalarWhereInput = {
+    AND?: AvatarVideoScalarWhereInput | AvatarVideoScalarWhereInput[]
+    OR?: AvatarVideoScalarWhereInput[]
+    NOT?: AvatarVideoScalarWhereInput | AvatarVideoScalarWhereInput[]
+    id?: StringFilter<"AvatarVideo"> | string
+    createdAt?: DateTimeFilter<"AvatarVideo"> | Date | string
+    updatedAt?: DateTimeFilter<"AvatarVideo"> | Date | string
+    status?: StringFilter<"AvatarVideo"> | string
+    errorMessage?: StringNullableFilter<"AvatarVideo"> | string | null
+    avatarR2Key?: StringFilter<"AvatarVideo"> | string
+    audioR2Key?: StringNullableFilter<"AvatarVideo"> | string | null
+    script?: StringNullableFilter<"AvatarVideo"> | string | null
+    voiceR2Key?: StringNullableFilter<"AvatarVideo"> | string | null
+    language?: StringFilter<"AvatarVideo"> | string
+    exaggeration?: FloatFilter<"AvatarVideo"> | number
+    cfgWeight?: FloatFilter<"AvatarVideo"> | number
+    temperature?: FloatFilter<"AvatarVideo"> | number
+    seed?: IntFilter<"AvatarVideo"> | number
+    videoR2Key?: StringNullableFilter<"AvatarVideo"> | string | null
+    userId?: StringFilter<"AvatarVideo"> | string
+  }
+
+  export type VoiceoverUpsertWithWhereUniqueWithoutUserInput = {
+    where: VoiceoverWhereUniqueInput
+    update: XOR<VoiceoverUpdateWithoutUserInput, VoiceoverUncheckedUpdateWithoutUserInput>
+    create: XOR<VoiceoverCreateWithoutUserInput, VoiceoverUncheckedCreateWithoutUserInput>
+  }
+
+  export type VoiceoverUpdateWithWhereUniqueWithoutUserInput = {
+    where: VoiceoverWhereUniqueInput
+    data: XOR<VoiceoverUpdateWithoutUserInput, VoiceoverUncheckedUpdateWithoutUserInput>
+  }
+
+  export type VoiceoverUpdateManyWithWhereWithoutUserInput = {
+    where: VoiceoverScalarWhereInput
+    data: XOR<VoiceoverUpdateManyMutationInput, VoiceoverUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type VoiceoverScalarWhereInput = {
+    AND?: VoiceoverScalarWhereInput | VoiceoverScalarWhereInput[]
+    OR?: VoiceoverScalarWhereInput[]
+    NOT?: VoiceoverScalarWhereInput | VoiceoverScalarWhereInput[]
+    id?: StringFilter<"Voiceover"> | string
+    createdAt?: DateTimeFilter<"Voiceover"> | Date | string
+    updatedAt?: DateTimeFilter<"Voiceover"> | Date | string
+    status?: StringFilter<"Voiceover"> | string
+    errorMessage?: StringNullableFilter<"Voiceover"> | string | null
+    script?: StringFilter<"Voiceover"> | string
+    voiceR2Key?: StringNullableFilter<"Voiceover"> | string | null
+    language?: StringFilter<"Voiceover"> | string
+    exaggeration?: FloatFilter<"Voiceover"> | number
+    cfgWeight?: FloatFilter<"Voiceover"> | number
+    temperature?: FloatFilter<"Voiceover"> | number
+    seed?: IntFilter<"Voiceover"> | number
+    audioR2Key?: StringNullableFilter<"Voiceover"> | string | null
+    userId?: StringFilter<"Voiceover"> | string
+  }
+
+  export type GenerationEventUpsertWithWhereUniqueWithoutUserInput = {
+    where: GenerationEventWhereUniqueInput
+    update: XOR<GenerationEventUpdateWithoutUserInput, GenerationEventUncheckedUpdateWithoutUserInput>
+    create: XOR<GenerationEventCreateWithoutUserInput, GenerationEventUncheckedCreateWithoutUserInput>
+  }
+
+  export type GenerationEventUpdateWithWhereUniqueWithoutUserInput = {
+    where: GenerationEventWhereUniqueInput
+    data: XOR<GenerationEventUpdateWithoutUserInput, GenerationEventUncheckedUpdateWithoutUserInput>
+  }
+
+  export type GenerationEventUpdateManyWithWhereWithoutUserInput = {
+    where: GenerationEventScalarWhereInput
+    data: XOR<GenerationEventUpdateManyMutationInput, GenerationEventUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type GenerationEventScalarWhereInput = {
+    AND?: GenerationEventScalarWhereInput | GenerationEventScalarWhereInput[]
+    OR?: GenerationEventScalarWhereInput[]
+    NOT?: GenerationEventScalarWhereInput | GenerationEventScalarWhereInput[]
+    id?: StringFilter<"GenerationEvent"> | string
+    createdAt?: DateTimeFilter<"GenerationEvent"> | Date | string
+    type?: StringFilter<"GenerationEvent"> | string
+    userId?: StringFilter<"GenerationEvent"> | string
+  }
+
   export type UserCreateWithoutSessionsInput = {
     id: string
     name: string
@@ -7055,6 +12279,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
+    avatarVideos?: AvatarVideoCreateNestedManyWithoutUserInput
+    voiceovers?: VoiceoverCreateNestedManyWithoutUserInput
+    generationEvents?: GenerationEventCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -7066,6 +12293,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    avatarVideos?: AvatarVideoUncheckedCreateNestedManyWithoutUserInput
+    voiceovers?: VoiceoverUncheckedCreateNestedManyWithoutUserInput
+    generationEvents?: GenerationEventUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -7093,6 +12323,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
+    avatarVideos?: AvatarVideoUpdateManyWithoutUserNestedInput
+    voiceovers?: VoiceoverUpdateManyWithoutUserNestedInput
+    generationEvents?: GenerationEventUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -7104,6 +12337,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    avatarVideos?: AvatarVideoUncheckedUpdateManyWithoutUserNestedInput
+    voiceovers?: VoiceoverUncheckedUpdateManyWithoutUserNestedInput
+    generationEvents?: GenerationEventUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAccountsInput = {
@@ -7115,6 +12351,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
+    avatarVideos?: AvatarVideoCreateNestedManyWithoutUserInput
+    voiceovers?: VoiceoverCreateNestedManyWithoutUserInput
+    generationEvents?: GenerationEventCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -7126,6 +12365,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    avatarVideos?: AvatarVideoUncheckedCreateNestedManyWithoutUserInput
+    voiceovers?: VoiceoverUncheckedCreateNestedManyWithoutUserInput
+    generationEvents?: GenerationEventUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -7153,6 +12395,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    avatarVideos?: AvatarVideoUpdateManyWithoutUserNestedInput
+    voiceovers?: VoiceoverUpdateManyWithoutUserNestedInput
+    generationEvents?: GenerationEventUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -7164,6 +12409,225 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    avatarVideos?: AvatarVideoUncheckedUpdateManyWithoutUserNestedInput
+    voiceovers?: VoiceoverUncheckedUpdateManyWithoutUserNestedInput
+    generationEvents?: GenerationEventUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutAvatarVideosInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    voiceovers?: VoiceoverCreateNestedManyWithoutUserInput
+    generationEvents?: GenerationEventCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAvatarVideosInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    voiceovers?: VoiceoverUncheckedCreateNestedManyWithoutUserInput
+    generationEvents?: GenerationEventUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAvatarVideosInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAvatarVideosInput, UserUncheckedCreateWithoutAvatarVideosInput>
+  }
+
+  export type UserUpsertWithoutAvatarVideosInput = {
+    update: XOR<UserUpdateWithoutAvatarVideosInput, UserUncheckedUpdateWithoutAvatarVideosInput>
+    create: XOR<UserCreateWithoutAvatarVideosInput, UserUncheckedCreateWithoutAvatarVideosInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAvatarVideosInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAvatarVideosInput, UserUncheckedUpdateWithoutAvatarVideosInput>
+  }
+
+  export type UserUpdateWithoutAvatarVideosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    voiceovers?: VoiceoverUpdateManyWithoutUserNestedInput
+    generationEvents?: GenerationEventUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAvatarVideosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    voiceovers?: VoiceoverUncheckedUpdateManyWithoutUserNestedInput
+    generationEvents?: GenerationEventUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutVoiceoversInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    avatarVideos?: AvatarVideoCreateNestedManyWithoutUserInput
+    generationEvents?: GenerationEventCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutVoiceoversInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    avatarVideos?: AvatarVideoUncheckedCreateNestedManyWithoutUserInput
+    generationEvents?: GenerationEventUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutVoiceoversInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutVoiceoversInput, UserUncheckedCreateWithoutVoiceoversInput>
+  }
+
+  export type UserUpsertWithoutVoiceoversInput = {
+    update: XOR<UserUpdateWithoutVoiceoversInput, UserUncheckedUpdateWithoutVoiceoversInput>
+    create: XOR<UserCreateWithoutVoiceoversInput, UserUncheckedCreateWithoutVoiceoversInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutVoiceoversInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutVoiceoversInput, UserUncheckedUpdateWithoutVoiceoversInput>
+  }
+
+  export type UserUpdateWithoutVoiceoversInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    avatarVideos?: AvatarVideoUpdateManyWithoutUserNestedInput
+    generationEvents?: GenerationEventUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutVoiceoversInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    avatarVideos?: AvatarVideoUncheckedUpdateManyWithoutUserNestedInput
+    generationEvents?: GenerationEventUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutGenerationEventsInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    avatarVideos?: AvatarVideoCreateNestedManyWithoutUserInput
+    voiceovers?: VoiceoverCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutGenerationEventsInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    avatarVideos?: AvatarVideoUncheckedCreateNestedManyWithoutUserInput
+    voiceovers?: VoiceoverUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutGenerationEventsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutGenerationEventsInput, UserUncheckedCreateWithoutGenerationEventsInput>
+  }
+
+  export type UserUpsertWithoutGenerationEventsInput = {
+    update: XOR<UserUpdateWithoutGenerationEventsInput, UserUncheckedUpdateWithoutGenerationEventsInput>
+    create: XOR<UserCreateWithoutGenerationEventsInput, UserUncheckedCreateWithoutGenerationEventsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutGenerationEventsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutGenerationEventsInput, UserUncheckedUpdateWithoutGenerationEventsInput>
+  }
+
+  export type UserUpdateWithoutGenerationEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    avatarVideos?: AvatarVideoUpdateManyWithoutUserNestedInput
+    voiceovers?: VoiceoverUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutGenerationEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    avatarVideos?: AvatarVideoUncheckedUpdateManyWithoutUserNestedInput
+    voiceovers?: VoiceoverUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SessionCreateManyUserInput = {
@@ -7189,6 +12653,46 @@ export namespace Prisma {
     password?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type AvatarVideoCreateManyUserInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    errorMessage?: string | null
+    avatarR2Key: string
+    audioR2Key?: string | null
+    script?: string | null
+    voiceR2Key?: string | null
+    language?: string
+    exaggeration?: number
+    cfgWeight?: number
+    temperature?: number
+    seed?: number
+    videoR2Key?: string | null
+  }
+
+  export type VoiceoverCreateManyUserInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    errorMessage?: string | null
+    script: string
+    voiceR2Key?: string | null
+    language?: string
+    exaggeration?: number
+    cfgWeight?: number
+    temperature?: number
+    seed?: number
+    audioR2Key?: string | null
+  }
+
+  export type GenerationEventCreateManyUserInput = {
+    id?: string
+    createdAt?: Date | string
+    type: string
   }
 
   export type SessionUpdateWithoutUserInput = {
@@ -7264,6 +12768,126 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AvatarVideoUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarR2Key?: StringFieldUpdateOperationsInput | string
+    audioR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    script?: NullableStringFieldUpdateOperationsInput | string | null
+    voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exaggeration?: FloatFieldUpdateOperationsInput | number
+    cfgWeight?: FloatFieldUpdateOperationsInput | number
+    temperature?: FloatFieldUpdateOperationsInput | number
+    seed?: IntFieldUpdateOperationsInput | number
+    videoR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AvatarVideoUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarR2Key?: StringFieldUpdateOperationsInput | string
+    audioR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    script?: NullableStringFieldUpdateOperationsInput | string | null
+    voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exaggeration?: FloatFieldUpdateOperationsInput | number
+    cfgWeight?: FloatFieldUpdateOperationsInput | number
+    temperature?: FloatFieldUpdateOperationsInput | number
+    seed?: IntFieldUpdateOperationsInput | number
+    videoR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AvatarVideoUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarR2Key?: StringFieldUpdateOperationsInput | string
+    audioR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    script?: NullableStringFieldUpdateOperationsInput | string | null
+    voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exaggeration?: FloatFieldUpdateOperationsInput | number
+    cfgWeight?: FloatFieldUpdateOperationsInput | number
+    temperature?: FloatFieldUpdateOperationsInput | number
+    seed?: IntFieldUpdateOperationsInput | number
+    videoR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type VoiceoverUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    script?: StringFieldUpdateOperationsInput | string
+    voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exaggeration?: FloatFieldUpdateOperationsInput | number
+    cfgWeight?: FloatFieldUpdateOperationsInput | number
+    temperature?: FloatFieldUpdateOperationsInput | number
+    seed?: IntFieldUpdateOperationsInput | number
+    audioR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type VoiceoverUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    script?: StringFieldUpdateOperationsInput | string
+    voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exaggeration?: FloatFieldUpdateOperationsInput | number
+    cfgWeight?: FloatFieldUpdateOperationsInput | number
+    temperature?: FloatFieldUpdateOperationsInput | number
+    seed?: IntFieldUpdateOperationsInput | number
+    audioR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type VoiceoverUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    script?: StringFieldUpdateOperationsInput | string
+    voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    exaggeration?: FloatFieldUpdateOperationsInput | number
+    cfgWeight?: FloatFieldUpdateOperationsInput | number
+    temperature?: FloatFieldUpdateOperationsInput | number
+    seed?: IntFieldUpdateOperationsInput | number
+    audioR2Key?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type GenerationEventUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GenerationEventUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GenerationEventUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: StringFieldUpdateOperationsInput | string
   }
 
 

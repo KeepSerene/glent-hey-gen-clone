@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertTriangle, ChevronDown } from "lucide-react";
+import { AlertTriangle, ChevronDown, Info } from "lucide-react";
 import { SUPPORTED_LANGUAGES, type LanguageCode } from "~/lib/constants";
 import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui/button";
@@ -10,6 +10,7 @@ import {
   CollapsibleTrigger,
 } from "~/components/ui/collapsible";
 import { Label } from "~/components/ui/label";
+import { Input } from "~/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -17,6 +18,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
 import SliderRow from "./SliderRow";
 import { type TtsSettings } from "./types";
 
@@ -132,6 +138,39 @@ function TtsSettingsPanel({
             value={settings.temperature}
             onChange={(v) => onUpdate("temperature", v)}
           />
+
+          <div className="flex flex-col gap-1.5">
+            <div className="flex items-center gap-1.5">
+              <Label htmlFor="seed-input" className="text-xs">
+                Generation Seed
+              </Label>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Info className="text-muted-foreground size-3.5 cursor-help" />
+                </TooltipTrigger>
+
+                <TooltipContent className="max-w-52 text-xs">
+                  Set a specific number to lock in the voice's pacing and
+                  inflection, making it reproducible. Leave at 0 for a random
+                  performance every time.
+                </TooltipContent>
+              </Tooltip>
+            </div>
+
+            <Input
+              id="seed-input"
+              type="number"
+              min={0}
+              placeholder="0"
+              value={settings.seed || ""}
+              onChange={(e) => {
+                const val = parseInt(e.target.value, 10);
+                onUpdate("seed", isNaN(val) ? 0 : val);
+              }}
+              className="w-full text-xs tabular-nums"
+            />
+          </div>
 
           <Button
             type="button"

@@ -1,10 +1,14 @@
 "use client";
 
-import { Sparkles } from "lucide-react";
+import { Loader2, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import useAudioPlayer from "~/hooks/useAudioPlayer";
-import { MAX_TTS_SCRIPT_LENGTH, MIN_TTS_SCRIPT_LENGTH } from "~/lib/constants";
+import {
+  DAILY_LIMITS,
+  MAX_TTS_SCRIPT_LENGTH,
+  MIN_TTS_SCRIPT_LENGTH,
+} from "~/lib/constants";
 import { cn } from "~/lib/utils";
 import {
   Dialog,
@@ -19,15 +23,26 @@ import SampleVoiceModal, { type Voice } from "./SampleVoiceModal";
 import TtsSettingsPanel from "./avatar-video/TtsSettingsPanel";
 import { DEFAULT_TTS_SETTINGS, type TtsSettings } from "./avatar-video/types";
 import VoiceIndicator from "./avatar-video/VoiceIndicator";
+import useGenerationStatus from "~/hooks/useGenerationStatus";
+import { uploadFileToR2 } from "~/lib/r2-upload";
+import { createVoiceoverJob } from "~/server/actions/generate";
+import GenerationProgress from "../GenerationProgress";
+import LimitBanner from "../LimitBanner";
 
 interface AiVoiceStudioModalProps {
   isOpen: boolean;
   onOpenStateChange: (isOpen: boolean) => void;
+  /** True when the user has exhausted their daily voiceover quota. */
+  isLimitReached: boolean;
+  /** ISO string — earliest time the quota will free up. */
+  resetsAt: string | null;
 }
 
 function AiVoiceStudioModal({
   isOpen,
   onOpenStateChange,
+  isLimitReached,
+  resetsAt,
 }: AiVoiceStudioModalProps) {
   const [script, setScript] = useState("");
   const [voiceModalOpen, setVoiceModalOpen] = useState(false);
@@ -40,6 +55,11 @@ function AiVoiceStudioModal({
   const [advancedOpen, setAdvancedOpen] = useState(false);
 
   const { audioSrc, togglePlay } = useAudioPlayer();
+
+  const [jobId, setJobId] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const { data: generationStatus } = useGenerationStatus("voiceover", jobId);
 
   useEffect(() => {
     if (!userAudioFile) {
@@ -61,12 +81,54 @@ function AiVoiceStudioModal({
   // Validations
   const hasVoice = !!selectedVoice || !!userAudioFile;
   const isScriptLongEnough = script.trim().length >= MIN_TTS_SCRIPT_LENGTH;
-  const canGenerate = isScriptLongEnough && hasVoice;
+  const canGenerate = isScriptLongEnough && hasVoice && !isLimitReached;
 
-  const handleGenerate = () => {
-    if (!canGenerate) return;
+  const handleGenerate = async () => {
+    if (!canGenerate || isSubmitting) return;
 
-    toast.info("Voice generation queued — backend wiring coming next.");
+    setIsSubmitting(true);
+
+    try {
+      let voiceR2Key: string | undefined;
+
+      if (userAudioFile) {
+        voiceR2Key = await uploadFileToR2(userAudioFile, "voices");
+      } else if (selectedVoice) {
+        voiceR2Key = selectedVoice.r2Key;
+      }
+
+      const { jobId: id } = await createVoiceoverJob({
+        script,
+        voiceR2Key,
+        language: ttsSettings.language,
+        exaggeration: ttsSettings.exaggeration,
+        cfgWeight: ttsSettings.cfgWeight,
+        temperature: ttsSettings.temperature,
+        seed: ttsSettings.seed ?? 0,
+      });
+
+      setJobId(id);
+    } catch (err) {
+      console.error("Voiceover generation failed:", err);
+
+      const message = err instanceof Error ? err.message : "";
+      if (message.startsWith("DAILY_LIMIT_EXCEEDED")) {
+        toast.error("Daily limit reached. Please try again later.");
+      } else {
+        toast.error("Failed to start generation. Please try again.");
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleReset = () => {
+    setJobId(null);
+    setIsSubmitting(false);
+    setScript("");
+    setSelectedVoice(null);
+    setUserAudioFile(null);
+    setUserAudioUrl(null);
   };
 
   return (
@@ -75,7 +137,7 @@ function AiVoiceStudioModal({
         <DialogContent className="max-h-[85vh] w-full max-w-xl overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-2xl font-semibold text-emerald-500 dark:text-emerald-500">
-              AI Voice Studio
+              Voiceover lab
             </DialogTitle>
 
             <DialogDescription className="mt-2 text-sm">
@@ -85,64 +147,95 @@ function AiVoiceStudioModal({
           </DialogHeader>
 
           <div className="flex flex-col gap-5 py-4">
-            {/* Script textarea */}
-            <div className="relative">
-              <Textarea
-                value={script}
-                onChange={(e) => setScript(e.target.value)}
-                rows={7}
-                maxLength={MAX_TTS_SCRIPT_LENGTH}
-                placeholder="Type your script here..."
-                className="placeholder:text-muted-foreground/70 min-h-32 resize-none pb-10 text-base break-all"
+            {isLimitReached && !jobId ? (
+              <LimitBanner
+                type="voiceover"
+                limit={DAILY_LIMITS.voiceover}
+                resetsAt={resetsAt}
               />
+            ) : isSubmitting || jobId ? (
+              <GenerationProgress
+                type="voiceover"
+                jobId={jobId}
+                status={
+                  isSubmitting && !jobId
+                    ? "queued"
+                    : (generationStatus?.status ?? "queued")
+                }
+                errorMessage={generationStatus?.errorMessage}
+                onReset={handleReset}
+              />
+            ) : (
+              <>
+                {/* Script textarea */}
+                <div className="relative">
+                  <Textarea
+                    value={script}
+                    onChange={(e) => setScript(e.target.value)}
+                    rows={7}
+                    maxLength={MAX_TTS_SCRIPT_LENGTH}
+                    placeholder="Type your script here..."
+                    className="placeholder:text-muted-foreground/70 min-h-32 resize-none pb-10 text-base break-all"
+                  />
 
-              {/* Bottom toolbar */}
-              <div className="absolute bottom-2 left-0 flex w-full items-center justify-between px-3">
-                <VoiceIndicator
-                  userAudioFile={userAudioFile}
-                  userAudioUrl={userAudioUrl}
-                  selectedVoice={selectedVoice}
-                  activeAudioSrc={audioSrc}
-                  onTogglePlay={(src) => void togglePlay(src)}
-                  onOpenVoiceModal={() => setVoiceModalOpen(true)}
+                  {/* Bottom toolbar */}
+                  <div className="absolute bottom-2 left-0 flex w-full items-center justify-between px-3">
+                    <VoiceIndicator
+                      userAudioFile={userAudioFile}
+                      userAudioUrl={userAudioUrl}
+                      selectedVoice={selectedVoice}
+                      activeAudioSrc={audioSrc}
+                      onTogglePlay={(src) => void togglePlay(src)}
+                      onOpenVoiceModal={() => setVoiceModalOpen(true)}
+                    />
+
+                    {/* Dynamic character counter */}
+                    <p
+                      className={cn(
+                        "text-xs transition-colors select-none",
+                        script.trim().length > 0 && !isScriptLongEnough
+                          ? "text-destructive font-medium"
+                          : "text-muted-foreground/70",
+                      )}
+                    >
+                      {script.length} / {MAX_TTS_SCRIPT_LENGTH}{" "}
+                      {script.trim().length > 0 &&
+                        !isScriptLongEnough &&
+                        `(Min ${MIN_TTS_SCRIPT_LENGTH})`}
+                    </p>
+                  </div>
+                </div>
+
+                <TtsSettingsPanel
+                  settings={ttsSettings}
+                  englishOnly={false}
+                  onUpdate={updateTts}
+                  onReset={() => setTtsSettings(DEFAULT_TTS_SETTINGS)}
+                  advancedOpen={advancedOpen}
+                  onAdvancedOpenChange={setAdvancedOpen}
                 />
 
-                {/* Dynamic character counter */}
-                <p
-                  className={cn(
-                    "text-xs transition-colors select-none",
-                    script.trim().length > 0 && !isScriptLongEnough
-                      ? "text-destructive font-medium"
-                      : "text-muted-foreground/70",
-                  )}
+                <Button
+                  type="button"
+                  size="lg"
+                  className="mt-2 w-full shrink-0"
+                  disabled={!canGenerate || isSubmitting}
+                  onClick={handleGenerate}
                 >
-                  {script.length} / {MAX_TTS_SCRIPT_LENGTH}{" "}
-                  {script.trim().length > 0 &&
-                    !isScriptLongEnough &&
-                    `(Min ${MIN_TTS_SCRIPT_LENGTH})`}
-                </p>
-              </div>
-            </div>
-
-            <TtsSettingsPanel
-              settings={ttsSettings}
-              englishOnly={false}
-              onUpdate={updateTts}
-              onReset={() => setTtsSettings(DEFAULT_TTS_SETTINGS)}
-              advancedOpen={advancedOpen}
-              onAdvancedOpenChange={setAdvancedOpen}
-            />
-
-            <Button
-              type="button"
-              size="lg"
-              className="mt-2 w-full shrink-0"
-              disabled={!canGenerate}
-              onClick={handleGenerate}
-            >
-              <Sparkles className="mr-2 size-4" />
-              Generate Speech
-            </Button>
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="size-4 animate-spin" />
+                      Generating...
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="size-4" />
+                      Generate Speech
+                    </>
+                  )}
+                </Button>
+              </>
+            )}
           </div>
         </DialogContent>
       </Dialog>

@@ -67,7 +67,7 @@ class MtlTTSRequest(BaseModel):
 
 
 class MtlTTSResponse(BaseModel):
-    r2_key: str
+    speech_r2_key: str
 
 
 # ---------------------------------------------------------------------------
@@ -163,7 +163,7 @@ class MtlTextToSpeechServer:
                 os.unlink(tmp_path)
 
         # 12. Return the R2 key so the Next.js frontend knows where to find the file
-        return MtlTTSResponse(r2_key=output_r2_key)
+        return MtlTTSResponse(speech_r2_key=output_r2_key)
 
 
 # ---------------------------------------------------------------------------
@@ -198,5 +198,5 @@ def main():
         return
 
     result = MtlTTSResponse(**response.json())
-    print(f"Success! R2 key: {result.r2_key}")
+    print(f"Success! R2 key: {result.speech_r2_key}")
     print("Check: Cloudflare R2 -> [private-bucket] -> voiceovers/")

@@ -154,3 +154,20 @@ export const SUPPORTED_LANGUAGES = [
   { code: "zh", name: "Chinese", flag: "🇨🇳" },
 ] as const;
 export type LanguageCode = (typeof SUPPORTED_LANGUAGES)[number]["code"];
+export const ALLOWED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+] as const;
+export const EXT_MAP: Record<string, string> = {
+  "image/jpeg": "jpg",
+  "image/png": "png",
+  "image/webp": "webp",
+  "audio/wav": "wav",
+} as const;
+export const DAILY_LIMITS = {
+  "avatar-video": 1,
+  voiceover: 2,
+} as const;
+export type GenerationEventType = keyof typeof DAILY_LIMITS;
+export const QUOTA_WINDOW_MS = 24 * 60 * 60 * 1000; // 24 hours
