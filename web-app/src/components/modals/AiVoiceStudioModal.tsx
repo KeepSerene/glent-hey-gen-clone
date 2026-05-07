@@ -28,6 +28,7 @@ import { uploadFileToR2 } from "~/lib/r2-upload";
 import { createVoiceoverJob } from "~/server/actions/generate";
 import GenerationProgress from "../GenerationProgress";
 import LimitBanner from "../LimitBanner";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface AiVoiceStudioModalProps {
   isOpen: boolean;
@@ -78,10 +79,11 @@ function AiVoiceStudioModal({
     value: TtsSettings[K],
   ) => setTtsSettings((prev) => ({ ...prev, [key]: value }));
 
-  // Validations
   const hasVoice = !!selectedVoice || !!userAudioFile;
   const isScriptLongEnough = script.trim().length >= MIN_TTS_SCRIPT_LENGTH;
   const canGenerate = isScriptLongEnough && hasVoice && !isLimitReached;
+
+  const queryClient = useQueryClient();
 
   const handleGenerate = async () => {
     if (!canGenerate || isSubmitting) return;
@@ -92,7 +94,7 @@ function AiVoiceStudioModal({
       let voiceR2Key: string | undefined;
 
       if (userAudioFile) {
-        voiceR2Key = await uploadFileToR2(userAudioFile, "voices");
+        voiceR2Key = await uploadFileToR2(userAudioFile, "voices", "voiceover");
       } else if (selectedVoice) {
         voiceR2Key = selectedVoice.r2Key;
       }
@@ -106,12 +108,14 @@ function AiVoiceStudioModal({
         temperature: ttsSettings.temperature,
         seed: ttsSettings.seed ?? 0,
       });
-
       setJobId(id);
+
+      void queryClient.invalidateQueries({ queryKey: ["generation-quota"] });
     } catch (err) {
       console.error("Voiceover generation failed:", err);
 
       const message = err instanceof Error ? err.message : "";
+
       if (message.startsWith("DAILY_LIMIT_EXCEEDED")) {
         toast.error("Daily limit reached. Please try again later.");
       } else {

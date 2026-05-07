@@ -34,6 +34,7 @@ import { createAvatarVideoJob } from "~/server/actions/generate";
 import { uploadFileToR2 } from "~/lib/r2-upload";
 import GenerationProgress from "../GenerationProgress";
 import LimitBanner from "../LimitBanner";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface AvatarVideoModalProps {
   isOpen: boolean;
@@ -194,6 +195,9 @@ function AvatarVideoModal({
   const hasContent = !!selectedAudioUrl || (isScriptLongEnough && hasVoice);
   const canGenerate = hasAvatar && hasContent && !isLimitReached;
 
+  // ── Generation handler ────────────────────────────────────────────────────────────
+  const queryClient = useQueryClient();
+
   const handleGenerate = async () => {
     if (!canGenerate || isSubmitting) return;
 
@@ -204,7 +208,11 @@ function AvatarVideoModal({
       let avatarR2Key: string;
 
       if (avatarFile) {
-        avatarR2Key = await uploadFileToR2(avatarFile, "avatars");
+        avatarR2Key = await uploadFileToR2(
+          avatarFile,
+          "avatars",
+          "avatar-video",
+        );
       } else if (selectedAvatarR2Key) {
         avatarR2Key = selectedAvatarR2Key;
       } else {
@@ -218,18 +226,28 @@ function AvatarVideoModal({
           selectedAudioTitle || "recording.wav",
           { type: selectedAudioBlob.type },
         );
-        const audioR2Key = await uploadFileToR2(audioFile, "audios");
-
+        const audioR2Key = await uploadFileToR2(
+          audioFile,
+          "audios",
+          "avatar-video",
+        );
         const { jobId: id } = await createAvatarVideoJob({
           avatarR2Key,
           audioR2Key,
         });
         setJobId(id);
+
+        // 4. Instantly update the UI quota state
+        void queryClient.invalidateQueries({ queryKey: ["generation-quota"] });
       } else {
         let voiceR2Key: string | undefined;
 
         if (userAudioFile) {
-          voiceR2Key = await uploadFileToR2(userAudioFile, "voices");
+          voiceR2Key = await uploadFileToR2(
+            userAudioFile,
+            "voices",
+            "avatar-video",
+          );
         } else if (selectedVoice) {
           voiceR2Key = selectedVoice.r2Key;
         }
@@ -245,11 +263,15 @@ function AvatarVideoModal({
           seed: ttsSettings.seed ?? 0,
         });
         setJobId(id);
+
+        // 4. Instantly update the UI quota state
+        void queryClient.invalidateQueries({ queryKey: ["generation-quota"] });
       }
     } catch (err) {
       console.error("Generation start failed:", err);
 
       const message = err instanceof Error ? err.message : "";
+
       if (message.startsWith("DAILY_LIMIT_EXCEEDED")) {
         toast.error("Daily limit reached. Please try again later.");
       } else {
