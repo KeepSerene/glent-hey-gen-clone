@@ -3,10 +3,12 @@
 import { useState } from "react";
 import { DASHBOARD_ACTIONS, DAILY_LIMITS } from "~/lib/constants";
 import { cn } from "~/lib/utils";
-import AvatarVideoModal from "./modals/AvatarVideoModal";
-import { Badge } from "./ui/badge";
-import AiVoiceStudioModal from "./modals/AiVoiceStudioModal";
+import AvatarVideoModal from "../modals/AvatarVideoModal";
+import { Badge } from "../ui/badge";
+import AiVoiceStudioModal from "../modals/AiVoiceStudioModal";
 import useGenerationQuota from "~/hooks/useGenerationQuota";
+import type { RecentItem } from "~/server/actions/history";
+import RecentGenerationsStrip from "./RecentGenerationsStrip";
 
 type ActionMode =
   | "avatar-video"
@@ -21,7 +23,11 @@ const MODE_TO_QUOTA_KEY: Partial<
   "ai-voice-studio": "voiceover",
 };
 
-function DashboardClient() {
+interface DashboardClientProps {
+  recentItems: RecentItem[];
+}
+
+function DashboardClient({ recentItems }: DashboardClientProps) {
   const [videoModalOpen, setVideoModalOpen] = useState(false);
   const [voiceStudioOpen, setVoiceStudioOpen] = useState(false);
 
@@ -36,11 +42,8 @@ function DashboardClient() {
     } else if (mode === "ai-voice-studio") {
       setVoiceStudioOpen(true);
     }
-
-    // video-translation and video-dubbing are coming soon — no-op
   };
 
-  // Determines whether a card should appear limited (dims it slightly)
   const isCardLimited = (mode: string): boolean => {
     const quotaKey = MODE_TO_QUOTA_KEY[mode as ActionMode];
 
@@ -51,6 +54,7 @@ function DashboardClient() {
 
   return (
     <main className="p-8">
+      {/* ── Action cards ───────────────────────────────────────────────── */}
       <section className="mb-8 flex flex-col gap-1">
         <h2 className="font-heading text-foreground text-2xl font-bold tracking-tight">
           What are we producing today?
@@ -132,6 +136,9 @@ function DashboardClient() {
           },
         )}
       </ul>
+
+      {/* ── Recent generations ─────────────────────────────────────────── */}
+      {recentItems.length > 0 && <RecentGenerationsStrip items={recentItems} />}
 
       <AiVoiceStudioModal
         isOpen={voiceStudioOpen}

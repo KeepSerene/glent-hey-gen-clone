@@ -7,9 +7,9 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
-import { SidebarTrigger, useSidebar } from "./ui/sidebar";
-import ThemeToggle from "./theme/ThemeToggle";
+import { SidebarTrigger, useSidebar } from "../ui/sidebar";
 import GenerationQuotaBadge from "./GenerationQuotaBadge";
+import ThemeToggle from "../theme/ThemeToggle";
 
 function AppHeader() {
   const { open } = useSidebar();

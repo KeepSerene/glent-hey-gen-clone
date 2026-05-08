@@ -4,7 +4,7 @@ import { db } from "~/server/db";
 import { getSession } from "../better-auth/server";
 import {
   DAILY_LIMITS,
-  QUOTA_WINDOW_MS,
+  GEN_QUOTA_WINDOW_MS,
   type GenerationEventType,
 } from "~/lib/constants";
 
@@ -36,7 +36,7 @@ function buildEntry(
 
   const resetsAt =
     used > 0 && oldest
-      ? new Date(oldest.getTime() + QUOTA_WINDOW_MS).toISOString()
+      ? new Date(oldest.getTime() + GEN_QUOTA_WINDOW_MS).toISOString()
       : null;
 
   return { used, limit, resetsAt, isExceeded: used >= limit };
@@ -53,7 +53,7 @@ export async function getQuotaStatus(): Promise<QuotaStatus> {
     throw new Error("Unauthorized");
   }
 
-  const windowStart = new Date(Date.now() - QUOTA_WINDOW_MS);
+  const windowStart = new Date(Date.now() - GEN_QUOTA_WINDOW_MS);
   const recentEvents = await db.generationEvent.findMany({
     where: {
       userId: session.user.id,

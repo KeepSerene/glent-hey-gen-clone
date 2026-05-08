@@ -5,9 +5,10 @@ import { inngest } from "~/server/inngest/client";
 import { getSession } from "../better-auth/server";
 import {
   DAILY_LIMITS,
-  QUOTA_WINDOW_MS,
+  GEN_QUOTA_WINDOW_MS,
   type GenerationEventType,
 } from "~/lib/constants";
+import { generateTitle } from "~/lib/utils";
 
 /**
  * Atomically checks the 24-hour quota and records a new GenerationEvent in a
@@ -18,7 +19,7 @@ async function checkAndRecordEvent(
   userId: string,
   type: GenerationEventType,
 ): Promise<void> {
-  const windowStart = new Date(Date.now() - QUOTA_WINDOW_MS);
+  const windowStart = new Date(Date.now() - GEN_QUOTA_WINDOW_MS);
   const limit = DAILY_LIMITS[type];
 
   const count = await tx.generationEvent.count({
@@ -30,7 +31,6 @@ async function checkAndRecordEvent(
   });
 
   if (count >= limit) {
-    // Find the oldest event to compute the reset time for the error message
     const oldest = await tx.generationEvent.findFirst({
       where: { userId, type, createdAt: { gte: windowStart } },
       orderBy: { createdAt: "asc" },
@@ -38,7 +38,7 @@ async function checkAndRecordEvent(
     });
 
     const resetsAt = oldest
-      ? new Date(oldest.createdAt.getTime() + QUOTA_WINDOW_MS)
+      ? new Date(oldest.createdAt.getTime() + GEN_QUOTA_WINDOW_MS)
       : null;
 
     const resetsAtStr = resetsAt
@@ -52,7 +52,6 @@ async function checkAndRecordEvent(
     throw new Error(`DAILY_LIMIT_EXCEEDED:${type}:Resets at ${resetsAtStr}`);
   }
 
-  // Record the event — this row persists even if the content is later deleted
   await tx.generationEvent.create({
     data: { userId, type },
   });
@@ -79,13 +78,15 @@ export async function createAvatarVideoJob(
 
   if (!session?.user) throw new Error("Unauthorized");
 
-  // Atomic quota check + job creation in one transaction
+  const title = generateTitle(input.script, "avatar-video");
+
   const job = await db.$transaction(async (tx) => {
     await checkAndRecordEvent(tx, session.user.id, "avatar-video");
 
     return tx.avatarVideo.create({
       data: {
         userId: session.user.id,
+        title,
         avatarR2Key: input.avatarR2Key,
         audioR2Key: input.audioR2Key,
         script: input.script,
@@ -100,9 +101,6 @@ export async function createAvatarVideoJob(
     });
   });
 
-  // Inngest is called outside the transaction
-  // because it's an external side-effect and should only
-  // run once the DB write has committed successfully
   await inngest.send({
     name: "avatar-video/generate",
     data: {
@@ -140,12 +138,15 @@ export async function createVoiceoverJob(
 
   if (!session?.user) throw new Error("Unauthorized");
 
+  const title = generateTitle(input.script, "voiceover");
+
   const job = await db.$transaction(async (tx) => {
     await checkAndRecordEvent(tx, session.user.id, "voiceover");
 
     return tx.voiceover.create({
       data: {
         userId: session.user.id,
+        title,
         script: input.script,
         voiceR2Key: input.voiceR2Key,
         language: input.language ?? "en",

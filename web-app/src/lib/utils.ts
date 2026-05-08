@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import type { Area } from "react-easy-crop";
+import { SUPPORTED_LANGUAGES } from "./constants";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -158,6 +159,31 @@ export async function convertBlobToWav(blob: Blob): Promise<Blob> {
   return new Blob([encodeWav(mono, sampleRate)], { type: "audio/wav" });
 }
 
+/**
+ * Generates a human-readable title for a generation job.
+ *
+ * If a script is provided, we use the first ~50 characters of it.
+ * Otherwise we fall back to a type + date label.
+ */
+export function generateTitle(
+  script: string | null | undefined,
+  type: "avatar-video" | "voiceover",
+): string {
+  if (script?.trim()) {
+    const clean = script.trim().replace(/\s+/g, " ");
+    return clean.length > 52 ? clean.slice(0, 49) + "…" : clean;
+  }
+
+  const dateStr = new Date().toLocaleDateString("en-IN", {
+    month: "short",
+    day: "numeric",
+  });
+
+  return type === "avatar-video"
+    ? `Avatar Video · ${dateStr}`
+    : `Voiceover · ${dateStr}`;
+}
+
 export function formatResetTime(resetsAt: string | null): string {
   if (!resetsAt) return "in 24 hours";
 
@@ -190,4 +216,49 @@ export function formatResetTime(resetsAt: string | null): string {
     month: "short",
     day: "numeric",
   })} at ${timeStr}`;
+}
+
+/**
+ * Derives a deterministic bar pattern from an item's id so
+ * every UI card looks unique without storing any extra data.
+ */
+export function getWaveformBars(id: string, count = 20): number[] {
+  let hash = 0;
+
+  for (let i = 0; i < id.length; i++) {
+    hash = Math.imul(hash, 31) + id.charCodeAt(i);
+    hash |= 0;
+  }
+  return Array.from({ length: count }, (_, i) => {
+    const x = Math.abs(Math.imul(hash, i * 1664525 + 1013904223));
+
+    return 18 + (x % 64); // 18–82 percent height
+  });
+}
+
+export function getLanguageLabel(code: string): string {
+  const lang = SUPPORTED_LANGUAGES.find((l) => l.code === code);
+
+  return lang ? `${lang.flag} ${lang.name}` : code.toUpperCase();
+}
+
+export function getRelativeTime(isoString: string): string {
+  const diff = Date.now() - new Date(isoString).getTime();
+  const mins = Math.floor(diff / 60_000);
+
+  if (mins < 1) return "just now";
+  if (mins < 60) return `${mins}m ago`;
+
+  const hrs = Math.floor(mins / 60);
+
+  if (hrs < 24) return `${hrs}h ago`;
+
+  const days = Math.floor(hrs / 24);
+
+  if (days < 7) return `${days}d ago`;
+
+  return new Date(isoString).toLocaleDateString("en-IN", {
+    month: "short",
+    day: "numeric",
+  });
 }

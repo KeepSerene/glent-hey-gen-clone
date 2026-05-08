@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import AppHeader from "~/components/AppHeader";
+import AppHeader from "~/components/app-header/AppHeader";
 import AppSidebar from "~/components/AppSidebar";
 import { SidebarProvider } from "~/components/ui/sidebar";
 import { getSession } from "~/server/better-auth/server";

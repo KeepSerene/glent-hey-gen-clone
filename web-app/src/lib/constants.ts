@@ -1,6 +1,7 @@
 import {
   AudioWaveform,
   CreditCard,
+  History,
   Languages,
   LayoutDashboard,
   Mic2,
@@ -14,6 +15,7 @@ export const PASSWORD_REGEX =
 export const PROTECTED_ROUTES = [
   "/dashboard",
   "/billing",
+  "/history",
   "/settings",
   "/settings/account",
   "/settings/security",
@@ -24,6 +26,11 @@ export const APP_SIDEBAR_MENU_ITEMS = [
     title: "Dashboard",
     href: "/dashboard",
     icon: LayoutDashboard,
+  },
+  {
+    title: "History",
+    href: "/history",
+    icon: History,
   },
   {
     title: "Billing",
@@ -170,4 +177,45 @@ export const DAILY_LIMITS = {
   voiceover: 2,
 } as const;
 export type GenerationEventType = keyof typeof DAILY_LIMITS;
-export const QUOTA_WINDOW_MS = 24 * 60 * 60 * 1000; // 24 hours
+export const GEN_QUOTA_WINDOW_MS = 24 * 60 * 60 * 1000; // 24 hours
+export const RECENT_CARD_STATUS_DOT: Record<string, string> = {
+  queued: "bg-muted-foreground",
+  tts_generating: "bg-amber-400",
+  video_generating: "bg-blue-400",
+  generating: "bg-amber-400",
+  completed: "bg-emerald-500",
+  failed: "bg-destructive",
+};
+export const GEN_CARD_STATUS_CONFIG: Record<
+  string,
+  { label: string; className: string }
+> = {
+  queued: {
+    label: "Queued",
+    className: "bg-secondary text-secondary-foreground",
+  },
+  tts_generating: {
+    label: "Synthesizing",
+    className:
+      "bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400",
+  },
+  video_generating: {
+    label: "Animating",
+    className:
+      "bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-400",
+  },
+  generating: {
+    label: "Generating",
+    className:
+      "bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400",
+  },
+  completed: {
+    label: "Ready",
+    className:
+      "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400",
+  },
+  failed: {
+    label: "Failed",
+    className: "bg-destructive/10 text-destructive",
+  },
+} as const;

@@ -5983,6 +5983,7 @@ export namespace Prisma {
     avatarR2Key: string | null
     audioR2Key: string | null
     script: string | null
+    title: string | null
     voiceR2Key: string | null
     language: string | null
     exaggeration: number | null
@@ -6002,6 +6003,7 @@ export namespace Prisma {
     avatarR2Key: string | null
     audioR2Key: string | null
     script: string | null
+    title: string | null
     voiceR2Key: string | null
     language: string | null
     exaggeration: number | null
@@ -6021,6 +6023,7 @@ export namespace Prisma {
     avatarR2Key: number
     audioR2Key: number
     script: number
+    title: number
     voiceR2Key: number
     language: number
     exaggeration: number
@@ -6056,6 +6059,7 @@ export namespace Prisma {
     avatarR2Key?: true
     audioR2Key?: true
     script?: true
+    title?: true
     voiceR2Key?: true
     language?: true
     exaggeration?: true
@@ -6075,6 +6079,7 @@ export namespace Prisma {
     avatarR2Key?: true
     audioR2Key?: true
     script?: true
+    title?: true
     voiceR2Key?: true
     language?: true
     exaggeration?: true
@@ -6094,6 +6099,7 @@ export namespace Prisma {
     avatarR2Key?: true
     audioR2Key?: true
     script?: true
+    title?: true
     voiceR2Key?: true
     language?: true
     exaggeration?: true
@@ -6200,6 +6206,7 @@ export namespace Prisma {
     avatarR2Key: string
     audioR2Key: string | null
     script: string | null
+    title: string | null
     voiceR2Key: string | null
     language: string
     exaggeration: number
@@ -6238,6 +6245,7 @@ export namespace Prisma {
     avatarR2Key?: boolean
     audioR2Key?: boolean
     script?: boolean
+    title?: boolean
     voiceR2Key?: boolean
     language?: boolean
     exaggeration?: boolean
@@ -6258,6 +6266,7 @@ export namespace Prisma {
     avatarR2Key?: boolean
     audioR2Key?: boolean
     script?: boolean
+    title?: boolean
     voiceR2Key?: boolean
     language?: boolean
     exaggeration?: boolean
@@ -6278,6 +6287,7 @@ export namespace Prisma {
     avatarR2Key?: boolean
     audioR2Key?: boolean
     script?: boolean
+    title?: boolean
     voiceR2Key?: boolean
     language?: boolean
     exaggeration?: boolean
@@ -6298,6 +6308,7 @@ export namespace Prisma {
     avatarR2Key?: boolean
     audioR2Key?: boolean
     script?: boolean
+    title?: boolean
     voiceR2Key?: boolean
     language?: boolean
     exaggeration?: boolean
@@ -6308,7 +6319,7 @@ export namespace Prisma {
     userId?: boolean
   }
 
-  export type AvatarVideoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "status" | "errorMessage" | "avatarR2Key" | "audioR2Key" | "script" | "voiceR2Key" | "language" | "exaggeration" | "cfgWeight" | "temperature" | "seed" | "videoR2Key" | "userId", ExtArgs["result"]["avatarVideo"]>
+  export type AvatarVideoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "status" | "errorMessage" | "avatarR2Key" | "audioR2Key" | "script" | "title" | "voiceR2Key" | "language" | "exaggeration" | "cfgWeight" | "temperature" | "seed" | "videoR2Key" | "userId", ExtArgs["result"]["avatarVideo"]>
   export type AvatarVideoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -6333,6 +6344,7 @@ export namespace Prisma {
       avatarR2Key: string
       audioR2Key: string | null
       script: string | null
+      title: string | null
       voiceR2Key: string | null
       language: string
       exaggeration: number
@@ -6773,6 +6785,7 @@ export namespace Prisma {
     readonly avatarR2Key: FieldRef<"AvatarVideo", 'String'>
     readonly audioR2Key: FieldRef<"AvatarVideo", 'String'>
     readonly script: FieldRef<"AvatarVideo", 'String'>
+    readonly title: FieldRef<"AvatarVideo", 'String'>
     readonly voiceR2Key: FieldRef<"AvatarVideo", 'String'>
     readonly language: FieldRef<"AvatarVideo", 'String'>
     readonly exaggeration: FieldRef<"AvatarVideo", 'Float'>
@@ -7228,6 +7241,7 @@ export namespace Prisma {
     status: string | null
     errorMessage: string | null
     script: string | null
+    title: string | null
     voiceR2Key: string | null
     language: string | null
     exaggeration: number | null
@@ -7245,6 +7259,7 @@ export namespace Prisma {
     status: string | null
     errorMessage: string | null
     script: string | null
+    title: string | null
     voiceR2Key: string | null
     language: string | null
     exaggeration: number | null
@@ -7262,6 +7277,7 @@ export namespace Prisma {
     status: number
     errorMessage: number
     script: number
+    title: number
     voiceR2Key: number
     language: number
     exaggeration: number
@@ -7295,6 +7311,7 @@ export namespace Prisma {
     status?: true
     errorMessage?: true
     script?: true
+    title?: true
     voiceR2Key?: true
     language?: true
     exaggeration?: true
@@ -7312,6 +7329,7 @@ export namespace Prisma {
     status?: true
     errorMessage?: true
     script?: true
+    title?: true
     voiceR2Key?: true
     language?: true
     exaggeration?: true
@@ -7329,6 +7347,7 @@ export namespace Prisma {
     status?: true
     errorMessage?: true
     script?: true
+    title?: true
     voiceR2Key?: true
     language?: true
     exaggeration?: true
@@ -7433,6 +7452,7 @@ export namespace Prisma {
     status: string
     errorMessage: string | null
     script: string
+    title: string | null
     voiceR2Key: string | null
     language: string
     exaggeration: number
@@ -7469,6 +7489,7 @@ export namespace Prisma {
     status?: boolean
     errorMessage?: boolean
     script?: boolean
+    title?: boolean
     voiceR2Key?: boolean
     language?: boolean
     exaggeration?: boolean
@@ -7487,6 +7508,7 @@ export namespace Prisma {
     status?: boolean
     errorMessage?: boolean
     script?: boolean
+    title?: boolean
     voiceR2Key?: boolean
     language?: boolean
     exaggeration?: boolean
@@ -7505,6 +7527,7 @@ export namespace Prisma {
     status?: boolean
     errorMessage?: boolean
     script?: boolean
+    title?: boolean
     voiceR2Key?: boolean
     language?: boolean
     exaggeration?: boolean
@@ -7523,6 +7546,7 @@ export namespace Prisma {
     status?: boolean
     errorMessage?: boolean
     script?: boolean
+    title?: boolean
     voiceR2Key?: boolean
     language?: boolean
     exaggeration?: boolean
@@ -7533,7 +7557,7 @@ export namespace Prisma {
     userId?: boolean
   }
 
-  export type VoiceoverOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "status" | "errorMessage" | "script" | "voiceR2Key" | "language" | "exaggeration" | "cfgWeight" | "temperature" | "seed" | "audioR2Key" | "userId", ExtArgs["result"]["voiceover"]>
+  export type VoiceoverOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "status" | "errorMessage" | "script" | "title" | "voiceR2Key" | "language" | "exaggeration" | "cfgWeight" | "temperature" | "seed" | "audioR2Key" | "userId", ExtArgs["result"]["voiceover"]>
   export type VoiceoverInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -7556,6 +7580,7 @@ export namespace Prisma {
       status: string
       errorMessage: string | null
       script: string
+      title: string | null
       voiceR2Key: string | null
       language: string
       exaggeration: number
@@ -7994,6 +8019,7 @@ export namespace Prisma {
     readonly status: FieldRef<"Voiceover", 'String'>
     readonly errorMessage: FieldRef<"Voiceover", 'String'>
     readonly script: FieldRef<"Voiceover", 'String'>
+    readonly title: FieldRef<"Voiceover", 'String'>
     readonly voiceR2Key: FieldRef<"Voiceover", 'String'>
     readonly language: FieldRef<"Voiceover", 'String'>
     readonly exaggeration: FieldRef<"Voiceover", 'Float'>
@@ -9542,6 +9568,7 @@ export namespace Prisma {
     avatarR2Key: 'avatarR2Key',
     audioR2Key: 'audioR2Key',
     script: 'script',
+    title: 'title',
     voiceR2Key: 'voiceR2Key',
     language: 'language',
     exaggeration: 'exaggeration',
@@ -9562,6 +9589,7 @@ export namespace Prisma {
     status: 'status',
     errorMessage: 'errorMessage',
     script: 'script',
+    title: 'title',
     voiceR2Key: 'voiceR2Key',
     language: 'language',
     exaggeration: 'exaggeration',
@@ -9991,6 +10019,7 @@ export namespace Prisma {
     avatarR2Key?: StringFilter<"AvatarVideo"> | string
     audioR2Key?: StringNullableFilter<"AvatarVideo"> | string | null
     script?: StringNullableFilter<"AvatarVideo"> | string | null
+    title?: StringNullableFilter<"AvatarVideo"> | string | null
     voiceR2Key?: StringNullableFilter<"AvatarVideo"> | string | null
     language?: StringFilter<"AvatarVideo"> | string
     exaggeration?: FloatFilter<"AvatarVideo"> | number
@@ -10011,6 +10040,7 @@ export namespace Prisma {
     avatarR2Key?: SortOrder
     audioR2Key?: SortOrderInput | SortOrder
     script?: SortOrderInput | SortOrder
+    title?: SortOrderInput | SortOrder
     voiceR2Key?: SortOrderInput | SortOrder
     language?: SortOrder
     exaggeration?: SortOrder
@@ -10034,6 +10064,7 @@ export namespace Prisma {
     avatarR2Key?: StringFilter<"AvatarVideo"> | string
     audioR2Key?: StringNullableFilter<"AvatarVideo"> | string | null
     script?: StringNullableFilter<"AvatarVideo"> | string | null
+    title?: StringNullableFilter<"AvatarVideo"> | string | null
     voiceR2Key?: StringNullableFilter<"AvatarVideo"> | string | null
     language?: StringFilter<"AvatarVideo"> | string
     exaggeration?: FloatFilter<"AvatarVideo"> | number
@@ -10054,6 +10085,7 @@ export namespace Prisma {
     avatarR2Key?: SortOrder
     audioR2Key?: SortOrderInput | SortOrder
     script?: SortOrderInput | SortOrder
+    title?: SortOrderInput | SortOrder
     voiceR2Key?: SortOrderInput | SortOrder
     language?: SortOrder
     exaggeration?: SortOrder
@@ -10081,6 +10113,7 @@ export namespace Prisma {
     avatarR2Key?: StringWithAggregatesFilter<"AvatarVideo"> | string
     audioR2Key?: StringNullableWithAggregatesFilter<"AvatarVideo"> | string | null
     script?: StringNullableWithAggregatesFilter<"AvatarVideo"> | string | null
+    title?: StringNullableWithAggregatesFilter<"AvatarVideo"> | string | null
     voiceR2Key?: StringNullableWithAggregatesFilter<"AvatarVideo"> | string | null
     language?: StringWithAggregatesFilter<"AvatarVideo"> | string
     exaggeration?: FloatWithAggregatesFilter<"AvatarVideo"> | number
@@ -10101,6 +10134,7 @@ export namespace Prisma {
     status?: StringFilter<"Voiceover"> | string
     errorMessage?: StringNullableFilter<"Voiceover"> | string | null
     script?: StringFilter<"Voiceover"> | string
+    title?: StringNullableFilter<"Voiceover"> | string | null
     voiceR2Key?: StringNullableFilter<"Voiceover"> | string | null
     language?: StringFilter<"Voiceover"> | string
     exaggeration?: FloatFilter<"Voiceover"> | number
@@ -10119,6 +10153,7 @@ export namespace Prisma {
     status?: SortOrder
     errorMessage?: SortOrderInput | SortOrder
     script?: SortOrder
+    title?: SortOrderInput | SortOrder
     voiceR2Key?: SortOrderInput | SortOrder
     language?: SortOrder
     exaggeration?: SortOrder
@@ -10140,6 +10175,7 @@ export namespace Prisma {
     status?: StringFilter<"Voiceover"> | string
     errorMessage?: StringNullableFilter<"Voiceover"> | string | null
     script?: StringFilter<"Voiceover"> | string
+    title?: StringNullableFilter<"Voiceover"> | string | null
     voiceR2Key?: StringNullableFilter<"Voiceover"> | string | null
     language?: StringFilter<"Voiceover"> | string
     exaggeration?: FloatFilter<"Voiceover"> | number
@@ -10158,6 +10194,7 @@ export namespace Prisma {
     status?: SortOrder
     errorMessage?: SortOrderInput | SortOrder
     script?: SortOrder
+    title?: SortOrderInput | SortOrder
     voiceR2Key?: SortOrderInput | SortOrder
     language?: SortOrder
     exaggeration?: SortOrder
@@ -10183,6 +10220,7 @@ export namespace Prisma {
     status?: StringWithAggregatesFilter<"Voiceover"> | string
     errorMessage?: StringNullableWithAggregatesFilter<"Voiceover"> | string | null
     script?: StringWithAggregatesFilter<"Voiceover"> | string
+    title?: StringNullableWithAggregatesFilter<"Voiceover"> | string | null
     voiceR2Key?: StringNullableWithAggregatesFilter<"Voiceover"> | string | null
     language?: StringWithAggregatesFilter<"Voiceover"> | string
     exaggeration?: FloatWithAggregatesFilter<"Voiceover"> | number
@@ -10592,6 +10630,7 @@ export namespace Prisma {
     avatarR2Key: string
     audioR2Key?: string | null
     script?: string | null
+    title?: string | null
     voiceR2Key?: string | null
     language?: string
     exaggeration?: number
@@ -10611,6 +10650,7 @@ export namespace Prisma {
     avatarR2Key: string
     audioR2Key?: string | null
     script?: string | null
+    title?: string | null
     voiceR2Key?: string | null
     language?: string
     exaggeration?: number
@@ -10630,6 +10670,7 @@ export namespace Prisma {
     avatarR2Key?: StringFieldUpdateOperationsInput | string
     audioR2Key?: NullableStringFieldUpdateOperationsInput | string | null
     script?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
     language?: StringFieldUpdateOperationsInput | string
     exaggeration?: FloatFieldUpdateOperationsInput | number
@@ -10649,6 +10690,7 @@ export namespace Prisma {
     avatarR2Key?: StringFieldUpdateOperationsInput | string
     audioR2Key?: NullableStringFieldUpdateOperationsInput | string | null
     script?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
     language?: StringFieldUpdateOperationsInput | string
     exaggeration?: FloatFieldUpdateOperationsInput | number
@@ -10668,6 +10710,7 @@ export namespace Prisma {
     avatarR2Key: string
     audioR2Key?: string | null
     script?: string | null
+    title?: string | null
     voiceR2Key?: string | null
     language?: string
     exaggeration?: number
@@ -10687,6 +10730,7 @@ export namespace Prisma {
     avatarR2Key?: StringFieldUpdateOperationsInput | string
     audioR2Key?: NullableStringFieldUpdateOperationsInput | string | null
     script?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
     language?: StringFieldUpdateOperationsInput | string
     exaggeration?: FloatFieldUpdateOperationsInput | number
@@ -10705,6 +10749,7 @@ export namespace Prisma {
     avatarR2Key?: StringFieldUpdateOperationsInput | string
     audioR2Key?: NullableStringFieldUpdateOperationsInput | string | null
     script?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
     language?: StringFieldUpdateOperationsInput | string
     exaggeration?: FloatFieldUpdateOperationsInput | number
@@ -10722,6 +10767,7 @@ export namespace Prisma {
     status?: string
     errorMessage?: string | null
     script: string
+    title?: string | null
     voiceR2Key?: string | null
     language?: string
     exaggeration?: number
@@ -10739,6 +10785,7 @@ export namespace Prisma {
     status?: string
     errorMessage?: string | null
     script: string
+    title?: string | null
     voiceR2Key?: string | null
     language?: string
     exaggeration?: number
@@ -10756,6 +10803,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     script?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
     language?: StringFieldUpdateOperationsInput | string
     exaggeration?: FloatFieldUpdateOperationsInput | number
@@ -10773,6 +10821,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     script?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
     language?: StringFieldUpdateOperationsInput | string
     exaggeration?: FloatFieldUpdateOperationsInput | number
@@ -10790,6 +10839,7 @@ export namespace Prisma {
     status?: string
     errorMessage?: string | null
     script: string
+    title?: string | null
     voiceR2Key?: string | null
     language?: string
     exaggeration?: number
@@ -10807,6 +10857,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     script?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
     language?: StringFieldUpdateOperationsInput | string
     exaggeration?: FloatFieldUpdateOperationsInput | number
@@ -10823,6 +10874,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     script?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
     language?: StringFieldUpdateOperationsInput | string
     exaggeration?: FloatFieldUpdateOperationsInput | number
@@ -11239,6 +11291,7 @@ export namespace Prisma {
     avatarR2Key?: SortOrder
     audioR2Key?: SortOrder
     script?: SortOrder
+    title?: SortOrder
     voiceR2Key?: SortOrder
     language?: SortOrder
     exaggeration?: SortOrder
@@ -11265,6 +11318,7 @@ export namespace Prisma {
     avatarR2Key?: SortOrder
     audioR2Key?: SortOrder
     script?: SortOrder
+    title?: SortOrder
     voiceR2Key?: SortOrder
     language?: SortOrder
     exaggeration?: SortOrder
@@ -11284,6 +11338,7 @@ export namespace Prisma {
     avatarR2Key?: SortOrder
     audioR2Key?: SortOrder
     script?: SortOrder
+    title?: SortOrder
     voiceR2Key?: SortOrder
     language?: SortOrder
     exaggeration?: SortOrder
@@ -11340,6 +11395,7 @@ export namespace Prisma {
     status?: SortOrder
     errorMessage?: SortOrder
     script?: SortOrder
+    title?: SortOrder
     voiceR2Key?: SortOrder
     language?: SortOrder
     exaggeration?: SortOrder
@@ -11364,6 +11420,7 @@ export namespace Prisma {
     status?: SortOrder
     errorMessage?: SortOrder
     script?: SortOrder
+    title?: SortOrder
     voiceR2Key?: SortOrder
     language?: SortOrder
     exaggeration?: SortOrder
@@ -11381,6 +11438,7 @@ export namespace Prisma {
     status?: SortOrder
     errorMessage?: SortOrder
     script?: SortOrder
+    title?: SortOrder
     voiceR2Key?: SortOrder
     language?: SortOrder
     exaggeration?: SortOrder
@@ -12004,6 +12062,7 @@ export namespace Prisma {
     avatarR2Key: string
     audioR2Key?: string | null
     script?: string | null
+    title?: string | null
     voiceR2Key?: string | null
     language?: string
     exaggeration?: number
@@ -12022,6 +12081,7 @@ export namespace Prisma {
     avatarR2Key: string
     audioR2Key?: string | null
     script?: string | null
+    title?: string | null
     voiceR2Key?: string | null
     language?: string
     exaggeration?: number
@@ -12048,6 +12108,7 @@ export namespace Prisma {
     status?: string
     errorMessage?: string | null
     script: string
+    title?: string | null
     voiceR2Key?: string | null
     language?: string
     exaggeration?: number
@@ -12064,6 +12125,7 @@ export namespace Prisma {
     status?: string
     errorMessage?: string | null
     script: string
+    title?: string | null
     voiceR2Key?: string | null
     language?: string
     exaggeration?: number
@@ -12198,6 +12260,7 @@ export namespace Prisma {
     avatarR2Key?: StringFilter<"AvatarVideo"> | string
     audioR2Key?: StringNullableFilter<"AvatarVideo"> | string | null
     script?: StringNullableFilter<"AvatarVideo"> | string | null
+    title?: StringNullableFilter<"AvatarVideo"> | string | null
     voiceR2Key?: StringNullableFilter<"AvatarVideo"> | string | null
     language?: StringFilter<"AvatarVideo"> | string
     exaggeration?: FloatFilter<"AvatarVideo"> | number
@@ -12234,6 +12297,7 @@ export namespace Prisma {
     status?: StringFilter<"Voiceover"> | string
     errorMessage?: StringNullableFilter<"Voiceover"> | string | null
     script?: StringFilter<"Voiceover"> | string
+    title?: StringNullableFilter<"Voiceover"> | string | null
     voiceR2Key?: StringNullableFilter<"Voiceover"> | string | null
     language?: StringFilter<"Voiceover"> | string
     exaggeration?: FloatFilter<"Voiceover"> | number
@@ -12664,6 +12728,7 @@ export namespace Prisma {
     avatarR2Key: string
     audioR2Key?: string | null
     script?: string | null
+    title?: string | null
     voiceR2Key?: string | null
     language?: string
     exaggeration?: number
@@ -12680,6 +12745,7 @@ export namespace Prisma {
     status?: string
     errorMessage?: string | null
     script: string
+    title?: string | null
     voiceR2Key?: string | null
     language?: string
     exaggeration?: number
@@ -12779,6 +12845,7 @@ export namespace Prisma {
     avatarR2Key?: StringFieldUpdateOperationsInput | string
     audioR2Key?: NullableStringFieldUpdateOperationsInput | string | null
     script?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
     language?: StringFieldUpdateOperationsInput | string
     exaggeration?: FloatFieldUpdateOperationsInput | number
@@ -12797,6 +12864,7 @@ export namespace Prisma {
     avatarR2Key?: StringFieldUpdateOperationsInput | string
     audioR2Key?: NullableStringFieldUpdateOperationsInput | string | null
     script?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
     language?: StringFieldUpdateOperationsInput | string
     exaggeration?: FloatFieldUpdateOperationsInput | number
@@ -12815,6 +12883,7 @@ export namespace Prisma {
     avatarR2Key?: StringFieldUpdateOperationsInput | string
     audioR2Key?: NullableStringFieldUpdateOperationsInput | string | null
     script?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
     language?: StringFieldUpdateOperationsInput | string
     exaggeration?: FloatFieldUpdateOperationsInput | number
@@ -12831,6 +12900,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     script?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
     language?: StringFieldUpdateOperationsInput | string
     exaggeration?: FloatFieldUpdateOperationsInput | number
@@ -12847,6 +12917,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     script?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
     language?: StringFieldUpdateOperationsInput | string
     exaggeration?: FloatFieldUpdateOperationsInput | number
@@ -12863,6 +12934,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     script?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     voiceR2Key?: NullableStringFieldUpdateOperationsInput | string | null
     language?: StringFieldUpdateOperationsInput | string
     exaggeration?: FloatFieldUpdateOperationsInput | number

@@ -92,6 +92,7 @@ model AvatarVideo {
   avatarR2Key String
   audioR2Key  String? // direct upload OR filled after TTS step
   script      String?
+  title       String?
   voiceR2Key  String?
 
   language     String @default("en")
@@ -120,6 +121,7 @@ model Voiceover {
   errorMessage String?
 
   script     String
+  title      String?
   voiceR2Key String?
 
   language     String @default("en")

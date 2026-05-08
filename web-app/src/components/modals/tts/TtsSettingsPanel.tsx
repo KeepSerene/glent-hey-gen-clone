@@ -24,7 +24,7 @@ import {
   TooltipTrigger,
 } from "~/components/ui/tooltip";
 import SliderRow from "./SliderRow";
-import { type TtsSettings } from "./types";
+import { type TtsSettings } from "./tts-types";
 
 interface TtsSettingsPanelProps {
   settings: TtsSettings;
