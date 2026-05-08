@@ -1,7 +1,7 @@
 "use client";
 
 import { Separator } from "~/components/ui/separator";
-import AppBreadcrumbs from "~/components/AppBreadcrumbs";
+import AppBreadcrumbs from "~/components/app-header/AppBreadcrumbs";
 import {
   Tooltip,
   TooltipContent,

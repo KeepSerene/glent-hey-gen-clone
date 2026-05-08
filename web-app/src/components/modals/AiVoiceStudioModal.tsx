@@ -20,9 +20,9 @@ import {
 import { Button } from "~/components/ui/button";
 import { Textarea } from "~/components/ui/textarea";
 import SampleVoiceModal, { type Voice } from "./SampleVoiceModal";
-import TtsSettingsPanel from "./tts/TtsSettingsPanel";
-import { DEFAULT_TTS_SETTINGS, type TtsSettings } from "./tts/tts-types";
-import VoiceIndicator from "./avatar-video/VoiceIndicator";
+import TtsSettingsPanel from "../tts/TtsSettingsPanel";
+import { DEFAULT_TTS_SETTINGS, type TtsSettings } from "../tts/tts-types";
+import VoiceIndicator from "../avatar-video/VoiceIndicator";
 import useGenerationStatus from "~/hooks/useGenerationStatus";
 import { uploadFileToR2 } from "~/lib/r2-upload";
 import { createVoiceoverJob } from "~/server/actions/generate";

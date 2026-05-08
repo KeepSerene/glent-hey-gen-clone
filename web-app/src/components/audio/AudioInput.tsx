@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import AudioCapture from "./AudioCapture";
 import { toast } from "sonner";
 import { convertBlobToWav, getAudioDuration } from "~/lib/utils";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { Mic, StopCircle } from "lucide-react";
 import { MAX_AUDIO_DURATION_SECS } from "~/lib/constants";
 

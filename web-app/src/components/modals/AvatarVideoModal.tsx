@@ -20,10 +20,10 @@ import {
 import AudioInputModal from "./AudioInputModal";
 import ImageCropperModal from "./ImageCropperModal";
 import SampleVoiceModal, { type Voice } from "./SampleVoiceModal";
-import AvatarPicker from "./avatar-video/AvatarPicker";
-import ScriptAudioPanel from "./avatar-video/ScriptAudioPanel";
-import TtsSettingsPanel from "./tts/TtsSettingsPanel";
-import { DEFAULT_TTS_SETTINGS, type TtsSettings } from "./tts/tts-types";
+import AvatarPicker from "../avatar-video/AvatarPicker";
+import ScriptAudioPanel from "../avatar-video/ScriptAudioPanel";
+import TtsSettingsPanel from "../tts/TtsSettingsPanel";
+import { DEFAULT_TTS_SETTINGS, type TtsSettings } from "../tts/tts-types";
 import {
   ALLOWED_IMAGE_TYPES,
   DAILY_LIMITS,

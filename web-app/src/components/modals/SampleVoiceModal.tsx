@@ -1,7 +1,7 @@
 "use client";
 
 import { SAMPLE_VOICES } from "~/lib/constants";
-import AudioInput from "../AudioInput";
+import AudioInput from "../audio/AudioInput";
 import {
   Dialog,
   DialogContent,

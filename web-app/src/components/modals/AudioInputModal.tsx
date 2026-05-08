@@ -1,4 +1,4 @@
-import AudioInput from "../AudioInput";
+import AudioInput from "../audio/AudioInput";
 import {
   Dialog,
   DialogContent,
