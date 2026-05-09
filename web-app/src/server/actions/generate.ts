@@ -6,6 +6,7 @@ import { getSession } from "../better-auth/server";
 import {
   DAILY_LIMITS,
   GEN_QUOTA_WINDOW_MS,
+  GENERATION_COSTS,
   type GenerationEventType,
 } from "~/lib/constants";
 import { generateTitle } from "~/lib/utils";
@@ -57,6 +58,34 @@ async function checkAndRecordEvent(
   });
 }
 
+/**
+ * Atomically verifies the user has enough credits for the generation type
+ * and deducts the cost.
+ */
+async function checkAndDeductCredits(
+  tx: Parameters<Parameters<typeof db.$transaction>[0]>[0],
+  userId: string,
+  type: GenerationEventType,
+): Promise<void> {
+  const cost = GENERATION_COSTS[type];
+
+  const user = await tx.user.findUnique({
+    where: { id: userId },
+    select: { credits: true },
+  });
+
+  if (!user || user.credits < cost) {
+    throw new Error(
+      `INSUFFICIENT_CREDITS:${type}:You need ${cost} credits to generate this content.`,
+    );
+  }
+
+  await tx.user.update({
+    where: { id: userId },
+    data: { credits: { decrement: cost } },
+  });
+}
+
 export interface CreateAvatarVideoJobInput {
   avatarR2Key: string;
   // Script mode
@@ -82,6 +111,7 @@ export async function createAvatarVideoJob(
 
   const job = await db.$transaction(async (tx) => {
     await checkAndRecordEvent(tx, session.user.id, "avatar-video");
+    await checkAndDeductCredits(tx, session.user.id, "avatar-video");
 
     return tx.avatarVideo.create({
       data: {
@@ -142,6 +172,7 @@ export async function createVoiceoverJob(
 
   const job = await db.$transaction(async (tx) => {
     await checkAndRecordEvent(tx, session.user.id, "voiceover");
+    await checkAndDeductCredits(tx, session.user.id, "voiceover");
 
     return tx.voiceover.create({
       data: {

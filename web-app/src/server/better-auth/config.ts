@@ -1,12 +1,19 @@
 import nodemailer from "nodemailer";
+import { Polar } from "@polar-sh/sdk";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { APIError, createAuthMiddleware } from "better-auth/api";
 import { env } from "~/env";
-import { PASSWORD_REGEX } from "~/lib/constants";
+import {
+  PASSWORD_REGEX,
+  POLAR_BRILLIANCE_PACK_ID,
+  POLAR_FLARE_PACK_ID,
+  POLAR_SPARK_PACK_ID,
+} from "~/lib/constants";
 import { getVerificationEmailHtml } from "~/lib/email-templates";
 import { db } from "~/server/db";
 import { multiSession } from "better-auth/plugins/multi-session";
+import { polar, checkout, portal, webhooks } from "@polar-sh/better-auth";
 
 const mailer = nodemailer.createTransport({
   service: "gmail",
@@ -14,6 +21,11 @@ const mailer = nodemailer.createTransport({
     user: env.GMAIL_USER,
     pass: env.GMAIL_APP_PASSWORD,
   },
+});
+
+const polarClient = new Polar({
+  accessToken: env.POLAR_ACCESS_TOKEN,
+  server: "sandbox",
 });
 
 export const auth = betterAuth({
@@ -67,7 +79,46 @@ export const auth = betterAuth({
       });
     },
   },
-  plugins: [multiSession()],
+  plugins: [
+    multiSession(),
+    polar({
+      client: polarClient,
+      createCustomerOnSignUp: true,
+      use: [
+        checkout({
+          products: [
+            // Spark pack: $5 — 500 credits
+            { productId: POLAR_SPARK_PACK_ID, slug: "spark" },
+            // Flare pack: $12 — 1500 credits
+            { productId: POLAR_FLARE_PACK_ID, slug: "flare" },
+            // Brilliance pack: $25 — 3500 credits
+            { productId: POLAR_BRILLIANCE_PACK_ID, slug: "brilliance" },
+          ],
+          successUrl: "/dashboard?status=success&checkout_id={CHECKOUT_ID}",
+          authenticatedUsersOnly: true,
+          returnUrl: `${env.NEXT_PUBLIC_APP_URL}/dashboard`,
+        }),
+        portal({ returnUrl: `${env.NEXT_PUBLIC_APP_URL}/dashboard` }),
+        webhooks({
+          secret: env.POLAR_WEBHOOK_SECRET,
+          onOrderPaid: async (payload) => {
+            const order = payload.data;
+            const userId = order.customer.externalId as string | undefined;
+            const creditsToAdd = Number(
+              order.product?.metadata.credits_to_add ?? 0,
+            );
+
+            if (userId && creditsToAdd > 0) {
+              await db.user.update({
+                where: { id: userId },
+                data: { credits: { increment: creditsToAdd } },
+              });
+            }
+          },
+        }),
+      ],
+    }),
+  ],
 });
 
 export type Session = typeof auth.$Infer.Session;

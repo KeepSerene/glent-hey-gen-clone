@@ -3,7 +3,11 @@
 import { getPresignedUploadUrl } from "~/server/r2";
 import { getSession } from "../better-auth/server";
 import { randomUUID } from "node:crypto";
-import { EXT_MAP, type GenerationEventType } from "~/lib/constants";
+import {
+  EXT_MAP,
+  GENERATION_COSTS,
+  type GenerationEventType,
+} from "~/lib/constants";
 import { getQuotaStatus } from "./quota";
 
 /**
@@ -34,6 +38,14 @@ export async function getUploadUrl(
     if (quota[eventType].isExceeded) {
       throw new Error(
         `DAILY_LIMIT_EXCEEDED:${eventType}:Resets at ${quota[eventType].resetsAt}`,
+      );
+    }
+
+    const cost = GENERATION_COSTS[eventType];
+
+    if (quota.credits < cost) {
+      throw new Error(
+        `INSUFFICIENT_CREDITS:${eventType}:You need ${cost} credits to generate this content.`,
       );
     }
   }

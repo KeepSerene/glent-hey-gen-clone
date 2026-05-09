@@ -43,6 +43,7 @@ interface AvatarVideoModalProps {
   isLimitReached: boolean;
   /** ISO string — earliest time the quota will free up. */
   resetsAt: string | null;
+  isNoCredits?: boolean;
 }
 
 function AvatarVideoModal({
@@ -50,6 +51,7 @@ function AvatarVideoModal({
   onOpenStateChange,
   isLimitReached,
   resetsAt,
+  isNoCredits = false,
 }: AvatarVideoModalProps) {
   // ── Avatar ────────────────────────────────────────────────────────────────
   const [avatarPreviewUrl, setAvatarPreviewUrl] = useState<string | null>(null);
@@ -193,7 +195,8 @@ function AvatarVideoModal({
   const hasVoice = !!selectedVoice || !!userAudioFile;
   const isScriptLongEnough = script.trim().length >= MIN_SCRIPT_LENGTH;
   const hasContent = !!selectedAudioUrl || (isScriptLongEnough && hasVoice);
-  const canGenerate = hasAvatar && hasContent && !isLimitReached;
+  const canGenerate =
+    hasAvatar && hasContent && !isLimitReached && !isNoCredits;
 
   // ── Generation handler ────────────────────────────────────────────────────────────
   const queryClient = useQueryClient();
@@ -269,16 +272,15 @@ function AvatarVideoModal({
       }
     } catch (err) {
       console.error("Generation start failed:", err);
-
       const message = err instanceof Error ? err.message : "";
 
-      if (message.startsWith("DAILY_LIMIT_EXCEEDED")) {
+      if (message.startsWith("INSUFFICIENT_CREDITS")) {
+        toast.error("Insufficient credits. Purchase a pack to continue.");
+      } else if (message.startsWith("DAILY_LIMIT_EXCEEDED")) {
         toast.error("Daily limit reached. Please try again later.");
       } else {
         toast.error("Failed to start generation. Please try again.");
       }
-
-      setIsSubmitting(false);
     } finally {
       setIsSubmitting(false);
     }
@@ -316,12 +318,13 @@ function AvatarVideoModal({
               </DialogDescription>
             </DialogHeader>
 
-            {isLimitReached && !jobId ? (
+            {(isLimitReached || isNoCredits) && !jobId ? (
               <div className="p-8">
                 <LimitBanner
                   type="avatar video"
                   limit={DAILY_LIMITS["avatar-video"]}
                   resetsAt={resetsAt}
+                  noCredits={isNoCredits}
                 />
               </div>
             ) : isSubmitting || jobId ? (

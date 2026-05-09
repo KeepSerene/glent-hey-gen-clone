@@ -19,6 +19,7 @@ export interface QuotaEntry {
 export interface QuotaStatus {
   "avatar-video": QuotaEntry;
   voiceover: QuotaEntry;
+  credits: number;
 }
 
 function buildEntry(
@@ -28,8 +29,6 @@ function buildEntry(
   const limit = DAILY_LIMITS[type];
   const used = eventsInWindow.length;
 
-  // The quota starts freeing up when the oldest event in the window expires
-  // Sort ascending (oldest first) to find that event
   const oldest = eventsInWindow
     .slice()
     .sort((a, b) => a.getTime() - b.getTime())[0];
@@ -43,8 +42,8 @@ function buildEntry(
 }
 
 /**
- * Returns the current 24-hour generation quota for the signed-in user.
- * Safe to call from any client component via React Query.
+ * Returns the current 24-hour generation quota AND credit balance for the
+ * signed-in user. Safe to call from any client component via React Query.
  */
 export async function getQuotaStatus(): Promise<QuotaStatus> {
   const session = await getSession();
@@ -54,13 +53,21 @@ export async function getQuotaStatus(): Promise<QuotaStatus> {
   }
 
   const windowStart = new Date(Date.now() - GEN_QUOTA_WINDOW_MS);
-  const recentEvents = await db.generationEvent.findMany({
-    where: {
-      userId: session.user.id,
-      createdAt: { gte: windowStart },
-    },
-    select: { type: true, createdAt: true },
-  });
+
+  const [recentEvents, user] = await Promise.all([
+    db.generationEvent.findMany({
+      where: {
+        userId: session.user.id,
+        createdAt: { gte: windowStart },
+      },
+      select: { type: true, createdAt: true },
+    }),
+
+    db.user.findUnique({
+      where: { id: session.user.id },
+      select: { credits: true },
+    }),
+  ]);
 
   const avatarEvents = recentEvents
     .filter((e) => e.type === "avatar-video")
@@ -73,5 +80,6 @@ export async function getQuotaStatus(): Promise<QuotaStatus> {
   return {
     "avatar-video": buildEntry("avatar-video", avatarEvents),
     voiceover: buildEntry("voiceover", voiceoverEvents),
+    credits: user?.credits ?? 0,
   };
 }

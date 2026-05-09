@@ -1,7 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { DASHBOARD_ACTIONS, DAILY_LIMITS } from "~/lib/constants";
+import {
+  DASHBOARD_ACTIONS,
+  DAILY_LIMITS,
+  GENERATION_COSTS,
+} from "~/lib/constants";
 import { cn } from "~/lib/utils";
 import AvatarVideoModal from "../modals/AvatarVideoModal";
 import { Badge } from "../ui/badge";
@@ -35,6 +39,12 @@ function DashboardClient({ recentItems }: DashboardClientProps) {
 
   const isAvatarLimitReached = quota?.["avatar-video"].isExceeded ?? false;
   const isVoiceoverLimitReached = quota?.["voiceover"].isExceeded ?? false;
+  const isAvatarNoCredits = quota
+    ? quota.credits < GENERATION_COSTS["avatar-video"]
+    : false;
+  const isVoiceNoCredits = quota
+    ? quota.credits < GENERATION_COSTS.voiceover
+    : false;
 
   const handleModalOpen = (mode: ActionMode) => {
     if (mode === "avatar-video") {
@@ -140,18 +150,21 @@ function DashboardClient({ recentItems }: DashboardClientProps) {
       {/* ── Recent generations ─────────────────────────────────────────── */}
       {recentItems.length > 0 && <RecentGenerationsStrip items={recentItems} />}
 
-      <AiVoiceStudioModal
-        isOpen={voiceStudioOpen}
-        onOpenStateChange={setVoiceStudioOpen}
-        isLimitReached={isVoiceoverLimitReached}
-        resetsAt={quota?.["voiceover"].resetsAt ?? null}
-      />
-
+      {/* ── Generation modals ─────────────────────────────────────────── */}
       <AvatarVideoModal
         isOpen={videoModalOpen}
         onOpenStateChange={setVideoModalOpen}
         isLimitReached={isAvatarLimitReached}
         resetsAt={quota?.["avatar-video"].resetsAt ?? null}
+        isNoCredits={isAvatarNoCredits}
+      />
+
+      <AiVoiceStudioModal
+        isOpen={voiceStudioOpen}
+        onOpenStateChange={setVoiceStudioOpen}
+        isLimitReached={isVoiceoverLimitReached}
+        resetsAt={quota?.["voiceover"].resetsAt ?? null}
+        isNoCredits={isVoiceNoCredits}
       />
     </main>
   );

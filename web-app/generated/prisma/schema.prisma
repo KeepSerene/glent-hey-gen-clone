@@ -22,6 +22,7 @@ model User {
   updatedAt        DateTime          @default(now()) @updatedAt
   sessions         Session[]
   accounts         Account[]
+  credits          Int               @default(50)
   avatarVideos     AvatarVideo[]
   voiceovers       Voiceover[]
   generationEvents GenerationEvent[]

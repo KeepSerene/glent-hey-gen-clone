@@ -37,6 +37,7 @@ interface AiVoiceStudioModalProps {
   isLimitReached: boolean;
   /** ISO string — earliest time the quota will free up. */
   resetsAt: string | null;
+  isNoCredits?: boolean;
 }
 
 function AiVoiceStudioModal({
@@ -44,6 +45,7 @@ function AiVoiceStudioModal({
   onOpenStateChange,
   isLimitReached,
   resetsAt,
+  isNoCredits = false,
 }: AiVoiceStudioModalProps) {
   const [script, setScript] = useState("");
   const [voiceModalOpen, setVoiceModalOpen] = useState(false);
@@ -81,7 +83,8 @@ function AiVoiceStudioModal({
 
   const hasVoice = !!selectedVoice || !!userAudioFile;
   const isScriptLongEnough = script.trim().length >= MIN_TTS_SCRIPT_LENGTH;
-  const canGenerate = isScriptLongEnough && hasVoice && !isLimitReached;
+  const canGenerate =
+    isScriptLongEnough && hasVoice && !isLimitReached && !isNoCredits;
 
   const queryClient = useQueryClient();
 
@@ -113,10 +116,11 @@ function AiVoiceStudioModal({
       void queryClient.invalidateQueries({ queryKey: ["generation-quota"] });
     } catch (err) {
       console.error("Voiceover generation failed:", err);
-
       const message = err instanceof Error ? err.message : "";
 
-      if (message.startsWith("DAILY_LIMIT_EXCEEDED")) {
+      if (message.startsWith("INSUFFICIENT_CREDITS")) {
+        toast.error("Insufficient credits. Purchase a pack to continue.");
+      } else if (message.startsWith("DAILY_LIMIT_EXCEEDED")) {
         toast.error("Daily limit reached. Please try again later.");
       } else {
         toast.error("Failed to start generation. Please try again.");
@@ -151,11 +155,12 @@ function AiVoiceStudioModal({
           </DialogHeader>
 
           <div className="flex flex-col gap-5 py-4">
-            {isLimitReached && !jobId ? (
+            {(isLimitReached || isNoCredits) && !jobId ? (
               <LimitBanner
                 type="voiceover"
                 limit={DAILY_LIMITS.voiceover}
                 resetsAt={resetsAt}
+                noCredits={isNoCredits}
               />
             ) : isSubmitting || jobId ? (
               <GenerationProgress

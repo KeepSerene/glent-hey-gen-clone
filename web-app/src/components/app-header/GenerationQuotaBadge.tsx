@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, CreditCard, X } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -8,9 +8,10 @@ import {
 } from "~/components/ui/tooltip";
 import { Badge } from "~/components/ui/badge";
 import useGenerationQuota from "~/hooks/useGenerationQuota";
-import { DAILY_LIMITS } from "~/lib/constants";
+import { DAILY_LIMITS, GENERATION_COSTS } from "~/lib/constants";
 import type { QuotaEntry } from "~/server/actions/quota";
 import { formatResetTime } from "~/lib/utils";
+import { UpgradeButton } from "../UpgradeButton";
 
 const QuotaLine = ({ label, entry }: { label: string; entry: QuotaEntry }) => (
   <li className="flex items-start gap-2">
@@ -40,16 +41,23 @@ const QuotaLine = ({ label, entry }: { label: string; entry: QuotaEntry }) => (
 export default function GenerationQuotaBadge() {
   const { data: quota } = useGenerationQuota();
 
-  // Only render when we have data and at least one limit is hit
   if (!quota) return null;
 
   const avatarEntry = quota["avatar-video"];
-  const voiceEntry = quota["voiceover"];
+  const voiceEntry = quota.voiceover;
+  const credits = quota.credits;
+
+  // No-credits: user can't afford the respective action
+  const avatarNoCredits = credits < GENERATION_COSTS["avatar-video"];
+  const voiceNoCredits = credits < GENERATION_COSTS.voiceover;
+  const anyNoCredits = avatarNoCredits || voiceNoCredits;
+
   const anyExceeded = avatarEntry.isExceeded || voiceEntry.isExceeded;
 
-  if (!anyExceeded) return null;
+  // Only render badge when there's something to surface
+  if (!anyNoCredits && !anyExceeded) return null;
 
-  // Show the soonest reset time across all exceeded quotas
+  // Soonest quota reset across exceeded types
   const exceedTimes = [
     avatarEntry.isExceeded ? avatarEntry.resetsAt : null,
     voiceEntry.isExceeded ? voiceEntry.resetsAt : null,
@@ -65,19 +73,32 @@ export default function GenerationQuotaBadge() {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        {/* Wrapping in a button makes it keyboard-accessible! */}
         <button
           type="button"
-          aria-label="Daily generation limit reached — see details"
+          aria-label={
+            anyNoCredits
+              ? "Insufficient credits — see details"
+              : "Daily generation limit reached — see details"
+          }
           className="focus-visible:ring-ring flex cursor-default items-center rounded focus-visible:ring-2 focus-visible:outline-none"
         >
-          <Badge
-            variant="destructive"
-            className="gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase"
-          >
-            <AlertCircle className="size-2.5" />
-            Limit Hit
-          </Badge>
+          {anyNoCredits ? (
+            <Badge
+              variant="destructive"
+              className="gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase"
+            >
+              <CreditCard className="size-2.5" />
+              No Credits
+            </Badge>
+          ) : (
+            <Badge
+              variant="destructive"
+              className="gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase"
+            >
+              <AlertCircle className="size-2.5" />
+              Limit Hit
+            </Badge>
+          )}
         </button>
       </TooltipTrigger>
 
@@ -87,31 +108,83 @@ export default function GenerationQuotaBadge() {
         sideOffset={8}
         className="max-w-65 p-3 text-xs"
       >
-        <p className="mb-2 leading-snug font-semibold">
-          Daily generation limits apply
-        </p>
+        {anyNoCredits ? (
+          // ── No-credits state (takes priority) ──────────────────────────
+          <>
+            <p className="mb-2 leading-snug font-semibold">
+              Insufficient credits
+            </p>
 
-        <ul className="flex flex-col gap-1.5">
-          <QuotaLine
-            label={`Avatar Video (${DAILY_LIMITS["avatar-video"]}/day)`}
-            entry={avatarEntry}
-          />
+            <p className="text-muted-foreground mb-3 leading-relaxed">
+              Your current balance ({credits} cr) isn't enough to start a new
+              generation.
+            </p>
 
-          <QuotaLine
-            label={`Voiceover (${DAILY_LIMITS["voiceover"]}/day)`}
-            entry={voiceEntry}
-          />
-        </ul>
+            <ul className="mb-3 flex flex-col gap-1.5">
+              {avatarNoCredits && (
+                <li className="flex items-center gap-1.5">
+                  <X className="text-destructive size-4" />
 
-        {soonestReset && (
-          <p className="text-muted-foreground mt-2.5 border-t pt-2 text-[11px] leading-snug">
-            This is a free-tier portfolio project. Limits reset on a rolling
-            24-hour window. Next slot opens{" "}
-            <span className="text-foreground font-medium">
-              {formatResetTime(soonestReset)}
-            </span>
-            .
-          </p>
+                  <span>
+                    Avatar Video — needs {GENERATION_COSTS["avatar-video"]} cr
+                  </span>
+                </li>
+              )}
+
+              {voiceNoCredits && (
+                <li className="flex items-center gap-1.5">
+                  <span className="text-destructive">✗</span>
+                  <span>Voiceover — needs {GENERATION_COSTS.voiceover} cr</span>
+                </li>
+              )}
+            </ul>
+
+            <UpgradeButton
+              size="sm"
+              label="Get more credits"
+              className="w-full justify-center"
+            />
+
+            {/* Still show daily limits if they're also hit, as secondary info */}
+            {anyExceeded && (
+              <p className="text-muted-foreground mt-2.5 border-t pt-2 text-[11px] leading-snug">
+                Note: daily quotas are also active. They reset{" "}
+                <span className="text-foreground font-medium">
+                  {formatResetTime(soonestReset)}
+                </span>
+                .
+              </p>
+            )}
+          </>
+        ) : (
+          // ── Daily-limit state ────────────────────────────────────────────
+          <>
+            <p className="mb-2 leading-snug font-semibold">
+              Daily generation limits apply
+            </p>
+
+            <ul className="flex flex-col gap-1.5">
+              <QuotaLine
+                label={`Avatar Video (${DAILY_LIMITS["avatar-video"]}/day)`}
+                entry={avatarEntry}
+              />
+              <QuotaLine
+                label={`Voiceover (${DAILY_LIMITS["voiceover"]}/day)`}
+                entry={voiceEntry}
+              />
+            </ul>
+
+            {soonestReset && (
+              <p className="text-muted-foreground mt-2.5 border-t pt-2 text-[11px] leading-snug">
+                Free-tier portfolio project. Limits reset on a rolling 24-hour
+                window. Next slot opens{" "}
+                <span className="text-foreground font-medium">
+                  {formatResetTime(soonestReset)}
+                </span>
+                .
+              </p>
+            )}
+          </>
         )}
       </TooltipContent>
     </Tooltip>

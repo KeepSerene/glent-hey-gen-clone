@@ -3,6 +3,7 @@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "~/components/ui/dialog";
@@ -156,10 +157,13 @@ export default function RecentGenerationsStrip({
         <DialogContent className="max-w-lg">
           <DialogHeader>
             <DialogTitle className="truncate pr-6 text-base font-semibold">
-              {playingItem?.title ?? "Playing…"}
+              {playingItem?.title ?? "Playing..."}
             </DialogTitle>
 
-            {/* FIX: DialogDescription missing - will get an warning! */}
+            <DialogDescription className="text-muted-foreground text-sm">
+              Playback and download options for your generated{" "}
+              {playingItem?.type === "avatar-video" ? "video" : "audio"}.
+            </DialogDescription>
           </DialogHeader>
 
           <div className="flex flex-col gap-4">
@@ -172,7 +176,7 @@ export default function RecentGenerationsStrip({
               {isLoadingPlayer && (
                 <div className="flex flex-col items-center gap-2">
                   <div className="border-primary size-6 animate-spin rounded-full border-2 border-t-transparent" />
-                  <p className="text-muted-foreground text-xs">Loading…</p>
+                  <p className="text-muted-foreground text-xs">Loading...</p>
                 </div>
               )}
 

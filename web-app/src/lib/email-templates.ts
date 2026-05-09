@@ -55,7 +55,7 @@ export function getVerificationEmailHtml({
               <tr>
                 <td style="padding: 20px 40px 40px 40px; color: ${foreground}; font-size: 16px; line-height: 1.6;">
                   <p style="margin-top: 0; margin-bottom: 24px;">Hi ${name},</p>
-                  <p style="margin-top: 0; margin-bottom: 32px;">Welcome to <strong>Glent</strong>! To get started with your AI video avatars, we just need to verify your email address.</p>
+                  <p style="margin-top: 0; margin-bottom: 32px;">Welcome to <strong>Glent</strong>! To get started with your AI avatars videos, voiceovers, and more, we just need to verify your email address.</p>
                   
                   <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>

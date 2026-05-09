@@ -219,3 +219,13 @@ export const GEN_CARD_STATUS_CONFIG: Record<
     className: "bg-destructive/10 text-destructive",
   },
 } as const;
+export const GENERATION_COSTS = {
+  "avatar-video": 35,
+  voiceover: 5,
+} as const;
+export const POLAR_SPARK_PACK_ID =
+  "2602da5d-f929-4c3e-a452-75364e9a2831" as const;
+export const POLAR_FLARE_PACK_ID =
+  "b0ac7b03-a1cd-4ccb-a352-fe904f9e5779" as const;
+export const POLAR_BRILLIANCE_PACK_ID =
+  "4dfdd053-1af2-453e-8ba2-fa4ec6b8ee6b" as const;
