@@ -174,7 +174,7 @@ export default function HistoryClient({
   }[activeTab];
 
   return (
-    <div className="flex flex-col gap-8 p-6 sm:p-8">
+    <main className="flex flex-col gap-8 p-6 sm:p-8">
       <div className="flex flex-col gap-1">
         <h1 className="font-heading text-foreground text-2xl font-bold tracking-tight">
           Generation history
@@ -234,7 +234,7 @@ export default function HistoryClient({
         <DialogContent className="max-w-lg">
           <DialogHeader>
             <DialogTitle className="truncate pr-6 text-base font-semibold">
-              {playingItem?.title ?? "Playing…"}
+              {playingItem?.title ?? "Playing..."}
             </DialogTitle>
           </DialogHeader>
 
@@ -292,6 +292,6 @@ export default function HistoryClient({
           </div>
         </DialogContent>
       </Dialog>
-    </div>
+    </main>
   );
 }

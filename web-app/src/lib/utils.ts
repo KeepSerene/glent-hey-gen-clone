@@ -171,7 +171,7 @@ export function generateTitle(
 ): string {
   if (script?.trim()) {
     const clean = script.trim().replace(/\s+/g, " ");
-    return clean.length > 52 ? clean.slice(0, 49) + "…" : clean;
+    return clean.length > 52 ? clean.slice(0, 49) + "..." : clean;
   }
 
   const dateStr = new Date().toLocaleDateString("en-IN", {
