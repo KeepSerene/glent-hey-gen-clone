@@ -1,6 +1,6 @@
 "use client";
 
-import { Download, Play, Video } from "lucide-react";
+import { Download, DownloadCloud, Play, Video } from "lucide-react";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import type {
@@ -14,6 +14,7 @@ import {
   getRelativeTime,
   getWaveformBars,
 } from "~/lib/utils";
+import Image from "next/image";
 
 type AvatarVideoItem = ClientAvatarVideo & { type: "avatar-video" };
 type VoiceoverItem = ClientVoiceover & { type: "voiceover" };
@@ -56,10 +57,13 @@ export default function GenerationCard({ item, onPlay }: GenerationCardProps) {
       {/* ── Thumbnail ──────────────────────────────────────────────────────── */}
       <div className="bg-muted relative aspect-video w-full overflow-hidden">
         {isAvatarVideo && item.avatarUrl ? (
-          <img
+          <Image
             src={item.avatarUrl}
             alt={item.title ?? "Avatar"}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            onLoad={(e) => e.currentTarget.setAttribute("data-loaded", "true")}
+            className="img-scale-down-blur-up transition-transform duration-300 group-hover:scale-105"
           />
         ) : isAvatarVideo ? (
           // Fallback when no avatar URL is available yet
@@ -86,13 +90,13 @@ export default function GenerationCard({ item, onPlay }: GenerationCardProps) {
         {isCompleted && (
           <button
             type="button"
-            aria-label={`Play ${item.title ?? "generation"}`}
             onClick={() => onPlay(item.id, item.type, item.title)}
+            aria-label={`Play ${item.title ?? "generation"}`}
             className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-200 group-hover:bg-black/30 group-hover:opacity-100"
           >
-            <div className="text-foreground flex size-12 items-center justify-center rounded-full bg-white/90 shadow-lg">
+            <span className="text-foreground flex size-12 items-center justify-center rounded-full bg-white/90 shadow-lg">
               <Play className="ml-0.5 size-5 fill-current" />
-            </div>
+            </span>
           </button>
         )}
       </div>
@@ -138,10 +142,10 @@ export default function GenerationCard({ item, onPlay }: GenerationCardProps) {
             <Button
               type="button"
               size="sm"
-              className="h-8 flex-1 text-xs"
               onClick={() => onPlay(item.id, item.type, item.title)}
+              className="h-8 flex-1 text-xs"
             >
-              <Play className="mr-1 size-3 fill-current" />
+              <Play className="size-3 fill-current" />
               Play
             </Button>
 
@@ -150,7 +154,7 @@ export default function GenerationCard({ item, onPlay }: GenerationCardProps) {
                 href={`/api/assets/${item.type}/${item.id}?download=1`}
                 aria-label="Download"
               >
-                <Download className="size-3.5" />
+                <DownloadCloud className="size-3.5" />
               </a>
             </Button>
           </div>

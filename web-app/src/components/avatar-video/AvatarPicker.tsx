@@ -11,6 +11,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
+import { cn } from "~/lib/utils";
 
 interface AvatarPickerProps {
   previewUrl: string | null;
@@ -31,19 +32,26 @@ function AvatarPicker({
 }: AvatarPickerProps) {
   // ── Preview Mode ──────────────────────────────────────────────────────────
   if (previewUrl) {
+    const isLocalBlob = previewUrl.startsWith("blob:");
+
     return (
-      <div className="flex h-full w-full flex-col items-center justify-center gap-4">
+      <div className="flex size-full flex-col items-center justify-center gap-4">
         <div className="group border-border/50 bg-muted/40 relative w-full overflow-hidden rounded-[2rem] border p-2 shadow-sm">
           <div className="relative overflow-hidden rounded-[1.5rem] bg-black shadow-inner">
             <Image
               src={previewUrl}
               alt={avatarFile ? avatarFile.name : "Selected avatar"}
-              width={512}
-              height={512}
+              width={0}
+              height={0}
+              sizes="100vw"
+              unoptimized={isLocalBlob}
               onLoad={(e) =>
                 e.currentTarget.setAttribute("data-loaded", "true")
               }
-              className="img-scale-down-blur-up aspect-square w-full object-cover"
+              className={cn(
+                "img-scale-down-blur-up w-full",
+                isLocalBlob ? "h-auto" : "aspect-square",
+              )}
             />
 
             {/* Gradient overlay for the trash button */}
@@ -108,9 +116,11 @@ function AvatarPicker({
       <div className="flex w-full flex-col gap-3">
         <div className="flex items-center gap-4">
           <div className="bg-border h-px grow" />
+
           <span className="text-muted-foreground text-[10px] font-semibold tracking-widest uppercase">
             Or try a sample
           </span>
+
           <div className="bg-border h-px grow" />
         </div>
 
