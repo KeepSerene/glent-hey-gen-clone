@@ -175,7 +175,7 @@ export default function HistoryClient({
 
   return (
     <main className="flex flex-col gap-8 p-6 sm:p-8">
-      <div className="flex flex-col gap-1">
+      <section className="flex flex-col gap-1">
         <h1 className="font-heading text-foreground text-2xl font-bold tracking-tight">
           Generation history
         </h1>
@@ -185,7 +185,7 @@ export default function HistoryClient({
             ? "Your creations will appear here."
             : `${totalCount} creation${totalCount !== 1 ? "s" : ""} across all types.`}
         </p>
-      </div>
+      </section>
 
       {/* ── Tabs + grid ──────────────────────────────────────────────────── */}
       <Tabs
