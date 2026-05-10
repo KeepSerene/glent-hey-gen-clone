@@ -10,7 +10,11 @@ const config = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "*.r2.dev",
+        hostname: "*.r2.dev", // Allows public samples
+      },
+      {
+        protocol: "https",
+        hostname: "*.r2.cloudflarestorage.com", // Allows private presigned URLs
       },
     ],
   },

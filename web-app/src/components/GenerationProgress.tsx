@@ -1,46 +1,41 @@
 "use client";
 
-import {
-  CheckCircle2,
-  DownloadCloud,
-  Loader2,
-  RefreshCw,
-  XCircle,
-} from "lucide-react";
+import { CheckCircle2, Loader2, X, XCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "~/components/ui/button";
 import type { GenerationJobType } from "~/hooks/useGenerationStatus";
+import { GEN_STATUS_LABELS } from "~/lib/constants";
 
 interface GenerationProgressProps {
   type: GenerationJobType;
   jobId: string | null;
   status: string;
   errorMessage?: string | null;
-  onReset: () => void;
+  onCancel?: () => Promise<void>;
 }
 
-const STATUS_LABELS: Record<string, string> = {
-  queued: "Warming up the GPU...",
-  tts_generating: "Synthesizing voice from your script...",
-  video_generating: "Animating your avatar — hang tight...",
-  generating: "Synthesizing your voiceover...",
-  completed: "Your creation is ready!",
-  failed: "Something went wrong.",
-};
+/** Hint shown in the inline cancel confirmation based on the current status. */
+function getCancelHint(status: string): string {
+  if (status === "queued") {
+    return "Job hasn't started yet — you'll get a full credit refund.";
+  }
+
+  return "The GPU is already running — no credits will be refunded.";
+}
 
 export default function GenerationProgress({
   type,
   jobId,
   status,
   errorMessage,
-  onReset,
+  onCancel,
 }: GenerationProgressProps) {
   const [assetUrl, setAssetUrl] = useState<string | null>(null);
+  const [confirmCancel, setConfirmCancel] = useState(false);
+  const [isCanceling, setIsCanceling] = useState(false);
 
-  // Fetch a fresh presigned URL from the assets endpoint once the job completes.
-  // This runs whenever the component mounts with a completed status too, making
-  // it safe to reuse on a history page without any URL-expiry concerns.
+  // Fetch a fresh presigned URL from the assets endpoint once the job completes
   useEffect(() => {
     if (status !== "completed" || !jobId) return;
 
@@ -56,9 +51,28 @@ export default function GenerationProgress({
       );
   }, [status, jobId, type]);
 
+  // Reset cancel confirmation if status changes (e.g. job progresses past queued)
+  useEffect(() => {
+    setConfirmCancel(false);
+  }, [status]);
+
   const isComplete = status === "completed";
   const isFailed = status === "failed";
   const isActive = !isComplete && !isFailed;
+
+  const handleCancelConfirm = async () => {
+    if (!onCancel || isCanceling) return;
+
+    setIsCanceling(true);
+    try {
+      await onCancel();
+      // Parent calls handleReset() which unmounts this component
+    } catch {
+      toast.error("Failed to cancel. Please try again.");
+      setIsCanceling(false);
+      setConfirmCancel(false);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center gap-6 py-10">
@@ -69,14 +83,13 @@ export default function GenerationProgress({
 
       {/* Status label */}
       <p className="text-center text-base font-medium">
-        {STATUS_LABELS[status] ?? "Processing..."}
+        {GEN_STATUS_LABELS[status] ?? "Processing..."}
       </p>
 
       {/* Active hint */}
-      {isActive && (
+      {isActive && !confirmCancel && (
         <p className="text-muted-foreground max-w-xs text-center text-sm">
-          You can close this modal — the job keeps running in the background.
-          Re-open to check back.
+          You can close this modal. Re-open to check back.
         </p>
       )}
 
@@ -89,18 +102,7 @@ export default function GenerationProgress({
 
       {/* Result preview */}
       {isComplete && assetUrl && (
-        <div className="w-full max-w-sm">
-          {type === "voiceover" ? (
-            <audio src={assetUrl} controls className="w-full" />
-          ) : (
-            <video
-              src={assetUrl}
-              controls
-              playsInline
-              className="w-full rounded-xl"
-            />
-          )}
-        </div>
+        <p className="text-muted-foreground">Check your recent creations.</p>
       )}
 
       {/* Loading indicator while URL is being fetched */}
@@ -108,23 +110,53 @@ export default function GenerationProgress({
         <Loader2 className="text-muted-foreground size-5 animate-spin" />
       )}
 
-      {/* Actions */}
-      {(isComplete || isFailed) && (
-        <div className="flex gap-3">
-          {isComplete && jobId && (
-            <Button variant="outline" asChild>
-              <a href={`/api/assets/${type}/${jobId}?download=1`}>
-                <DownloadCloud className="mr-2 size-4" />
-                Download
-              </a>
-            </Button>
-          )}
+      {/* Inline cancel confirmation */}
+      {isActive && onCancel && confirmCancel && (
+        <div className="bg-muted/60 border-border flex w-full max-w-xs flex-col items-center gap-3 rounded-xl border p-4 text-center">
+          <p className="text-foreground text-sm font-medium">
+            Cancel this generation?
+          </p>
 
-          <Button type="button" variant="secondary" onClick={onReset}>
-            <RefreshCw className="size-4" />
-            Create another
-          </Button>
+          <p className="text-muted-foreground text-xs">
+            {getCancelHint(status)}
+          </p>
+
+          <div className="flex gap-2">
+            <Button
+              type="button"
+              variant="destructive"
+              size="sm"
+              onClick={handleCancelConfirm}
+              disabled={isCanceling}
+            >
+              {isCanceling && <Loader2 className="size-3 animate-spin" />}
+              Yes, cancel
+            </Button>
+
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => setConfirmCancel(false)}
+              disabled={isCanceling}
+            >
+              Keep waiting
+            </Button>
+          </div>
         </div>
+      )}
+
+      {/* Cancel affordance */}
+      {isActive && onCancel && !confirmCancel && (
+        <Button
+          type="button"
+          variant="destructive"
+          size="sm"
+          onClick={() => setConfirmCancel(true)}
+        >
+          <X className="size-4" />
+          Cancel generation
+        </Button>
       )}
     </div>
   );

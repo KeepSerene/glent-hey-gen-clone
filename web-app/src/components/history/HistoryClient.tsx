@@ -2,20 +2,9 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
-import {
-  AudioWaveform,
-  Download,
-  FolderArchive,
-  Loader2,
-  Video,
-} from "lucide-react";
+import { useRouter } from "next/navigation";
+import { AudioWaveform, FolderArchive, Video } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "~/components/ui/dialog";
 import { Button } from "~/components/ui/button";
 import type {
   ClientAvatarVideo,
@@ -23,14 +12,13 @@ import type {
 } from "~/server/actions/history";
 import { cn } from "~/lib/utils";
 import GenerationCard from "./GenerationCard";
+import { deleteGeneration } from "~/server/actions/delete";
+import DeleteConfirmationModal, {
+  type DeletingItem,
+} from "../modals/DeleteConfirmationModal";
+import MediaPlayerModal, { type PlayingItem } from "../modals/MediaPlayerModal";
 
 type TabValue = "all" | "avatar-video" | "voiceover";
-
-interface PlayingItem {
-  id: string;
-  type: "avatar-video" | "voiceover";
-  title: string | null;
-}
 
 interface HistoryClientProps {
   avatarVideos: ClientAvatarVideo[];
@@ -39,16 +27,10 @@ interface HistoryClientProps {
 
 // Merge both lists into a single sorted array for the "All" tab
 function mergeAndSort(
-  avatarVideos: ClientAvatarVideo[],
-  voiceovers: ClientVoiceover[],
+  avatarVideos: (ClientAvatarVideo & { type: "avatar-video" })[],
+  voiceovers: (ClientVoiceover & { type: "voiceover" })[],
 ) {
-  const videos = avatarVideos.map((v) => ({
-    ...v,
-    type: "avatar-video" as const,
-  }));
-  const audio = voiceovers.map((v) => ({ ...v, type: "voiceover" as const }));
-
-  return [...videos, ...audio].sort(
+  return [...avatarVideos, ...voiceovers].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
   );
 }
@@ -71,42 +53,80 @@ function TabCount({ count, active }: { count: number; active: boolean }) {
 }
 
 export default function HistoryClient({
-  avatarVideos,
-  voiceovers,
+  avatarVideos: initialAvatarVideos,
+  voiceovers: initialVoiceovers,
 }: HistoryClientProps) {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<TabValue>("all");
+
+  const [localAvatarVideos, setLocalAvatarVideos] = useState(() =>
+    initialAvatarVideos.map((v) => ({ ...v, type: "avatar-video" as const })),
+  );
+  const [localVoiceovers, setLocalVoiceovers] = useState(() =>
+    initialVoiceovers.map((v) => ({ ...v, type: "voiceover" as const })),
+  );
+
   const [playingItem, setPlayingItem] = useState<PlayingItem | null>(null);
-  const [playerUrl, setPlayerUrl] = useState<string | null>(null);
-  const [isLoadingPlayer, setIsLoadingPlayer] = useState(false);
+  const [deletingItem, setDeletingItem] = useState<DeletingItem | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
-  const allItems = mergeAndSort(avatarVideos, voiceovers);
-  const totalCount = avatarVideos.length + voiceovers.length;
+  const allItems = mergeAndSort(localAvatarVideos, localVoiceovers);
+  const totalCount = localAvatarVideos.length + localVoiceovers.length;
 
-  const handlePlay = async (
+  const handlePlay = (
     id: string,
     type: "avatar-video" | "voiceover",
     title: string | null,
   ) => {
     setPlayingItem({ id, type, title });
-    setPlayerUrl(null);
-    setIsLoadingPlayer(true);
-
-    try {
-      const res = await fetch(`/api/assets/${type}/${id}`);
-      if (!res.ok) throw new Error("Asset fetch failed");
-      const data = (await res.json()) as { url: string };
-      setPlayerUrl(data.url);
-    } catch {
-      toast.error("Could not load the player. Try again.");
-      setPlayingItem(null);
-    } finally {
-      setIsLoadingPlayer(false);
-    }
   };
 
-  const closePlayer = () => {
-    setPlayingItem(null);
-    setPlayerUrl(null);
+  const handleDeleteRequest = (
+    id: string,
+    type: "avatar-video" | "voiceover",
+    title: string | null,
+    status: string,
+  ) => {
+    setDeletingItem({ id, type, title, status });
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!deletingItem || isDeleting) return;
+
+    const { id, type, status } = deletingItem;
+    setIsDeleting(true);
+
+    // Optimistic UI update
+    if (type === "avatar-video") {
+      setLocalAvatarVideos((prev) => prev.filter((v) => v.id !== id));
+    } else {
+      setLocalVoiceovers((prev) => prev.filter((v) => v.id !== id));
+    }
+
+    setDeletingItem(null);
+    setIsDeleting(false);
+
+    try {
+      const { refunded } = await deleteGeneration(id, type);
+
+      const isActive =
+        status === "queued" ||
+        status === "tts_generating" ||
+        status === "video_generating" ||
+        status === "generating";
+
+      if (refunded > 0) {
+        toast.success(`Canceled — ${refunded} credits refunded.`);
+      } else if (isActive) {
+        toast.info("Generation canceled.");
+      } else {
+        toast.success("Deleted successfully.");
+      }
+    } catch (err) {
+      console.error("Delete failed:", err);
+      toast.error("Failed to delete. Refreshing...");
+      router.refresh();
+    }
   };
 
   const renderEmpty = (type: TabValue) => {
@@ -136,7 +156,6 @@ export default function HistoryClient({
           <p className="font-heading text-base font-semibold">
             {config.heading}
           </p>
-
           <p className="text-muted-foreground mt-1 text-sm">{config.body}</p>
         </div>
 
@@ -147,8 +166,8 @@ export default function HistoryClient({
     );
   };
 
-  const renderGrid = (items: typeof allItems) => {
-    if (items.length === 0) return renderEmpty(activeTab);
+  const renderGrid = (items: typeof allItems, emptyTab: TabValue) => {
+    if (items.length === 0) return renderEmpty(emptyTab);
 
     return (
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -157,6 +176,7 @@ export default function HistoryClient({
             key={`${item.type}-${item.id}`}
             item={item}
             onPlay={handlePlay}
+            onDelete={handleDeleteRequest}
           />
         ))}
       </div>
@@ -164,17 +184,13 @@ export default function HistoryClient({
   };
 
   const tabContent = {
-    all: renderGrid(allItems),
-    "avatar-video": renderGrid(
-      avatarVideos.map((v) => ({ ...v, type: "avatar-video" as const })),
-    ),
-    voiceover: renderGrid(
-      voiceovers.map((v) => ({ ...v, type: "voiceover" as const })),
-    ),
+    all: renderGrid(allItems, "all"),
+    "avatar-video": renderGrid(localAvatarVideos, "avatar-video"),
+    voiceover: renderGrid(localVoiceovers, "voiceover"),
   }[activeTab];
 
   return (
-    <main className="flex flex-col gap-8 p-6 sm:p-8">
+    <main className="flex flex-col gap-8 overflow-y-auto p-6 sm:p-8">
       <section className="flex flex-col gap-1">
         <h1 className="font-heading text-foreground text-2xl font-bold tracking-tight">
           Generation history
@@ -187,7 +203,6 @@ export default function HistoryClient({
         </p>
       </section>
 
-      {/* ── Tabs + grid ──────────────────────────────────────────────────── */}
       <Tabs
         value={activeTab}
         onValueChange={(v) => setActiveTab(v as TabValue)}
@@ -205,7 +220,7 @@ export default function HistoryClient({
           >
             Avatar Videos
             <TabCount
-              count={avatarVideos.length}
+              count={localAvatarVideos.length}
               active={activeTab === "avatar-video"}
             />
           </TabsTrigger>
@@ -217,7 +232,7 @@ export default function HistoryClient({
           >
             Voiceovers
             <TabCount
-              count={voiceovers.length}
+              count={localVoiceovers.length}
               active={activeTab === "voiceover"}
             />
           </TabsTrigger>
@@ -226,72 +241,19 @@ export default function HistoryClient({
         {tabContent}
       </Tabs>
 
-      {/* ── Player dialog ────────────────────────────────────────────────── */}
-      <Dialog
-        open={!!playingItem}
-        onOpenChange={(open) => !open && closePlayer()}
-      >
-        <DialogContent className="max-w-lg">
-          <DialogHeader>
-            <DialogTitle className="truncate pr-6 text-base font-semibold">
-              {playingItem?.title ?? "Playing..."}
-            </DialogTitle>
-          </DialogHeader>
+      <MediaPlayerModal
+        item={playingItem}
+        onClose={() => setPlayingItem(null)}
+      />
 
-          <div className="flex flex-col gap-4">
-            {/* Player area */}
-            <div
-              className={cn(
-                "bg-muted flex min-h-30 items-center justify-center rounded-xl",
-                playingItem?.type === "avatar-video" && "aspect-video min-h-0",
-              )}
-            >
-              {isLoadingPlayer && (
-                <Loader2 className="text-muted-foreground size-8 animate-spin" />
-              )}
-
-              {!isLoadingPlayer &&
-                playerUrl &&
-                playingItem?.type === "avatar-video" && (
-                  <video
-                    src={playerUrl}
-                    controls
-                    autoPlay
-                    playsInline
-                    className="h-full w-full rounded-xl object-contain"
-                  />
-                )}
-
-              {!isLoadingPlayer &&
-                playerUrl &&
-                playingItem?.type === "voiceover" && (
-                  <div className="w-full px-4">
-                    <audio
-                      src={playerUrl}
-                      controls
-                      autoPlay
-                      className="w-full"
-                    />
-                  </div>
-                )}
-            </div>
-
-            {/* Actions */}
-            {playerUrl && playingItem && (
-              <div className="flex items-center justify-end gap-2">
-                <Button variant="outline" size="sm" asChild>
-                  <a
-                    href={`/api/assets/${playingItem.type}/${playingItem.id}?download=1`}
-                  >
-                    <Download className="mr-1.5 size-3.5" />
-                    Download
-                  </a>
-                </Button>
-              </div>
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
+      <DeleteConfirmationModal
+        item={deletingItem}
+        isDeleting={isDeleting}
+        onOpenChange={(open: boolean) =>
+          !open && !isDeleting && setDeletingItem(null)
+        }
+        onConfirm={handleDeleteConfirm}
+      />
     </main>
   );
 }

@@ -3,6 +3,10 @@
 import { CreditCard, ShieldAlert } from "lucide-react";
 import { formatResetTime } from "~/lib/utils";
 import { UpgradeButton } from "./UpgradeButton";
+import {
+  GEN_QUOTA_WINDOWS_MS,
+  type GenerationEventType,
+} from "~/lib/constants";
 
 interface LimitBannerProps {
   resetsAt: string | null;
@@ -20,12 +24,16 @@ interface LimitBannerProps {
  * Rendered inside a modal when the user cannot generate — either due to
  * insufficient credits (priority) or a daily quota limit.
  */
-const LimitBanner = ({
+function LimitBanner({
   resetsAt,
   type,
   limit,
   noCredits = false,
-}: LimitBannerProps) => {
+}: LimitBannerProps) {
+  const eventKey = type.replace(" ", "-") as GenerationEventType;
+  const windowDays = GEN_QUOTA_WINDOWS_MS[eventKey] / (24 * 60 * 60 * 1000);
+  const windowText = windowDays === 1 ? "24-hour" : `${windowDays}-day`;
+
   if (noCredits) {
     return (
       <div className="bg-destructive/5 border-destructive/20 flex flex-col items-center gap-4 rounded-xl border p-6 py-10 text-center">
@@ -45,7 +53,7 @@ const LimitBanner = ({
           </p>
         </div>
 
-        <UpgradeButton size="default" label="Get more credits" />
+        <UpgradeButton label="Get more credits" />
       </div>
     );
   }
@@ -67,7 +75,7 @@ const LimitBanner = ({
             {limit} {type}
             {limit !== 1 ? "s" : ""}
           </span>{" "}
-          per 24-hour window.
+          per {windowText} window.
         </p>
       </div>
 
@@ -81,6 +89,6 @@ const LimitBanner = ({
       </div>
     </div>
   );
-};
+}
 
 export default LimitBanner;

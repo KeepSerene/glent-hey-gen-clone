@@ -8,35 +8,9 @@ import {
 } from "~/components/ui/tooltip";
 import { Badge } from "~/components/ui/badge";
 import useGenerationQuota from "~/hooks/useGenerationQuota";
-import { DAILY_LIMITS, GENERATION_COSTS } from "~/lib/constants";
-import type { QuotaEntry } from "~/server/actions/quota";
+import { GENERATION_COSTS } from "~/lib/constants";
 import { formatResetTime } from "~/lib/utils";
 import { UpgradeButton } from "../UpgradeButton";
-
-const QuotaLine = ({ label, entry }: { label: string; entry: QuotaEntry }) => (
-  <li className="flex items-start gap-2">
-    <span
-      className={
-        entry.isExceeded
-          ? "text-destructive font-semibold"
-          : "text-muted-foreground"
-      }
-    >
-      {entry.isExceeded ? "✗" : "✓"}
-    </span>
-
-    <span>
-      <span className="font-medium">{label}</span>
-      {" — "}
-      {entry.used}/{entry.limit} used
-      {entry.isExceeded && entry.resetsAt && (
-        <span className="text-muted-foreground block text-[11px]">
-          Resets {formatResetTime(entry.resetsAt)}
-        </span>
-      )}
-    </span>
-  </li>
-);
 
 export default function GenerationQuotaBadge() {
   const { data: quota } = useGenerationQuota();
@@ -85,18 +59,18 @@ export default function GenerationQuotaBadge() {
           {anyNoCredits ? (
             <Badge
               variant="destructive"
-              className="gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase"
+              className="text-sm font-semibold capitalize"
             >
-              <CreditCard className="size-2.5" />
-              No Credits
+              <CreditCard className="size-4" />
+              No credits
             </Badge>
           ) : (
             <Badge
               variant="destructive"
-              className="gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase"
+              className="text-sm font-semibold capitalize"
             >
-              <AlertCircle className="size-2.5" />
-              Limit Hit
+              <AlertCircle className="size-4" />
+              Limit hit
             </Badge>
           )}
         </button>
@@ -105,51 +79,46 @@ export default function GenerationQuotaBadge() {
       <TooltipContent
         side="bottom"
         align="end"
-        sideOffset={8}
-        className="max-w-65 p-3 text-xs"
+        className="flex max-w-65 flex-col gap-2 px-3 py-2"
       >
         {anyNoCredits ? (
           // ── No-credits state (takes priority) ──────────────────────────
           <>
-            <p className="mb-2 leading-snug font-semibold">
-              Insufficient credits
-            </p>
+            <p className="text-base font-semibold">Insufficient Credits</p>
 
-            <p className="text-muted-foreground mb-3 leading-relaxed">
-              Your current balance ({credits} cr) isn't enough to start a new
-              generation.
-            </p>
-
-            <ul className="mb-3 flex flex-col gap-1.5">
+            <ul className="flex flex-col gap-1 text-sm">
               {avatarNoCredits && (
-                <li className="flex items-center gap-1.5">
+                <li className="flex items-center gap-1">
                   <X className="text-destructive size-4" />
 
                   <span>
-                    Avatar Video — needs {GENERATION_COSTS["avatar-video"]} cr
+                    Avatar Video — needs {GENERATION_COSTS["avatar-video"]}{" "}
+                    creds
                   </span>
                 </li>
               )}
 
               {voiceNoCredits && (
-                <li className="flex items-center gap-1.5">
-                  <span className="text-destructive">✗</span>
-                  <span>Voiceover — needs {GENERATION_COSTS.voiceover} cr</span>
+                <li className="flex items-center gap-1">
+                  <X className="text-destructive size-4" />
+                  <span>
+                    Voiceover — needs {GENERATION_COSTS.voiceover} creds
+                  </span>
                 </li>
               )}
             </ul>
 
             <UpgradeButton
-              size="sm"
               label="Get more credits"
-              className="w-full justify-center"
+              variant="link"
+              className="w-full justify-center text-blue-600"
             />
 
             {/* Still show daily limits if they're also hit, as secondary info */}
             {anyExceeded && (
-              <p className="text-muted-foreground mt-2.5 border-t pt-2 text-[11px] leading-snug">
-                Note: daily quotas are also active. They reset{" "}
-                <span className="text-foreground font-medium">
+              <p className="border-t pt-2 text-xs">
+                Note: daily quotas are also active. The soonest resets{" "}
+                <span className="font-medium">
                   {formatResetTime(soonestReset)}
                 </span>
                 .
@@ -159,31 +128,27 @@ export default function GenerationQuotaBadge() {
         ) : (
           // ── Daily-limit state ────────────────────────────────────────────
           <>
-            <p className="mb-2 leading-snug font-semibold">
-              Daily generation limits apply
-            </p>
+            <p className="text-base font-semibold">Generation Limits Apply</p>
 
-            <ul className="flex flex-col gap-1.5">
-              <QuotaLine
-                label={`Avatar Video (${DAILY_LIMITS["avatar-video"]}/day)`}
-                entry={avatarEntry}
-              />
-              <QuotaLine
-                label={`Voiceover (${DAILY_LIMITS["voiceover"]}/day)`}
-                entry={voiceEntry}
-              />
-            </ul>
+            <div className="text-sm">
+              {(avatarEntry.isExceeded || voiceEntry.isExceeded) && (
+                <ul className="flex flex-col gap-1">
+                  {avatarEntry.isExceeded && avatarEntry.resetsAt && (
+                    <li className="ml-3 list-disc">
+                      Your avatar video quota opens{" "}
+                      <strong>{formatResetTime(avatarEntry.resetsAt)}</strong>.
+                    </li>
+                  )}
 
-            {soonestReset && (
-              <p className="text-muted-foreground mt-2.5 border-t pt-2 text-[11px] leading-snug">
-                Free-tier portfolio project. Limits reset on a rolling 24-hour
-                window. Next slot opens{" "}
-                <span className="text-foreground font-medium">
-                  {formatResetTime(soonestReset)}
-                </span>
-                .
-              </p>
-            )}
+                  {voiceEntry.isExceeded && voiceEntry.resetsAt && (
+                    <li className="ml-3 list-disc">
+                      Your voiceover quota opens{" "}
+                      <strong>{formatResetTime(voiceEntry.resetsAt)}</strong>.
+                    </li>
+                  )}
+                </ul>
+              )}
+            </div>
           </>
         )}
       </TooltipContent>

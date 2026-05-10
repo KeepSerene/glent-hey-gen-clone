@@ -13,6 +13,13 @@ import { Button } from "./ui/button";
 
 interface UpgradeButtonProps {
   label?: string;
+  variant?:
+    | "default"
+    | "secondary"
+    | "ghost"
+    | "link"
+    | "outline"
+    | "destructive";
   className?: string;
 }
 
@@ -22,6 +29,7 @@ interface UpgradeButtonProps {
  */
 export function UpgradeButton({
   label = "Upgrade",
+  variant = "outline",
   className,
 }: UpgradeButtonProps) {
   const [sweepActive, setSweepActive] = useState(false);
@@ -63,7 +71,7 @@ export function UpgradeButton({
   return (
     <Button
       type="button"
-      variant="outline"
+      variant={variant}
       size="sm"
       disabled={isLoading}
       onClick={() => void handleUpgrade()}

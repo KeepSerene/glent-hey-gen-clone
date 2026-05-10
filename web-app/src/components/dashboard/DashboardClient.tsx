@@ -63,7 +63,7 @@ function DashboardClient({ recentItems }: DashboardClientProps) {
   };
 
   return (
-    <main className="p-8">
+    <main className="overflow-y-auto p-8">
       {/* ── Action cards ───────────────────────────────────────────────── */}
       <section className="mb-8 flex flex-col gap-1">
         <h2 className="font-heading text-foreground text-2xl font-bold tracking-tight">

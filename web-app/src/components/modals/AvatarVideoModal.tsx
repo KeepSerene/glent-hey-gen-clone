@@ -35,6 +35,7 @@ import { uploadFileToR2 } from "~/lib/r2-upload";
 import GenerationProgress from "../GenerationProgress";
 import LimitBanner from "../LimitBanner";
 import { useQueryClient } from "@tanstack/react-query";
+import { deleteGeneration } from "~/server/actions/delete";
 
 interface AvatarVideoModalProps {
   isOpen: boolean;
@@ -109,7 +110,6 @@ function AvatarVideoModal({
     return () => URL.revokeObjectURL(url);
   }, [userAudioFile]);
 
-  // ── Avatar handlers ───────────────────────────────────────────────────────
   const handleAvatarFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     setAvatarError(null);
@@ -164,7 +164,6 @@ function AvatarVideoModal({
     setSelectedAvatarR2Key(null);
   };
 
-  // ── Audio playback ────────────────────────────────────────────────────────
   const handleAudioPlayPause = async () => {
     const audio = audioRef.current;
 
@@ -198,7 +197,6 @@ function AvatarVideoModal({
   const canGenerate =
     hasAvatar && hasContent && !isLimitReached && !isNoCredits;
 
-  // ── Generation handler ────────────────────────────────────────────────────────────
   const queryClient = useQueryClient();
 
   const handleGenerate = async () => {
@@ -240,7 +238,6 @@ function AvatarVideoModal({
         });
         setJobId(id);
 
-        // 4. Instantly update the UI quota state
         void queryClient.invalidateQueries({ queryKey: ["generation-quota"] });
       } else {
         let voiceR2Key: string | undefined;
@@ -267,7 +264,6 @@ function AvatarVideoModal({
         });
         setJobId(id);
 
-        // 4. Instantly update the UI quota state
         void queryClient.invalidateQueries({ queryKey: ["generation-quota"] });
       }
     } catch (err) {
@@ -298,6 +294,21 @@ function AvatarVideoModal({
     setSelectedVoice(null);
     setUserAudioFile(null);
     setUserAudioUrl(null);
+  };
+
+  const handleCancel = async () => {
+    if (!jobId) return;
+
+    const { refunded } = await deleteGeneration(jobId, "avatar-video");
+
+    if (refunded > 0) {
+      toast.success(`Generation canceled — ${refunded} credits refunded.`);
+      void queryClient.invalidateQueries({ queryKey: ["generation-quota"] });
+    } else {
+      toast.info("Generation canceled.");
+    }
+
+    handleReset();
   };
 
   return (
@@ -338,7 +349,7 @@ function AvatarVideoModal({
                       : (generationStatus?.status ?? "queued")
                   }
                   errorMessage={generationStatus?.errorMessage}
-                  onReset={handleReset}
+                  onCancel={jobId ? handleCancel : undefined}
                 />
               </div>
             ) : (

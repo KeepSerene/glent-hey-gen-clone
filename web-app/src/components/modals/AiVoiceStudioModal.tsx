@@ -29,6 +29,7 @@ import { createVoiceoverJob } from "~/server/actions/generate";
 import GenerationProgress from "../GenerationProgress";
 import LimitBanner from "../LimitBanner";
 import { useQueryClient } from "@tanstack/react-query";
+import { deleteGeneration } from "~/server/actions/delete";
 
 interface AiVoiceStudioModalProps {
   isOpen: boolean;
@@ -139,6 +140,21 @@ function AiVoiceStudioModal({
     setUserAudioUrl(null);
   };
 
+  const handleCancel = async () => {
+    if (!jobId) return;
+
+    const { refunded } = await deleteGeneration(jobId, "voiceover");
+
+    if (refunded > 0) {
+      toast.success(`Generation canceled — ${refunded} credits refunded.`);
+      void queryClient.invalidateQueries({ queryKey: ["generation-quota"] });
+    } else {
+      toast.info("Generation canceled.");
+    }
+
+    handleReset();
+  };
+
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onOpenStateChange}>
@@ -172,7 +188,7 @@ function AiVoiceStudioModal({
                     : (generationStatus?.status ?? "queued")
                 }
                 errorMessage={generationStatus?.errorMessage}
-                onReset={handleReset}
+                onCancel={jobId ? handleCancel : undefined}
               />
             ) : (
               <>

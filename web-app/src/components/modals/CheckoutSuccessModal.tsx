@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { CheckCheck } from "lucide-react";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "~/components/ui/dialog";
-import { Button } from "~/components/ui/button";
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "~/components/ui/alert-dialog";
 import { useQueryClient } from "@tanstack/react-query";
 
 export default function CheckoutSuccessModal() {
@@ -42,33 +42,28 @@ export default function CheckoutSuccessModal() {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-md">
-        <DialogHeader className="flex flex-col items-center">
+    <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+      <AlertDialogContent className="max-w-md">
+        <AlertDialogHeader className="flex flex-col items-center">
           <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-full bg-emerald-50 dark:bg-emerald-500/10">
             <CheckCheck className="size-6 text-emerald-600 dark:text-emerald-500" />
           </div>
 
-          <DialogTitle className="text-xl font-semibold">
-            Payment Successful!
-          </DialogTitle>
+          <AlertDialogTitle className="text-xl font-semibold">
+            Payment successful!
+          </AlertDialogTitle>
 
-          <DialogDescription className="mt-2 text-base">
+          <AlertDialogDescription className="mt-2 text-center">
             You&apos;re all set to create more magic with Glent.
-          </DialogDescription>
-        </DialogHeader>
+          </AlertDialogDescription>
+        </AlertDialogHeader>
 
-        <DialogFooter className="mt-4 sm:justify-end">
-          <Button
-            type="button"
-            onClick={handleClose}
-            size="lg"
-            className="w-full"
-          >
+        <AlertDialogFooter className="mt-4 sm:justify-center">
+          <AlertDialogAction onClick={handleClose} className="w-full">
             Let's go
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }

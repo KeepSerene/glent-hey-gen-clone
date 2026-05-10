@@ -5,14 +5,14 @@ import { inngest } from "~/server/inngest/client";
 import { getSession } from "../better-auth/server";
 import {
   DAILY_LIMITS,
-  GEN_QUOTA_WINDOW_MS,
+  GEN_QUOTA_WINDOWS_MS,
   GENERATION_COSTS,
   type GenerationEventType,
 } from "~/lib/constants";
 import { generateTitle } from "~/lib/utils";
 
 /**
- * Atomically checks the 24-hour quota and records a new GenerationEvent in a
+ * Atomically checks the generation quotas and records a new GenerationEvent in a
  * single DB transaction. Throws a descriptive error if the limit is exceeded.
  */
 async function checkAndRecordEvent(
@@ -20,7 +20,8 @@ async function checkAndRecordEvent(
   userId: string,
   type: GenerationEventType,
 ): Promise<void> {
-  const windowStart = new Date(Date.now() - GEN_QUOTA_WINDOW_MS);
+  const windowMs = GEN_QUOTA_WINDOWS_MS[type];
+  const windowStart = new Date(Date.now() - windowMs);
   const limit = DAILY_LIMITS[type];
 
   const count = await tx.generationEvent.count({
@@ -39,8 +40,11 @@ async function checkAndRecordEvent(
     });
 
     const resetsAt = oldest
-      ? new Date(oldest.createdAt.getTime() + GEN_QUOTA_WINDOW_MS)
+      ? new Date(oldest.createdAt.getTime() + windowMs)
       : null;
+
+    const windowDays = windowMs / (24 * 60 * 60 * 1000);
+    const fallbackText = windowDays === 1 ? "24 hours" : `${windowDays} days`;
 
     const resetsAtStr = resetsAt
       ? resetsAt.toLocaleTimeString("en-US", {
@@ -48,7 +52,7 @@ async function checkAndRecordEvent(
           minute: "2-digit",
           hour12: true,
         })
-      : "24 hours from your first generation";
+      : `${fallbackText} from your first generation`;
 
     throw new Error(`DAILY_LIMIT_EXCEEDED:${type}:Resets at ${resetsAtStr}`);
   }

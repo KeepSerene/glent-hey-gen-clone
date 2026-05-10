@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import AppHeader from "~/components/app-header/AppHeader";
 import AppSidebar from "~/components/AppSidebar";
-import CheckoutSuccessModal from "~/components/CheckoutSuccessModal";
+import CheckoutSuccessModal from "~/components/modals/CheckoutSuccessModal";
 import { SidebarProvider } from "~/components/ui/sidebar";
 import { getSession } from "~/server/better-auth/server";
 

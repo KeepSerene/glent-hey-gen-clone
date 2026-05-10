@@ -1,20 +1,14 @@
 "use client";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "~/components/ui/dialog";
 import { Button } from "~/components/ui/button";
 import { AudioWaveform, ArrowRight, Play, Video } from "lucide-react";
 import Link from "next/link";
-import { toast } from "sonner";
 import type { RecentItem } from "~/server/actions/history";
 import { useState } from "react";
 import { cn } from "~/lib/utils";
 import { RECENT_CARD_STATUS_DOT } from "~/lib/constants";
+import MediaPlayerModal from "../modals/MediaPlayerModal";
+import Image from "next/image";
 
 function RecentCard({
   item,
@@ -41,37 +35,40 @@ function RecentCard({
       {/* Thumbnail */}
       <span className="bg-muted relative size-10 shrink-0 overflow-hidden rounded-lg">
         {isAvatarVideo && item.avatarUrl ? (
-          <img
+          <Image
             src={item.avatarUrl}
-            alt=""
-            className="h-full w-full object-cover"
+            alt={item.title ?? "Avatar"}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            onLoad={(e) => e.currentTarget.setAttribute("data-loaded", "true")}
+            className="img-scale-down-blur-up"
           />
         ) : isAvatarVideo ? (
-          <div className="flex h-full w-full items-center justify-center bg-blue-50 dark:bg-blue-500/10">
+          <span className="flex h-full w-full items-center justify-center bg-blue-50 dark:bg-blue-500/10">
             <Video className="size-4 text-blue-400" />
-          </div>
+          </span>
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-emerald-50 dark:bg-emerald-500/10">
+          <span className="flex h-full w-full items-center justify-center bg-emerald-50 dark:bg-emerald-500/10">
             <AudioWaveform className="size-4 text-emerald-500" />
-          </div>
+          </span>
         )}
 
         {/* Play icon overlay */}
         {isCompleted && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-150 group-hover:bg-black/30 group-hover:opacity-100">
-            <Play className="size-3 fill-white text-white" />
-          </div>
+          <span className="group-focus-within:ring-primary absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-150 group-hover:bg-black/30 group-hover:opacity-100 group-focus-visible:bg-black/30 group-focus-visible:opacity-100 group-focus-visible:outline-none">
+            <Play className="size-4 fill-white text-white" />
+          </span>
         )}
       </span>
 
       {/* Text */}
-      <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <p className="text-foreground truncate text-sm font-medium">
+      <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+        <span className="text-foreground truncate text-sm font-medium">
           {item.title ??
             (isAvatarVideo ? "Untitled video" : "Untitled voiceover")}
-        </p>
+        </span>
 
-        <div className="flex items-center gap-1.5">
+        <span className="flex items-center gap-1.5">
           <span
             className={cn(
               "size-1.5 shrink-0 rounded-full",
@@ -86,8 +83,8 @@ function RecentCard({
               ? "generating"
               : item.status}
           </span>
-        </div>
-      </div>
+        </span>
+      </span>
     </button>
   );
 }
@@ -100,29 +97,11 @@ export default function RecentGenerationsStrip({
   items,
 }: RecentGenerationsStripProps) {
   const [playingItem, setPlayingItem] = useState<RecentItem | null>(null);
-  const [playerUrl, setPlayerUrl] = useState<string | null>(null);
-  const [isLoadingPlayer, setIsLoadingPlayer] = useState(false);
 
   const handlePlay = async (item: RecentItem) => {
     if (item.status !== "completed") return;
 
     setPlayingItem(item);
-    setPlayerUrl(null);
-    setIsLoadingPlayer(true);
-
-    try {
-      const res = await fetch(`/api/assets/${item.type}/${item.id}`);
-
-      if (!res.ok) throw new Error("fetch failed");
-
-      const data = (await res.json()) as { url: string };
-      setPlayerUrl(data.url);
-    } catch {
-      toast.error("Could not load the player. Try again.");
-      setPlayingItem(null);
-    } finally {
-      setIsLoadingPlayer(false);
-    }
   };
 
   return (
@@ -132,13 +111,12 @@ export default function RecentGenerationsStrip({
           Recent creations
         </h3>
 
-        <Link
-          href="/history"
-          className="text-primary flex items-center gap-1 text-sm hover:underline"
-        >
-          View all
-          <ArrowRight className="size-3.5" />
-        </Link>
+        <Button variant="link" asChild>
+          <Link href="/history">
+            View all
+            <ArrowRight className="size-4" />
+          </Link>
+        </Button>
       </div>
 
       <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -149,77 +127,10 @@ export default function RecentGenerationsStrip({
         ))}
       </ul>
 
-      {/* Mini player dialog */}
-      <Dialog
-        open={!!playingItem}
-        onOpenChange={(open) => !open && setPlayingItem(null)}
-      >
-        <DialogContent className="max-w-lg">
-          <DialogHeader>
-            <DialogTitle className="truncate pr-6 text-base font-semibold">
-              {playingItem?.title ?? "Playing..."}
-            </DialogTitle>
-
-            <DialogDescription className="text-muted-foreground text-sm">
-              Playback and download options for your generated{" "}
-              {playingItem?.type === "avatar-video" ? "video" : "audio"}.
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="flex flex-col gap-4">
-            <div
-              className={cn(
-                "bg-muted flex min-h-30 items-center justify-center rounded-xl",
-                playingItem?.type === "avatar-video" && "aspect-video min-h-0",
-              )}
-            >
-              {isLoadingPlayer && (
-                <div className="flex flex-col items-center gap-2">
-                  <div className="border-primary size-6 animate-spin rounded-full border-2 border-t-transparent" />
-                  <p className="text-muted-foreground text-xs">Loading...</p>
-                </div>
-              )}
-
-              {!isLoadingPlayer &&
-                playerUrl &&
-                playingItem?.type === "avatar-video" && (
-                  <video
-                    src={playerUrl}
-                    controls
-                    autoPlay
-                    playsInline
-                    className="h-full w-full rounded-xl object-contain"
-                  />
-                )}
-
-              {!isLoadingPlayer &&
-                playerUrl &&
-                playingItem?.type === "voiceover" && (
-                  <div className="w-full px-4">
-                    <audio
-                      src={playerUrl}
-                      controls
-                      autoPlay
-                      className="w-full"
-                    />
-                  </div>
-                )}
-            </div>
-
-            {playerUrl && playingItem && (
-              <div className="flex justify-end">
-                <Button variant="outline" size="sm" asChild>
-                  <a
-                    href={`/api/assets/${playingItem.type}/${playingItem.id}?download=1`}
-                  >
-                    Download
-                  </a>
-                </Button>
-              </div>
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
+      <MediaPlayerModal
+        item={playingItem}
+        onClose={() => setPlayingItem(null)}
+      />
     </section>
   );
 }

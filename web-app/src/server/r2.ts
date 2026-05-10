@@ -2,6 +2,7 @@ import {
   S3Client,
   PutObjectCommand,
   GetObjectCommand,
+  DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { env } from "~/env";
@@ -70,4 +71,17 @@ export async function getPresignedDownloadUrl(
   });
 
   return getSignedUrl(r2, command, { expiresIn });
+}
+
+/**
+ * Permanently deletes an object from the private R2 bucket.
+ * Used for post-deletion cleanup of generated output files.
+ */
+export async function deleteR2Object(key: string): Promise<void> {
+  await r2.send(
+    new DeleteObjectCommand({
+      Bucket: env.R2_PRIVATE_BUCKET,
+      Key: key,
+    }),
+  );
 }

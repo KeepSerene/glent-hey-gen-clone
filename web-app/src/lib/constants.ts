@@ -176,8 +176,19 @@ export const DAILY_LIMITS = {
   "avatar-video": 1,
   voiceover: 2,
 } as const;
+export const GEN_STATUS_LABELS: Record<string, string> = {
+  queued: "Warming up the GPU...",
+  tts_generating: "Synthesizing voice from your script...",
+  video_generating: "Animating your avatar — hang tight...",
+  generating: "Synthesizing your voiceover...",
+  completed: "Your creation is ready!",
+  failed: "Something went wrong.",
+} as const;
 export type GenerationEventType = keyof typeof DAILY_LIMITS;
-export const GEN_QUOTA_WINDOW_MS = 24 * 60 * 60 * 1000; // 24 hours
+export const GEN_QUOTA_WINDOWS_MS: Record<GenerationEventType, number> = {
+  "avatar-video": 7 * 24 * 60 * 60 * 1000, // 7 days
+  voiceover: 24 * 60 * 60 * 1000, // 24 hours
+} as const;
 export const RECENT_CARD_STATUS_DOT: Record<string, string> = {
   queued: "bg-muted-foreground",
   tts_generating: "bg-amber-400",
