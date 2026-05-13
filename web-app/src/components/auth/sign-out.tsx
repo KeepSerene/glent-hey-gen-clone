@@ -54,7 +54,7 @@ export function SignOut({ className }: SignOutProps) {
       )}
     >
       <div className="relative flex flex-col items-center justify-center gap-6">
-        {/* Subtle background glow */}
+        {/* Background glow */}
         <div
           aria-hidden="true"
           className="bg-primary/10 absolute -z-10 size-32 rounded-full blur-2xl"

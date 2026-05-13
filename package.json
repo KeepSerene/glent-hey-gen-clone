@@ -1,10 +1,20 @@
 {
   "name": "glent-hey-gen-clone",
   "version": "1.0.0",
-  "description": "",
+  "description": "An AI-powered creative studio for generating perfectly lip-synced avatar videos and ultra-realistic multilingual voiceovers. Built using Python, Next.js, and more...",
   "main": "index.js",
   "private": true,
-  "keywords": [],
+  "keywords": [
+    "AI avatar",
+    "voice cloning",
+    "lip-sync video",
+    "text-to-speech",
+    "HeyGen clone",
+    "AI video generator",
+    "multilingual voiceover",
+    "Hallo3",
+    "ChatterboxTTS"
+  ],
   "author": "Dhrubajyoti Bhattacharjee",
   "license": "Apache-2.0",
   "packageManager": "pnpm@10.33.2"
