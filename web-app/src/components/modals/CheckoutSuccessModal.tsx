@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { CheckCheck } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -46,7 +46,7 @@ export default function CheckoutSuccessModal() {
       <AlertDialogContent className="max-w-md">
         <AlertDialogHeader className="flex flex-col items-center">
           <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-full bg-emerald-50 dark:bg-emerald-500/10">
-            <CheckCheck className="size-6 text-emerald-600 dark:text-emerald-500" />
+            <CheckCircle className="size-6 text-emerald-600 dark:text-emerald-500" />
           </div>
 
           <AlertDialogTitle className="text-xl font-semibold">
@@ -59,7 +59,11 @@ export default function CheckoutSuccessModal() {
         </AlertDialogHeader>
 
         <AlertDialogFooter className="mt-4 sm:justify-center">
-          <AlertDialogAction onClick={handleClose} className="w-full">
+          <AlertDialogAction
+            type="button"
+            onClick={handleClose}
+            className="w-full"
+          >
             Let's go
           </AlertDialogAction>
         </AlertDialogFooter>

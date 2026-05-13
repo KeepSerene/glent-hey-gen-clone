@@ -11,7 +11,8 @@ import { CheckCircle, Info, Loader2, TriangleAlert, X } from "lucide-react";
 
 const APP_URL = env.NEXT_PUBLIC_APP_URL;
 const APP_TITLE = "Glent";
-const APP_DESCRIPTION = "A HeyGen clone";
+const APP_DESCRIPTION =
+  "An AI-powered creative studio for generating perfectly lip-synced avatar videos and ultra-realistic multilingual voiceovers.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
@@ -20,7 +21,17 @@ export const metadata: Metadata = {
     default: APP_TITLE,
   },
   description: APP_DESCRIPTION,
-  keywords: [],
+  keywords: [
+    "AI avatar",
+    "voice cloning",
+    "lip-sync video",
+    "text-to-speech",
+    "HeyGen clone",
+    "AI video generator",
+    "multilingual voiceover",
+    "Hallo3",
+    "ChatterboxTTS",
+  ],
   authors: [
     {
       name: "Dhrubajyoti Bhattacharjee",
@@ -49,10 +60,10 @@ export const metadata: Metadata = {
     siteName: "Glent",
     images: [
       {
-        url: "/images/hero-banner-dark.webp",
+        url: "/images/illustration-dark.webp",
         width: 1200,
         height: 630,
-        alt: "",
+        alt: "Glent AI Avatar & Voice Studio Interface",
       },
     ],
   },
@@ -62,7 +73,7 @@ export const metadata: Metadata = {
     description: APP_DESCRIPTION,
     creator: "@UsualLearner",
     site: "@glent",
-    images: ["/images/hero-banner-dark.webp"],
+    images: ["/images/illustration-dark.webp"],
   },
   icons: [{ rel: "icon", url: "/favicon.svg", type: "image/svg+xml" }],
   alternates: {

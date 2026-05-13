@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { ArrowRight } from "lucide-react";
 import {
   DASHBOARD_ACTIONS,
   DAILY_LIMITS,
   GENERATION_COSTS,
+  DASHBOARD_ACTION_THEMES,
 } from "~/lib/constants";
 import { cn } from "~/lib/utils";
 import AvatarVideoModal from "../modals/AvatarVideoModal";
@@ -14,7 +16,7 @@ import useGenerationQuota from "~/hooks/useGenerationQuota";
 import type { RecentItem } from "~/server/actions/history";
 import RecentGenerationsStrip from "./RecentGenerationsStrip";
 
-type ActionMode =
+export type ActionMode =
   | "avatar-video"
   | "ai-voice-studio"
   | "video-translation"
@@ -63,19 +65,19 @@ function DashboardClient({ recentItems }: DashboardClientProps) {
   };
 
   return (
-    <main className="overflow-y-auto p-8">
+    <main className="p-6 sm:p-8">
       {/* ── Action cards ───────────────────────────────────────────────── */}
-      <section className="mb-8 flex flex-col gap-1">
+      <section className="mb-8 flex flex-col gap-1.5">
         <h2 className="font-heading text-foreground text-2xl font-bold tracking-tight">
           What are we producing today?
         </h2>
 
         <p className="text-muted-foreground text-sm">
-          Choose a Glent AI tool to bring your ideas to life.
+          Choose a Glent studio tool to bring your ideas to life.
         </p>
       </section>
 
-      <ul className="mb-2 flex flex-wrap gap-5">
+      <ul className="mb-12 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
         {DASHBOARD_ACTIONS.map(
           ({
             mode,
@@ -86,9 +88,10 @@ function DashboardClient({ recentItems }: DashboardClientProps) {
             comingSoon,
           }) => {
             const limited = isCardLimited(mode);
+            const theme = DASHBOARD_ACTION_THEMES[mode as ActionMode];
 
             return (
-              <li key={label} className="max-w-md min-w-[320px] flex-1">
+              <li key={label} className="flex size-full">
                 <button
                   type="button"
                   onClick={() =>
@@ -96,30 +99,53 @@ function DashboardClient({ recentItems }: DashboardClientProps) {
                   }
                   disabled={comingSoon}
                   className={cn(
-                    "group bg-card focus-visible:ring-primary relative flex w-full items-center gap-4 overflow-hidden rounded-2xl border p-4 text-left transition-all duration-300 ease-out focus-visible:ring-2 focus-visible:outline-none",
+                    "group bg-card focus-visible:ring-offset-background relative flex w-full flex-col items-start gap-6 overflow-hidden rounded-[24px] border p-6 text-left transition-all duration-300 ease-out focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
+                    theme.ring,
                     comingSoon
-                      ? "cursor-not-allowed opacity-60 grayscale-[0.3]"
+                      ? "cursor-not-allowed opacity-60 grayscale-[0.4]"
                       : limited
-                        ? "hover:border-destructive/20 hover:bg-secondary/10 cursor-pointer hover:shadow-sm"
-                        : "hover:border-primary/20 hover:bg-secondary/20 cursor-pointer hover:shadow-md",
+                        ? "hover:border-destructive/30 cursor-pointer hover:shadow-sm"
+                        : cn("cursor-pointer hover:shadow-md", theme.border),
                   )}
                 >
-                  <span
-                    className={cn(
-                      "flex shrink-0 items-center justify-center rounded-xl p-3.5 transition-transform duration-300 group-hover:scale-110",
-                      iconWrapperClassName,
-                      limited && "opacity-50 grayscale",
-                    )}
-                  >
-                    <Icon className="size-6" />
-                  </span>
+                  {/* Gradient bg on hover */}
+                  {!comingSoon && !limited && (
+                    <span
+                      aria-hidden
+                      className={cn(
+                        "absolute inset-0 bg-linear-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100",
+                        theme.gradient,
+                      )}
+                    />
+                  )}
 
-                  <span className="flex w-full flex-col justify-center overflow-hidden">
-                    <span className="flex items-center gap-2 text-base font-semibold transition-transform duration-300 group-hover:-translate-y-1">
-                      {label}
+                  {/* Destructive tint bg if limited */}
+                  {limited && (
+                    <span
+                      aria-hidden
+                      className="bg-destructive/5 absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    />
+                  )}
 
+                  {/* Content container */}
+                  <span className="relative z-10 flex size-full flex-col gap-4">
+                    <span className="flex w-full items-start justify-between gap-3">
+                      <span
+                        className={cn(
+                          "flex items-center justify-center rounded-2xl p-3.5 transition-transform duration-300 group-hover:scale-105",
+                          iconWrapperClassName,
+                          limited && "opacity-60 grayscale",
+                        )}
+                      >
+                        <Icon className="size-6" />
+                      </span>
+
+                      {/* Status badges */}
                       {comingSoon && (
-                        <Badge className="rounded-full px-2 py-0 text-[10px] font-semibold">
+                        <Badge
+                          variant="secondary"
+                          className="bg-secondary/60 rounded-full px-2.5 py-0.5 text-[10px] font-semibold tracking-wide"
+                        >
                           Coming soon
                         </Badge>
                       )}
@@ -127,17 +153,30 @@ function DashboardClient({ recentItems }: DashboardClientProps) {
                       {!comingSoon && limited && (
                         <Badge
                           variant="destructive"
-                          className="rounded-full px-2 py-0 text-[10px] font-semibold"
+                          className="rounded-full px-2.5 py-0.5 text-[10px] font-semibold tracking-wide shadow-none"
                         >
                           Limit reached
                         </Badge>
                       )}
                     </span>
 
-                    <span className="text-muted-foreground max-h-0 text-sm opacity-0 transition-all duration-300 group-hover:max-h-10 group-hover:-translate-y-0.5 group-hover:opacity-100">
-                      {limited
-                        ? "Daily limit reached — open to see when it resets."
-                        : description}
+                    <span className="mt-auto flex flex-col gap-1 pt-2">
+                      <span className="flex items-center gap-2">
+                        <span className="font-heading text-foreground text-lg font-bold">
+                          {label}
+                        </span>
+
+                        {!comingSoon && (
+                          <ArrowRight
+                            aria-hidden
+                            className="text-foreground/70 group-hover:text-foreground size-4 -translate-x-2 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+                          />
+                        )}
+                      </span>
+
+                      <span className="text-muted-foreground text-sm leading-relaxed">
+                        {limited ? "Open to see when it resets." : description}
+                      </span>
                     </span>
                   </span>
                 </button>
@@ -157,6 +196,7 @@ function DashboardClient({ recentItems }: DashboardClientProps) {
         isLimitReached={isAvatarLimitReached}
         resetsAt={quota?.["avatar-video"].resetsAt ?? null}
         isNoCredits={isAvatarNoCredits}
+        themeColor="blue"
       />
 
       <AiVoiceStudioModal
@@ -165,6 +205,7 @@ function DashboardClient({ recentItems }: DashboardClientProps) {
         isLimitReached={isVoiceoverLimitReached}
         resetsAt={quota?.["voiceover"].resetsAt ?? null}
         isNoCredits={isVoiceNoCredits}
+        themeColor="emerald"
       />
     </main>
   );

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 };
 
 const BillingPage = () => (
-  <main className="flex h-full flex-col items-center justify-center p-4">
+  <main className="flex h-full flex-col items-center justify-center overflow-y-auto p-4">
     <BillingRedirect />
   </main>
 );

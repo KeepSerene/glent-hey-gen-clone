@@ -24,13 +24,18 @@ export default function AppBreadcrumbs() {
       .replace(/\b\w/g, (char) => char.toUpperCase());
   };
 
+  const focusClasses =
+    "rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 focus-visible:ring-offset-background";
+
   return (
     <Breadcrumb>
       <BreadcrumbList>
         {/* Always start with Home */}
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Link href="/">Home</Link>
+            <Link href="/" className={focusClasses}>
+              Home
+            </Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
 
@@ -50,7 +55,9 @@ export default function AppBreadcrumbs() {
                 ) : (
                   // Intermediate pages are clickable links
                   <BreadcrumbLink asChild>
-                    <Link href={href}>{title}</Link>
+                    <Link href={href} className={focusClasses}>
+                      {title}
+                    </Link>
                   </BreadcrumbLink>
                 )}
               </BreadcrumbItem>

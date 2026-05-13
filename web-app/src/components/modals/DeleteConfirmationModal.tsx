@@ -81,11 +81,13 @@ export default function DeleteConfirmationModal({
           <AlertDialogCancel disabled={isDeleting}>Keep it</AlertDialogCancel>
 
           <AlertDialogAction
+            type="button"
             onClick={onConfirm}
             disabled={isDeleting}
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            aria-label={isDeleting ? "Action in progress..." : ""}
           >
-            {isDeleting && <Loader2 className="mr-2 size-3.5 animate-spin" />}
+            {isDeleting && <Loader2 className="mr-2 size-4 animate-spin" />}
+
             {item?.status === "queued" ||
             item?.status === "tts_generating" ||
             item?.status === "video_generating" ||

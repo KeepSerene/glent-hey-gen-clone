@@ -176,7 +176,7 @@ function TtsSettingsPanel({
             type="button"
             variant="ghost"
             size="sm"
-            className="text-muted-foreground self-end text-xs"
+            className="self-end text-xs"
             onClick={onReset}
           >
             Reset to defaults

@@ -19,6 +19,26 @@ function RecentCard({
 }) {
   const isAvatarVideo = item.type === "avatar-video";
   const isCompleted = item.status === "completed";
+  const themeColor = isAvatarVideo ? "blue" : "emerald";
+
+  const themeClasses = {
+    blue: {
+      border: "hover:border-blue-200 dark:hover:border-blue-500/30",
+      ring: "focus-visible:ring-blue-500",
+      gradient:
+        "from-blue-500/0 to-blue-500/10 dark:from-blue-500/0 dark:to-blue-500/15",
+      iconText: "text-blue-500 dark:text-blue-400",
+      iconBg: "bg-blue-50 dark:bg-blue-500/10",
+    },
+    emerald: {
+      border: "hover:border-emerald-200 dark:hover:border-emerald-500/30",
+      ring: "focus-visible:ring-emerald-500",
+      gradient:
+        "from-emerald-500/0 to-emerald-500/10 dark:from-emerald-500/0 dark:to-emerald-500/15",
+      iconText: "text-emerald-600 dark:text-emerald-400",
+      iconBg: "bg-emerald-50 dark:bg-emerald-500/10",
+    },
+  }[themeColor];
 
   return (
     <button
@@ -26,62 +46,86 @@ function RecentCard({
       onClick={isCompleted ? onPlay : undefined}
       disabled={!isCompleted}
       className={cn(
-        "group bg-card flex w-full items-center gap-3 rounded-xl border p-3 text-left transition-all duration-200",
+        "group bg-card focus-visible:ring-offset-background relative flex w-full items-center gap-3 overflow-hidden rounded-[20px] border p-3 text-left transition-all duration-300 ease-out focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
+        themeClasses.ring,
         isCompleted
-          ? "hover:border-primary/20 hover:bg-secondary/20 cursor-pointer hover:shadow-sm"
-          : "cursor-default",
+          ? cn("cursor-pointer hover:shadow-md", themeClasses.border)
+          : "cursor-default opacity-90",
       )}
     >
-      {/* Thumbnail */}
-      <span className="bg-muted relative size-10 shrink-0 overflow-hidden rounded-lg">
-        {isAvatarVideo && item.avatarUrl ? (
-          <Image
-            src={item.avatarUrl}
-            alt={item.title ?? "Avatar"}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            onLoad={(e) => e.currentTarget.setAttribute("data-loaded", "true")}
-            className="img-scale-down-blur-up"
-          />
-        ) : isAvatarVideo ? (
-          <span className="flex h-full w-full items-center justify-center bg-blue-50 dark:bg-blue-500/10">
-            <Video className="size-4 text-blue-400" />
-          </span>
-        ) : (
-          <span className="flex h-full w-full items-center justify-center bg-emerald-50 dark:bg-emerald-500/10">
-            <AudioWaveform className="size-4 text-emerald-500" />
-          </span>
-        )}
+      {/* Hover gradient */}
+      {isCompleted && (
+        <span
+          aria-hidden
+          className={cn(
+            "absolute inset-0 bg-linear-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100",
+            themeClasses.gradient,
+          )}
+        />
+      )}
 
-        {/* Play icon overlay */}
-        {isCompleted && (
-          <span className="group-focus-within:ring-primary absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-150 group-hover:bg-black/30 group-hover:opacity-100 group-focus-visible:bg-black/30 group-focus-visible:opacity-100 group-focus-visible:outline-none">
-            <Play className="size-4 fill-white text-white" />
-          </span>
-        )}
-      </span>
+      {/* Content wrapper */}
+      <span className="relative z-10 flex w-full items-center gap-3">
+        {/* Thumbnail */}
+        <span className="bg-muted relative size-11 shrink-0 overflow-hidden rounded-[14px]">
+          {isAvatarVideo && item.avatarUrl ? (
+            <Image
+              src={item.avatarUrl}
+              alt={item.title ?? "Avatar"}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              onLoad={(e) =>
+                e.currentTarget.setAttribute("data-loaded", "true")
+              }
+              className="img-scale-down-blur-up"
+            />
+          ) : (
+            <span
+              className={cn(
+                "flex h-full w-full items-center justify-center",
+                themeClasses.iconBg,
+              )}
+            >
+              {isAvatarVideo ? (
+                <Video className={cn("size-5", themeClasses.iconText)} />
+              ) : (
+                <AudioWaveform
+                  className={cn("size-5", themeClasses.iconText)}
+                />
+              )}
+            </span>
+          )}
 
-      {/* Text */}
-      <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <span className="text-foreground truncate text-sm font-medium">
-          {item.title ??
-            (isAvatarVideo ? "Untitled video" : "Untitled voiceover")}
+          {/* Play icon overlay */}
+          {isCompleted && (
+            <span className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-300 group-hover:bg-black/30 group-hover:opacity-100">
+              <Play className="size-4 fill-white text-white" />
+            </span>
+          )}
         </span>
 
-        <span className="flex items-center gap-1.5">
-          <span
-            className={cn(
-              "size-1.5 shrink-0 rounded-full",
-              RECENT_CARD_STATUS_DOT[item.status] ?? "bg-muted-foreground",
-            )}
-            aria-hidden
-          />
+        {/* Text */}
+        <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+          <span className="text-foreground truncate text-sm font-medium">
+            {item.title ??
+              (isAvatarVideo ? "Untitled video" : "Untitled voiceover")}
+          </span>
 
-          <span className="text-muted-foreground text-xs capitalize">
-            {item.status === "tts_generating" ||
-            item.status === "video_generating"
-              ? "generating"
-              : item.status}
+          <span className="flex items-center gap-1.5">
+            <span
+              className={cn(
+                "size-1.5 shrink-0 rounded-full",
+                RECENT_CARD_STATUS_DOT[item.status] ?? "bg-muted-foreground",
+              )}
+              aria-hidden
+            />
+
+            <span className="text-muted-foreground text-xs capitalize">
+              {item.status === "tts_generating" ||
+              item.status === "video_generating"
+                ? "generating"
+                : item.status}
+            </span>
           </span>
         </span>
       </span>
@@ -106,15 +150,15 @@ export default function RecentGenerationsStrip({
 
   return (
     <section className="mt-10">
-      <div className="mb-4 flex items-center justify-between">
-        <h3 className="font-heading text-foreground text-lg font-semibold">
+      <div className="mb-5 flex items-center justify-between px-1">
+        <h3 className="font-heading text-foreground text-lg font-bold">
           Recent creations
         </h3>
 
         <Button variant="link" asChild>
           <Link href="/history">
             View all
-            <ArrowRight className="size-4" />
+            <ArrowRight className="size-3.5" />
           </Link>
         </Button>
       </div>

@@ -33,8 +33,8 @@ export function Providers({ children }: { children: ReactNode }) {
           passwordPlaceholder: "Enter your password",
           name: "Full Name",
           namePlaceholder: "Jane Doe",
-          alreadyHaveAnAccount: "Already rendering videos?",
-          needToCreateAnAccount: "New to AI avatars?",
+          alreadyHaveAnAccount: "Been here before?",
+          needToCreateAnAccount: "New to the studio?",
           verifyYourEmail:
             "Account created! Check your inbox to verify your email.",
           verificationEmailSent:

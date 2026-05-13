@@ -236,12 +236,6 @@ export function getWaveformBars(id: string, count = 20): number[] {
   });
 }
 
-export function getLanguageLabel(code: string): string {
-  const lang = SUPPORTED_LANGUAGES.find((l) => l.code === code);
-
-  return lang ? `${lang.flag} ${lang.name}` : code.toUpperCase();
-}
-
 export function getRelativeTime(isoString: string): string {
   const diff = Date.now() - new Date(isoString).getTime();
   const mins = Math.floor(diff / 60_000);

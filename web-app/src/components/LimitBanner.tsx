@@ -66,7 +66,7 @@ function LimitBanner({
 
       <div className="flex flex-col gap-1.5">
         <p className="text-foreground text-base font-semibold">
-          Daily limit reached
+          {type === "avatar video" ? "Weekly" : "Daily"} limit reached
         </p>
 
         <p className="text-muted-foreground max-w-xs text-sm leading-relaxed">

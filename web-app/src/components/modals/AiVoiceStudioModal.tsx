@@ -30,6 +30,8 @@ import GenerationProgress from "../GenerationProgress";
 import LimitBanner from "../LimitBanner";
 import { useQueryClient } from "@tanstack/react-query";
 import { deleteGeneration } from "~/server/actions/delete";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { useRouter } from "next/navigation";
 
 interface AiVoiceStudioModalProps {
   isOpen: boolean;
@@ -39,6 +41,7 @@ interface AiVoiceStudioModalProps {
   /** ISO string — earliest time the quota will free up. */
   resetsAt: string | null;
   isNoCredits?: boolean;
+  themeColor?: "blue" | "emerald";
 }
 
 function AiVoiceStudioModal({
@@ -47,6 +50,7 @@ function AiVoiceStudioModal({
   isLimitReached,
   resetsAt,
   isNoCredits = false,
+  themeColor = "emerald",
 }: AiVoiceStudioModalProps) {
   const [script, setScript] = useState("");
   const [voiceModalOpen, setVoiceModalOpen] = useState(false);
@@ -63,7 +67,12 @@ function AiVoiceStudioModal({
   const [jobId, setJobId] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { data: generationStatus } = useGenerationStatus("voiceover", jobId);
+  const router = useRouter();
+  const { data: generationStatus } = useGenerationStatus("voiceover", jobId, {
+    onCompleted: () => {
+      router.refresh();
+    },
+  });
 
   useEffect(() => {
     if (!userAudioFile) {
@@ -158,109 +167,158 @@ function AiVoiceStudioModal({
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onOpenStateChange}>
-        <DialogContent className="max-h-[85vh] w-full max-w-xl overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-semibold text-emerald-500 dark:text-emerald-500">
-              Voiceover lab
-            </DialogTitle>
+        <DialogContent className="max-h-[85vh] w-[calc(100vw-2rem)] max-w-xl overflow-hidden p-0">
+          {/* Ambient top-left glow */}
+          <div
+            aria-hidden
+            className={cn(
+              "pointer-events-none absolute -top-20 -left-20 size-80 rounded-full opacity-[0.10] blur-[70px] dark:opacity-[0.12]",
+              themeColor === "blue" ? "bg-blue-500" : "bg-emerald-500",
+            )}
+          />
 
-            <DialogDescription className="mt-2 text-sm">
-              Type your script, pick a voice or upload a clone sample, and
-              generate ultra-realistic multi-lingual speech.
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="flex flex-col gap-5 py-4">
-            {(isLimitReached || isNoCredits) && !jobId ? (
-              <LimitBanner
-                type="voiceover"
-                limit={DAILY_LIMITS.voiceover}
-                resetsAt={resetsAt}
-                noCredits={isNoCredits}
-              />
-            ) : isSubmitting || jobId ? (
-              <GenerationProgress
-                type="voiceover"
-                jobId={jobId}
-                status={
-                  isSubmitting && !jobId
-                    ? "queued"
-                    : (generationStatus?.status ?? "queued")
-                }
-                errorMessage={generationStatus?.errorMessage}
-                onCancel={jobId ? handleCancel : undefined}
-              />
-            ) : (
-              <>
-                {/* Script textarea */}
-                <div className="relative">
-                  <Textarea
-                    value={script}
-                    onChange={(e) => setScript(e.target.value)}
-                    rows={7}
-                    maxLength={MAX_TTS_SCRIPT_LENGTH}
-                    placeholder="Type your script here..."
-                    className="placeholder:text-muted-foreground/70 min-h-32 resize-none pb-10 text-base break-all"
+          <div className="relative flex max-h-[85vh] w-full flex-col overflow-y-auto p-6">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-3 text-2xl font-semibold tracking-tight">
+                {/* Staggered dash accent */}
+                <span aria-hidden className="flex gap-1">
+                  <span
+                    className={cn(
+                      "h-6 w-1.5 rounded-full",
+                      themeColor === "blue" ? "bg-blue-500" : "bg-emerald-500",
+                    )}
                   />
+                  <span
+                    className={cn(
+                      "mt-2 h-4 w-1.5 rounded-full opacity-60",
+                      themeColor === "blue" ? "bg-blue-500" : "bg-emerald-500",
+                    )}
+                  />
+                </span>
 
-                  {/* Bottom toolbar */}
-                  <div className="absolute bottom-2 left-0 flex w-full items-center justify-between px-3">
-                    <VoiceIndicator
-                      userAudioFile={userAudioFile}
-                      userAudioUrl={userAudioUrl}
-                      selectedVoice={selectedVoice}
-                      activeAudioSrc={audioSrc}
-                      onTogglePlay={(src) => void togglePlay(src)}
-                      onOpenVoiceModal={() => setVoiceModalOpen(true)}
+                <span
+                  className={cn(
+                    themeColor === "blue"
+                      ? "text-blue-600 dark:text-blue-400"
+                      : "text-emerald-600 dark:text-emerald-400",
+                  )}
+                >
+                  Voiceover lab
+                </span>
+              </DialogTitle>
+
+              <DialogDescription className="mt-2 text-sm">
+                Type your script, pick a voice or upload a clone sample, and
+                generate ultra-realistic multi-lingual speech.
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="flex flex-col gap-5 py-4">
+              {(isLimitReached || isNoCredits) && !jobId ? (
+                <LimitBanner
+                  type="voiceover"
+                  limit={DAILY_LIMITS.voiceover}
+                  resetsAt={resetsAt}
+                  noCredits={isNoCredits}
+                />
+              ) : isSubmitting || jobId ? (
+                <GenerationProgress
+                  type="voiceover"
+                  jobId={jobId}
+                  status={
+                    isSubmitting && !jobId
+                      ? "queued"
+                      : (generationStatus?.status ?? "queued")
+                  }
+                  errorMessage={generationStatus?.errorMessage}
+                  onCancel={jobId ? handleCancel : undefined}
+                />
+              ) : (
+                <>
+                  {/* Script textarea */}
+                  <div className="relative">
+                    <Textarea
+                      value={script}
+                      onChange={(e) => setScript(e.target.value)}
+                      rows={7}
+                      maxLength={MAX_TTS_SCRIPT_LENGTH}
+                      placeholder="Type your script here..."
+                      className="placeholder:text-muted-foreground/70 min-h-32 resize-none pb-10 text-base break-all"
                     />
 
-                    {/* Dynamic character counter */}
-                    <p
-                      className={cn(
-                        "text-xs transition-colors select-none",
-                        script.trim().length > 0 && !isScriptLongEnough
-                          ? "text-destructive font-medium"
-                          : "text-muted-foreground/70",
-                      )}
-                    >
-                      {script.length} / {MAX_TTS_SCRIPT_LENGTH}{" "}
-                      {script.trim().length > 0 &&
-                        !isScriptLongEnough &&
-                        `(Min ${MIN_TTS_SCRIPT_LENGTH})`}
-                    </p>
+                    {/* Bottom toolbar */}
+                    <div className="absolute bottom-2 left-0 flex w-full items-center justify-between px-3">
+                      <VoiceIndicator
+                        userAudioFile={userAudioFile}
+                        userAudioUrl={userAudioUrl}
+                        selectedVoice={selectedVoice}
+                        activeAudioSrc={audioSrc}
+                        onTogglePlay={(src) => void togglePlay(src)}
+                        onOpenVoiceModal={() => setVoiceModalOpen(true)}
+                      />
+
+                      {/* Dynamic character counter */}
+                      <p
+                        className={cn(
+                          "text-xs transition-colors select-none",
+                          script.trim().length > 0 && !isScriptLongEnough
+                            ? "text-destructive font-medium"
+                            : "text-muted-foreground/70",
+                        )}
+                      >
+                        {script.length} / {MAX_TTS_SCRIPT_LENGTH}{" "}
+                        {script.trim().length > 0 &&
+                          !isScriptLongEnough &&
+                          `(Min ${MIN_TTS_SCRIPT_LENGTH})`}
+                      </p>
+                    </div>
                   </div>
-                </div>
 
-                <TtsSettingsPanel
-                  settings={ttsSettings}
-                  englishOnly={false}
-                  onUpdate={updateTts}
-                  onReset={() => setTtsSettings(DEFAULT_TTS_SETTINGS)}
-                  advancedOpen={advancedOpen}
-                  onAdvancedOpenChange={setAdvancedOpen}
-                />
+                  <TtsSettingsPanel
+                    settings={ttsSettings}
+                    englishOnly={false}
+                    onUpdate={updateTts}
+                    onReset={() => setTtsSettings(DEFAULT_TTS_SETTINGS)}
+                    advancedOpen={advancedOpen}
+                    onAdvancedOpenChange={setAdvancedOpen}
+                  />
 
-                <Button
-                  type="button"
-                  size="lg"
-                  className="mt-2 w-full shrink-0"
-                  disabled={!canGenerate || isSubmitting}
-                  onClick={handleGenerate}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="size-4 animate-spin" />
-                      Generating...
-                    </>
-                  ) : (
-                    <>
-                      <Sparkles className="size-4" />
-                      Generate Speech
-                    </>
-                  )}
-                </Button>
-              </>
-            )}
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <span className="block w-full">
+                        <Button
+                          type="button"
+                          size="lg"
+                          onClick={handleGenerate}
+                          disabled={!canGenerate || isSubmitting}
+                          className="w-full shrink-0"
+                        >
+                          {isSubmitting ? (
+                            <>
+                              <Loader2 className="size-4 animate-spin" />
+                              Generating...
+                            </>
+                          ) : (
+                            <>
+                              <Sparkles className="size-4" />
+                              Generate Speech
+                            </>
+                          )}
+                        </Button>
+                      </span>
+                    </TooltipTrigger>
+
+                    {!canGenerate && !isSubmitting && (
+                      <TooltipContent className="text-xs">
+                        {!isScriptLongEnough
+                          ? `Type a script of at least ${MIN_TTS_SCRIPT_LENGTH} characters.`
+                          : "Select a voice from the library, or upload/record a sample."}
+                      </TooltipContent>
+                    )}
+                  </Tooltip>
+                </>
+              )}
+            </div>
           </div>
         </DialogContent>
       </Dialog>

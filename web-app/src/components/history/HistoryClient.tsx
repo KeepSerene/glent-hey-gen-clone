@@ -10,8 +10,7 @@ import type {
   ClientAvatarVideo,
   ClientVoiceover,
 } from "~/server/actions/history";
-import { cn } from "~/lib/utils";
-import GenerationCard from "./GenerationCard";
+import MediaCard from "./MediaCard";
 import { deleteGeneration } from "~/server/actions/delete";
 import DeleteConfirmationModal, {
   type DeletingItem,
@@ -32,23 +31,6 @@ function mergeAndSort(
 ) {
   return [...avatarVideos, ...voiceovers].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-  );
-}
-
-function TabCount({ count, active }: { count: number; active: boolean }) {
-  if (count === 0) return null;
-
-  return (
-    <span
-      className={cn(
-        "inline-flex h-5 min-w-5 items-center justify-center rounded-full px-1.5 text-[10px] font-semibold tabular-nums",
-        active
-          ? "bg-primary text-primary-foreground"
-          : "bg-muted text-muted-foreground",
-      )}
-    >
-      {count}
-    </span>
   );
 }
 
@@ -172,7 +154,7 @@ export default function HistoryClient({
     return (
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {items.map((item) => (
-          <GenerationCard
+          <MediaCard
             key={`${item.type}-${item.id}`}
             item={item}
             onPlay={handlePlay}
@@ -190,16 +172,30 @@ export default function HistoryClient({
   }[activeTab];
 
   return (
-    <main className="flex flex-col gap-8 overflow-y-auto p-6 sm:p-8">
-      <section className="flex flex-col gap-1">
+    <main className="flex flex-col gap-8 p-6 sm:p-8">
+      <section className="flex flex-col gap-1.5">
         <h1 className="font-heading text-foreground text-2xl font-bold tracking-tight">
           Generation history
         </h1>
 
         <p className="text-muted-foreground text-sm">
-          {totalCount === 0
-            ? "Your creations will appear here."
-            : `${totalCount} creation${totalCount !== 1 ? "s" : ""} across all types.`}
+          {totalCount === 0 ? (
+            "Your creations will appear here."
+          ) : (
+            <>
+              <span className="text-foreground font-medium">{totalCount}</span>{" "}
+              Total <span className="text-border px-1.5">•</span>{" "}
+              <span className="text-foreground font-medium">
+                {localAvatarVideos.length}
+              </span>{" "}
+              Avatar Video{localAvatarVideos.length !== 1 ? "s" : ""}{" "}
+              <span className="text-border px-1.5">•</span>{" "}
+              <span className="text-foreground font-medium">
+                {localVoiceovers.length}
+              </span>{" "}
+              Voiceover{localVoiceovers.length !== 1 ? "s" : ""}
+            </>
+          )}
         </p>
       </section>
 
@@ -208,33 +204,20 @@ export default function HistoryClient({
         onValueChange={(v) => setActiveTab(v as TabValue)}
       >
         <TabsList className="mb-6 h-10">
-          <TabsTrigger type="button" value="all" className="gap-2 px-4 text-sm">
+          <TabsTrigger type="button" value="all" className="px-4 text-sm">
             All
-            <TabCount count={totalCount} active={activeTab === "all"} />
           </TabsTrigger>
 
           <TabsTrigger
             type="button"
             value="avatar-video"
-            className="gap-2 px-4 text-sm"
+            className="px-4 text-sm"
           >
             Avatar Videos
-            <TabCount
-              count={localAvatarVideos.length}
-              active={activeTab === "avatar-video"}
-            />
           </TabsTrigger>
 
-          <TabsTrigger
-            type="button"
-            value="voiceover"
-            className="gap-2 px-4 text-sm"
-          >
+          <TabsTrigger type="button" value="voiceover" className="px-4 text-sm">
             Voiceovers
-            <TabCount
-              count={localVoiceovers.length}
-              active={activeTab === "voiceover"}
-            />
           </TabsTrigger>
         </TabsList>
 

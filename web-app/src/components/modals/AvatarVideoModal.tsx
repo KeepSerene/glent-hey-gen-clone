@@ -36,6 +36,8 @@ import GenerationProgress from "../GenerationProgress";
 import LimitBanner from "../LimitBanner";
 import { useQueryClient } from "@tanstack/react-query";
 import { deleteGeneration } from "~/server/actions/delete";
+import { useRouter } from "next/navigation";
+import { cn } from "~/lib/utils";
 
 interface AvatarVideoModalProps {
   isOpen: boolean;
@@ -45,6 +47,7 @@ interface AvatarVideoModalProps {
   /** ISO string — earliest time the quota will free up. */
   resetsAt: string | null;
   isNoCredits?: boolean;
+  themeColor?: "blue" | "emerald";
 }
 
 function AvatarVideoModal({
@@ -53,6 +56,7 @@ function AvatarVideoModal({
   isLimitReached,
   resetsAt,
   isNoCredits = false,
+  themeColor = "blue",
 }: AvatarVideoModalProps) {
   // ── Avatar ────────────────────────────────────────────────────────────────
   const [avatarPreviewUrl, setAvatarPreviewUrl] = useState<string | null>(null);
@@ -88,7 +92,17 @@ function AvatarVideoModal({
   // ── Generation ──────────────────────────────────────────────────────
   const [jobId, setJobId] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { data: generationStatus } = useGenerationStatus("avatar-video", jobId);
+
+  const router = useRouter();
+  const { data: generationStatus } = useGenerationStatus(
+    "avatar-video",
+    jobId,
+    {
+      onCompleted: () => {
+        router.refresh();
+      },
+    },
+  );
 
   // ── TTS settings ──────────────────────────────────────────────────────────
   const [ttsSettings, setTtsSettings] =
@@ -314,23 +328,58 @@ function AvatarVideoModal({
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onOpenStateChange}>
-        <DialogContent className="h-fit max-h-[95%] w-full min-w-[95%] overflow-y-auto lg:max-w-5xl lg:min-w-fit">
-          <div className="flex flex-col">
-            <DialogHeader>
-              <DialogTitle className="text-2xl font-semibold">
-                Talk through any{" "}
-                <span className="text-blue-600 dark:text-blue-500">
-                  portrait avatar
+        <DialogContent className="flex max-h-[calc(100dvh-2.5rem)] w-[calc(100vw-1.5rem)] max-w-5xl flex-col overflow-hidden p-0 sm:max-h-[90dvh] sm:w-[95vw] sm:rounded-[24px]">
+          {/* Ambient glow */}
+          <div
+            aria-hidden
+            className={cn(
+              "pointer-events-none absolute -top-20 -left-20 z-0 size-80 rounded-full opacity-[0.12] blur-[70px] dark:opacity-[0.15]",
+              themeColor === "blue" ? "bg-blue-500" : "bg-emerald-500",
+            )}
+          />
+
+          <div className="relative z-10 flex size-full flex-col overflow-y-auto">
+            {/* Header section with responsive padding */}
+            <DialogHeader className="px-5 pt-12 pb-4 sm:px-8 sm:pt-8 sm:pb-6">
+              <DialogTitle className="flex items-start gap-2.5 text-xl font-semibold tracking-tight sm:items-center sm:gap-3 sm:text-2xl">
+                {/* Staggered dash accent */}
+                <span aria-hidden className="mt-1 flex shrink-0 gap-1 sm:mt-0">
+                  <span
+                    className={cn(
+                      "h-5 w-1.5 rounded-full sm:h-6",
+                      themeColor === "blue" ? "bg-blue-500" : "bg-emerald-500",
+                    )}
+                  />
+                  <span
+                    className={cn(
+                      "mt-1.5 h-3.5 w-1.5 rounded-full opacity-60 sm:mt-2 sm:h-4",
+                      themeColor === "blue" ? "bg-blue-500" : "bg-emerald-500",
+                    )}
+                  />
+                </span>
+
+                <span className="leading-tight">
+                  Talk through any{" "}
+                  <span
+                    className={cn(
+                      themeColor === "blue"
+                        ? "text-blue-600 dark:text-blue-400"
+                        : "text-emerald-600 dark:text-emerald-400",
+                    )}
+                  >
+                    portrait avatar
+                  </span>
                 </span>
               </DialogTitle>
 
-              <DialogDescription className="text-base">
-                Transform a single photo and script into a natural talking video
+              <DialogDescription className="text-sm sm:text-base">
+                Transform a single photo and script into a natural talking
+                video.
               </DialogDescription>
             </DialogHeader>
 
             {(isLimitReached || isNoCredits) && !jobId ? (
-              <div className="p-8">
+              <div className="px-5 pb-5 sm:px-8 sm:pb-8">
                 <LimitBanner
                   type="avatar video"
                   limit={DAILY_LIMITS["avatar-video"]}
@@ -339,7 +388,7 @@ function AvatarVideoModal({
                 />
               </div>
             ) : isSubmitting || jobId ? (
-              <div className="p-8">
+              <div className="px-5 pb-5 sm:px-8 sm:pb-8">
                 <GenerationProgress
                   type="avatar-video"
                   jobId={jobId}
@@ -353,9 +402,9 @@ function AvatarVideoModal({
                 />
               </div>
             ) : (
-              <div className="flex flex-col gap-8 p-8 lg:flex-row">
+              <div className="flex flex-col gap-6 px-5 pb-5 sm:gap-8 sm:px-8 sm:pb-8 lg:flex-row">
                 {/* ── Left: avatar photo ───────────────────────────────────── */}
-                <div className="flex w-full flex-col gap-4 lg:w-85 lg:shrink-0">
+                <div className="flex w-full shrink-0 flex-col gap-4 lg:w-80 xl:w-96">
                   <AvatarPicker
                     previewUrl={avatarPreviewUrl}
                     avatarFile={avatarFile}
@@ -367,7 +416,7 @@ function AvatarVideoModal({
                 </div>
 
                 {/* ── Right: script / audio + settings ────────────────────── */}
-                <div className="flex grow flex-col gap-5">
+                <div className="flex flex-1 flex-col gap-5">
                   <div className="relative">
                     <ScriptAudioPanel
                       selectedAudioUrl={selectedAudioUrl}

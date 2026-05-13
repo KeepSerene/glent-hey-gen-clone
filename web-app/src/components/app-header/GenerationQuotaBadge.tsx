@@ -59,18 +59,18 @@ export default function GenerationQuotaBadge() {
           {anyNoCredits ? (
             <Badge
               variant="destructive"
-              className="text-sm font-semibold capitalize"
+              className="rounded-full text-sm font-semibold capitalize max-sm:size-fit max-sm:p-2"
             >
               <CreditCard className="size-4" />
-              No credits
+              <span className="max-sm:hidden">No credits</span>
             </Badge>
           ) : (
             <Badge
               variant="destructive"
-              className="text-sm font-semibold capitalize"
+              className="rounded-full text-sm font-semibold capitalize max-sm:size-fit max-sm:p-2"
             >
               <AlertCircle className="size-4" />
-              Limit hit
+              <span className="max-sm:hidden">Limit hit</span>
             </Badge>
           )}
         </button>

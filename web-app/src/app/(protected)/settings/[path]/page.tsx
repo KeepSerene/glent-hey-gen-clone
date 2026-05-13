@@ -37,7 +37,7 @@ export default async function SettingsPage({
   }
 
   return (
-    <main className="mx-auto w-full max-w-3xl overflow-y-auto p-4 md:p-6">
+    <main className="mx-auto w-full max-w-3xl p-4 md:p-6">
       <Settings path={path} />
     </main>
   );
