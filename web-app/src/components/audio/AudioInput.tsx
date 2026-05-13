@@ -137,7 +137,7 @@ function AudioInput({ onAudioReady }: AudioInputProps) {
 
             <Button
               type="button"
-              variant="secondary"
+              variant="ghost"
               size="lg"
               onClick={() => {
                 setAudioBlob(null);
@@ -162,7 +162,7 @@ function AudioInput({ onAudioReady }: AudioInputProps) {
           {isRecording ? (
             <div className="flex flex-col items-center gap-2">
               <span className="text-muted-foreground text-xs">
-                Recording... 00:{String(recordTime).padStart(2, "0")} / 00:
+                00:{String(recordTime).padStart(2, "0")} / 00:
                 {maxLabel}
               </span>
 
@@ -177,7 +177,7 @@ function AudioInput({ onAudioReady }: AudioInputProps) {
               </Button>
             </div>
           ) : (
-            <Button variant="secondary" size="lg" onClick={startRecording}>
+            <Button size="lg" onClick={startRecording}>
               <Mic className="size-4" />
               Record audio
             </Button>

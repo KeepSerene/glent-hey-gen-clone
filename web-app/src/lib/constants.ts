@@ -10,6 +10,7 @@ import {
   Languages,
   LayoutDashboard,
   LockKeyhole,
+  Mic,
   Mic2,
   Settings2,
   Sparkles,
@@ -302,7 +303,7 @@ export const HOME_AVATAR_STEPS: HowItWorksStep[] = [
       "Choose a clear front-facing portrait photo. JPEG, PNG, or WebP — our AI handles the rest.",
   },
   {
-    icon: Mic2,
+    icon: Mic,
     title: "Write a Script & Pick a Voice",
     description:
       "Type up to 150 characters as your script. Select a voice from the Glent library or upload your own WAV clone sample.",

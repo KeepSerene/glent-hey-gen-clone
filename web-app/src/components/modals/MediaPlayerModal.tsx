@@ -86,16 +86,16 @@ export default function MediaPlayerModal({
         <div
           aria-hidden
           className={cn(
-            "pointer-events-none absolute -top-12 -left-12 size-64 rounded-full opacity-[0.10] blur-[60px] dark:opacity-[0.12]",
+            "pointer-events-none absolute -top-12 -left-12 -z-10 size-64 rounded-full opacity-[0.10] blur-[60px] dark:opacity-[0.12]",
             themeColor === "blue" ? "bg-blue-500" : "bg-emerald-500",
           )}
         />
 
-        <div className="relative z-10 flex w-full flex-col p-6">
+        <div className="flex w-full flex-col p-6">
           <DialogHeader className="mb-4">
             <Tooltip>
               <TooltipTrigger type="button" className="text-left">
-                <DialogTitle className="flex items-center gap-3 text-xl font-semibold tracking-tight">
+                <DialogTitle className="mt-2 flex items-center gap-2 text-xl font-semibold tracking-tight">
                   {/* Staggered dash accent */}
                   <span aria-hidden className="flex shrink-0 gap-1">
                     <span
@@ -133,14 +133,9 @@ export default function MediaPlayerModal({
           </DialogHeader>
 
           {/* Media player container */}
-          <div
-            className={cn(
-              "bg-muted/50 border-border/50 relative overflow-hidden rounded-[20px] border shadow-inner",
-              isAvatarVideo ? "aspect-video" : "aspect-auto",
-            )}
-          >
+          <div className="bg-muted/50 border-border/50 relative overflow-hidden rounded-[20px] border shadow-inner">
             {isLoading && (
-              <div className="flex h-full min-h-30 w-full items-center justify-center">
+              <div className="flex size-full min-h-30 items-center justify-center">
                 <Loader2 className="text-muted-foreground size-8 animate-spin" />
               </div>
             )}
@@ -153,7 +148,7 @@ export default function MediaPlayerModal({
                 disablePictureInPicture
                 autoPlay
                 playsInline
-                className="size-full object-cover outline-none"
+                className="size-full outline-none"
               />
             )}
 
@@ -184,7 +179,7 @@ export default function MediaPlayerModal({
                 )}
               >
                 <a href={`/api/assets/${item.type}/${item.id}?download=1`}>
-                  <DownloadCloud className="mr-2 size-4" />
+                  <DownloadCloud className="size-4" />
                   Download
                 </a>
               </Button>

@@ -8,7 +8,7 @@ import { authClient } from "~/server/better-auth/client";
 
 export default function BillingRedirect() {
   const router = useRouter();
-  const hasFired = useRef(false); // Prevents double-firing in React Strict Mode
+  const hasFired = useRef(false); // Prevents double-firing in React strict mode
 
   useEffect(() => {
     if (hasFired.current) return;
@@ -45,8 +45,7 @@ export default function BillingRedirect() {
         </h1>
 
         <p className="text-muted-foreground max-w-sm text-sm">
-          You are being securely redirected to our billing provider to manage
-          your account and view receipts.
+          Manage your active plans, payment methods, and history.
         </p>
       </div>
     </section>

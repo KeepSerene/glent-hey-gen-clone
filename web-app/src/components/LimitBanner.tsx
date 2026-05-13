@@ -2,7 +2,7 @@
 
 import { CreditCard, ShieldAlert } from "lucide-react";
 import { formatResetTime } from "~/lib/utils";
-import { UpgradeButton } from "./UpgradeButton";
+import UpgradeButton from "./UpgradeButton";
 import {
   GEN_QUOTA_WINDOWS_MS,
   type GenerationEventType,
@@ -20,10 +20,6 @@ interface LimitBannerProps {
   noCredits?: boolean;
 }
 
-/**
- * Rendered inside a modal when the user cannot generate — either due to
- * insufficient credits (priority) or a daily quota limit.
- */
 function LimitBanner({
   resetsAt,
   type,
@@ -46,14 +42,13 @@ function LimitBanner({
             Not enough credits
           </p>
 
-          <p className="text-muted-foreground max-w-xs text-sm leading-relaxed">
-            Generating a{" "}
-            <span className="text-foreground font-medium">{type}</span> costs
-            more credits than your current balance. Purchase a pack to continue.
+          <p className="text-muted-foreground max-w-xs text-sm">
+            Purchase a pack to continue generating{" "}
+            <span className="text-foreground font-medium">{type}s</span>.
           </p>
         </div>
 
-        <UpgradeButton label="Get more credits" />
+        <UpgradeButton variant="link" label="Get more credits" />
       </div>
     );
   }

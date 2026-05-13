@@ -10,7 +10,7 @@ import { Badge } from "~/components/ui/badge";
 import useGenerationQuota from "~/hooks/useGenerationQuota";
 import { GENERATION_COSTS } from "~/lib/constants";
 import { formatResetTime } from "~/lib/utils";
-import { UpgradeButton } from "../UpgradeButton";
+import UpgradeButton from "../UpgradeButton";
 
 export default function GenerationQuotaBadge() {
   const { data: quota } = useGenerationQuota();
@@ -52,14 +52,14 @@ export default function GenerationQuotaBadge() {
           aria-label={
             anyNoCredits
               ? "Insufficient credits — see details"
-              : "Daily generation limit reached — see details"
+              : "Generation limits reached — see details"
           }
           className="focus-visible:ring-ring flex cursor-default items-center rounded focus-visible:ring-2 focus-visible:outline-none"
         >
           {anyNoCredits ? (
             <Badge
               variant="destructive"
-              className="rounded-full text-sm font-semibold capitalize max-sm:size-fit max-sm:p-2"
+              className="cursor-help rounded-full text-xs font-semibold capitalize max-sm:size-fit max-sm:p-2 sm:py-2.5"
             >
               <CreditCard className="size-4" />
               <span className="max-sm:hidden">No credits</span>
@@ -67,7 +67,7 @@ export default function GenerationQuotaBadge() {
           ) : (
             <Badge
               variant="destructive"
-              className="rounded-full text-sm font-semibold capitalize max-sm:size-fit max-sm:p-2"
+              className="cursor-help rounded-full text-xs font-semibold capitalize max-sm:size-fit max-sm:p-2 sm:py-2.5"
             >
               <AlertCircle className="size-4" />
               <span className="max-sm:hidden">Limit hit</span>
@@ -89,7 +89,7 @@ export default function GenerationQuotaBadge() {
             <ul className="flex flex-col gap-1 text-sm">
               {avatarNoCredits && (
                 <li className="flex items-center gap-1">
-                  <X className="text-destructive size-4" />
+                  <X className="size-4 text-red-500 dark:text-red-600" />
 
                   <span>
                     Avatar Video — needs {GENERATION_COSTS["avatar-video"]}{" "}
@@ -100,7 +100,8 @@ export default function GenerationQuotaBadge() {
 
               {voiceNoCredits && (
                 <li className="flex items-center gap-1">
-                  <X className="text-destructive size-4" />
+                  <X className="size-4 text-red-500 dark:text-red-600" />
+
                   <span>
                     Voiceover — needs {GENERATION_COSTS.voiceover} creds
                   </span>
@@ -109,12 +110,12 @@ export default function GenerationQuotaBadge() {
             </ul>
 
             <UpgradeButton
-              label="Get more credits"
               variant="link"
-              className="w-full justify-center text-blue-600"
+              label="Get more credits"
+              className="w-full text-emerald-300 dark:text-emerald-600"
             />
 
-            {/* Still show daily limits if they're also hit, as secondary info */}
+            {/* Still show daily/weekly limits if they're also hit, as secondary info */}
             {anyExceeded && (
               <p className="border-t pt-2 text-xs">
                 Note: daily quotas are also active. The soonest resets{" "}

@@ -18,7 +18,7 @@ import { cn } from "~/lib/utils";
 import { Separator } from "./ui/separator";
 import { UserView } from "./settings/user-view";
 import useGenerationQuota from "~/hooks/useGenerationQuota";
-import { UpgradeButton } from "./UpgradeButton";
+import UpgradeButton from "./UpgradeButton";
 import { Coins } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 

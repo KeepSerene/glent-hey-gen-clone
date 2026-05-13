@@ -155,7 +155,7 @@ function DashboardClient({ recentItems }: DashboardClientProps) {
                           variant="destructive"
                           className="rounded-full px-2.5 py-0.5 text-[10px] font-semibold tracking-wide shadow-none"
                         >
-                          Limit reached
+                          Limit Reached
                         </Badge>
                       )}
                     </span>

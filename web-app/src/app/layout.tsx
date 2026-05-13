@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     siteName: "Glent",
     images: [
       {
-        url: "/images/illustration-dark.webp",
+        url: "/images/illustration-light.webp",
         width: 1200,
         height: 630,
         alt: "Glent AI Avatar & Voice Studio Interface",
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     description: APP_DESCRIPTION,
     creator: "@UsualLearner",
     site: "@glent",
-    images: ["/images/illustration-dark.webp"],
+    images: ["/images/illustration-light.webp"],
   },
   icons: [{ rel: "icon", url: "/favicon.svg", type: "image/svg+xml" }],
   alternates: {

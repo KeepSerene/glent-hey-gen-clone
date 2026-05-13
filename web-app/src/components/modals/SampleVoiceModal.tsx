@@ -15,6 +15,7 @@ import { Pause, Play } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import useAudioPlayer from "~/hooks/useAudioPlayer";
 import { cn } from "~/lib/utils";
+import { Badge } from "../ui/badge";
 
 export interface Voice {
   id: string;
@@ -62,16 +63,19 @@ function SampleVoiceCard({
         }
       }}
       className={cn(
-        "group focus-within:ring-primary bg-card relative flex w-full cursor-pointer flex-col gap-4 overflow-hidden rounded-[20px] border p-5 transition-all duration-300 ease-out focus-within:ring-2 focus-within:ring-offset-2 focus-within:outline-none sm:w-60",
+        "group focus-within:ring-primary bg-card focus-within:ring-offset-background relative flex w-full cursor-pointer flex-col gap-4 overflow-hidden rounded-[20px] border p-5 transition-all duration-300 ease-out focus-within:ring-2 focus-within:ring-offset-2 focus-within:outline-none sm:w-60",
         isPlaying
           ? "border-primary/40 bg-primary/5 shadow-sm"
           : "hover:border-primary/30 hover:shadow-md",
       )}
     >
       <div className="flex items-center justify-between">
-        <span className="border-primary/20 bg-primary/10 text-primary rounded-full border px-2.5 py-0.5 text-[10px] font-bold tracking-widest uppercase">
-          Library
-        </span>
+        <Badge
+          variant="outline"
+          className="text-primary border-primary bg-primary/5 dark:bg-primary/10 rounded-full tracking-wide"
+        >
+          Glent
+        </Badge>
 
         <Tooltip>
           <TooltipTrigger asChild>
@@ -121,68 +125,66 @@ function SampleVoiceModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenStateChange}>
-      <DialogContent className="overflow-hidden sm:max-w-3xl">
+      <DialogContent className="overflow-hidden sm:max-w-4xl">
         {/* Accent glow */}
         <div
           aria-hidden
-          className="bg-accent pointer-events-none absolute -top-24 -left-24 z-0 size-100 rounded-full opacity-[0.28] blur-[70px] dark:opacity-[0.32]"
+          className="bg-accent pointer-events-none absolute -top-24 -left-24 -z-10 size-100 rounded-full opacity-[0.28] blur-[70px] dark:opacity-[0.32]"
         />
 
-        <div className="relative z-10">
-          <DialogHeader className="mb-4">
-            <DialogTitle className="text-2xl font-semibold tracking-tight">
-              Pick a voice
-            </DialogTitle>
+        <DialogHeader className="mb-4">
+          <DialogTitle className="text-2xl font-semibold tracking-tight">
+            Pick a voice
+          </DialogTitle>
 
-            <DialogDescription className="text-muted-foreground text-sm">
-              Record or upload your own audio, or select a pre-made voice from
-              our library.
-            </DialogDescription>
-          </DialogHeader>
+          <DialogDescription className="text-muted-foreground text-sm">
+            Upload or record your own audio, or select a pre-made voice from our
+            library.
+          </DialogDescription>
+        </DialogHeader>
 
-          <Tabs defaultValue="glent-library">
-            <TabsList className="mb-4">
-              <TabsTrigger type="button" value="my-voices">
-                My Voices
-              </TabsTrigger>
+        <Tabs defaultValue="library">
+          <TabsList className="mb-4">
+            <TabsTrigger type="button" value="custom">
+              Custom
+            </TabsTrigger>
 
-              <TabsTrigger type="button" value="glent-library">
-                Glent Library
-              </TabsTrigger>
-            </TabsList>
+            <TabsTrigger type="button" value="library">
+              Library
+            </TabsTrigger>
+          </TabsList>
 
-            <TabsContent value="my-voices" className="p-2">
-              <AudioInput
-                onAudioReady={(audioBlob: Blob) => {
-                  const file = new File([audioBlob], "custom_voice.wav", {
-                    type: audioBlob.type,
-                  });
-                  onAudioUploaded(file);
-                  onOpenStateChange(false);
+          <TabsContent value="custom" className="p-2">
+            <AudioInput
+              onAudioReady={(audioBlob: Blob) => {
+                const file = new File([audioBlob], "custom_voice.wav", {
+                  type: audioBlob.type,
+                });
+                onAudioUploaded(file);
+                onOpenStateChange(false);
+              }}
+            />
+          </TabsContent>
+
+          <TabsContent
+            value="library"
+            className="flex max-h-[50vh] flex-wrap gap-4 overflow-y-auto px-1 pt-1 pb-4"
+          >
+            {SAMPLE_VOICES.map((voice) => (
+              <SampleVoiceCard
+                key={voice.id}
+                voice={voice}
+                isPlaying={audioSrc === voice.audioSrc}
+                onSelect={(voice: Voice) => {
+                  onVoiceSelected(voice);
+                }}
+                onTogglePlay={(voice: Voice) => {
+                  void togglePlay(voice.audioSrc);
                 }}
               />
-            </TabsContent>
-
-            <TabsContent
-              value="glent-library"
-              className="flex max-h-[50vh] flex-wrap gap-4 overflow-y-auto px-1 pt-1 pb-4"
-            >
-              {SAMPLE_VOICES.map((voice) => (
-                <SampleVoiceCard
-                  key={voice.id}
-                  voice={voice}
-                  isPlaying={audioSrc === voice.audioSrc}
-                  onSelect={(voice: Voice) => {
-                    onVoiceSelected(voice);
-                  }}
-                  onTogglePlay={(voice: Voice) => {
-                    void togglePlay(voice.audioSrc);
-                  }}
-                />
-              ))}
-            </TabsContent>
-          </Tabs>
-        </div>
+            ))}
+          </TabsContent>
+        </Tabs>
       </DialogContent>
     </Dialog>
   );

@@ -17,7 +17,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "~/components/ui/dialog";
-import { Button } from "~/components/ui/button";
 import { Textarea } from "~/components/ui/textarea";
 import SampleVoiceModal, { type Voice } from "./SampleVoiceModal";
 import TtsSettingsPanel from "../tts/TtsSettingsPanel";
@@ -168,18 +167,18 @@ function AiVoiceStudioModal({
     <>
       <Dialog open={isOpen} onOpenChange={onOpenStateChange}>
         <DialogContent className="max-h-[85vh] w-[calc(100vw-2rem)] max-w-xl overflow-hidden p-0">
-          {/* Ambient top-left glow */}
+          {/* Ambient glow */}
           <div
             aria-hidden
             className={cn(
-              "pointer-events-none absolute -top-20 -left-20 size-80 rounded-full opacity-[0.10] blur-[70px] dark:opacity-[0.12]",
+              "pointer-events-none absolute -top-20 -left-20 -z-10 size-80 rounded-full opacity-[0.10] blur-[70px] dark:opacity-[0.12]",
               themeColor === "blue" ? "bg-blue-500" : "bg-emerald-500",
             )}
           />
 
-          <div className="relative flex max-h-[85vh] w-full flex-col overflow-y-auto p-6">
+          <div className="flex max-h-[85vh] w-full flex-col overflow-y-auto p-6">
             <DialogHeader>
-              <DialogTitle className="flex items-center gap-3 text-2xl font-semibold tracking-tight">
+              <DialogTitle className="mt-2 flex items-center gap-2 text-2xl font-semibold tracking-tight">
                 {/* Staggered dash accent */}
                 <span aria-hidden className="flex gap-1">
                   <span
@@ -257,7 +256,7 @@ function AiVoiceStudioModal({
                         onOpenVoiceModal={() => setVoiceModalOpen(true)}
                       />
 
-                      {/* Dynamic character counter */}
+                      {/* Character counter */}
                       <p
                         className={cn(
                           "text-xs transition-colors select-none",
@@ -286,12 +285,11 @@ function AiVoiceStudioModal({
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <span className="block w-full">
-                        <Button
+                        <button
                           type="button"
-                          size="lg"
                           onClick={handleGenerate}
                           disabled={!canGenerate || isSubmitting}
-                          className="w-full shrink-0"
+                          className="btn-highlight w-full shrink-0"
                         >
                           {isSubmitting ? (
                             <>
@@ -304,7 +302,7 @@ function AiVoiceStudioModal({
                               Generate Speech
                             </>
                           )}
-                        </Button>
+                        </button>
                       </span>
                     </TooltipTrigger>
 

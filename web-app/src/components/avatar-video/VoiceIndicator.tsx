@@ -58,9 +58,9 @@ function VoiceIndicator({
                 className="rounded-full"
               >
                 {userAudioUrl === activeAudioSrc ? (
-                  <Pause className="size-3" />
+                  <Pause className="size-3 fill-current" />
                 ) : (
-                  <Play className="size-3" />
+                  <Play className="size-3 fill-current" />
                 )}
               </Button>
             </TooltipTrigger>
@@ -104,9 +104,9 @@ function VoiceIndicator({
               className="rounded-full"
             >
               {selectedVoice.audioSrc === activeAudioSrc ? (
-                <Pause className="size-3" />
+                <Pause className="size-3 fill-current" />
               ) : (
-                <Play className="size-3" />
+                <Play className="size-3 fill-current" />
               )}
             </Button>
           </TooltipTrigger>

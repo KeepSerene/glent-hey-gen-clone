@@ -24,11 +24,10 @@ async function ProtectedLayout({
         <AppHeader />
 
         <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
-          {/* Main scrollable page content */}
           {children}
 
           <footer className="border-border/50 bg-background mt-auto flex shrink-0 items-center justify-center border-t py-4">
-            <p className="text-muted-foreground text-xs font-medium tracking-wide">
+            <p className="text-muted-foreground/60 text-xs font-medium tracking-wide">
               &copy; {currentYear} Glent. All rights reserved.
             </p>
           </footer>

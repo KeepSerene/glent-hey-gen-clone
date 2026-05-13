@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Loader2, Zap } from "lucide-react";
 import { toast } from "sonner";
 import { authClient } from "~/server/better-auth/client";
@@ -9,43 +9,20 @@ import {
   POLAR_FLARE_PACK_ID,
   POLAR_SPARK_PACK_ID,
 } from "~/lib/constants";
-import { Button } from "./ui/button";
+import { cn } from "~/lib/utils";
 
 interface UpgradeButtonProps {
+  variant?: "highlight" | "link";
   label?: string;
-  variant?:
-    | "default"
-    | "secondary"
-    | "ghost"
-    | "link"
-    | "outline"
-    | "destructive";
   className?: string;
 }
 
-/**
- * M3-styled upgrade CTA with a one-time shimmer sweep on mount.
- * Opens Polar's hosted checkout page with all three credit packs.
- */
-export function UpgradeButton({
+export default function UpgradeButton({
+  variant = "highlight",
   label = "Upgrade",
-  variant = "outline",
   className,
 }: UpgradeButtonProps) {
-  const [sweepActive, setSweepActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    // Small delay so the layout settles before the sweep fires
-    const startSweepAnimId = setTimeout(() => setSweepActive(true), 400);
-    // Clear class after animation completes (400ms delay + 1500ms anim)
-    const endSweepAnimId = setTimeout(() => setSweepActive(false), 2050);
-
-    return () => {
-      clearTimeout(startSweepAnimId);
-      clearTimeout(endSweepAnimId);
-    };
-  }, []);
 
   const handleUpgrade = async () => {
     if (isLoading) return;
@@ -69,13 +46,16 @@ export function UpgradeButton({
   };
 
   return (
-    <Button
+    <button
       type="button"
-      variant={variant}
-      size="sm"
       disabled={isLoading}
-      onClick={() => void handleUpgrade()}
-      className={className}
+      onClick={handleUpgrade}
+      className={cn(
+        variant === "highlight" && "btn-highlight gap-1",
+        variant === "link" &&
+          "text-primary focus-visible:ring-ring inline-flex items-center justify-center gap-1 text-sm font-medium underline-offset-4 transition-colors hover:underline focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50",
+        className,
+      )}
     >
       {isLoading ? (
         <>
@@ -84,10 +64,10 @@ export function UpgradeButton({
         </>
       ) : (
         <>
-          <Zap className="size-4 shrink-0" />
+          <Zap className="size-4 shrink-0 fill-current" />
           {label}
         </>
       )}
-    </Button>
+    </button>
   );
 }

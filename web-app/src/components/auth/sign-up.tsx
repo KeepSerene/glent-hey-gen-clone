@@ -188,9 +188,12 @@ export function SignUp({ className }: SignUpProps) {
               <FieldError>{fieldErrors.password}</FieldError>
             </Field>
 
-            <Button type="submit" disabled={isPending}>
-              {isPending && <Spinner />}
-              {localization.auth.signUp}
+            <Button
+              type="submit"
+              disabled={isPending}
+              aria-label={isPending ? "Signing up" : "Create account"}
+            >
+              {isPending ? <Spinner /> : localization.auth.signUp}
             </Button>
           </FieldGroup>
         </form>

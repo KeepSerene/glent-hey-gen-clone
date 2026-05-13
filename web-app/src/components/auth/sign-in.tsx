@@ -175,9 +175,12 @@ export function SignIn({ className }: SignInProps) {
               <FieldError>{fieldErrors.password}</FieldError>
             </Field>
 
-            <Button type="submit" disabled={isPending}>
-              {isPending && <Spinner />}
-              {localization.auth.signIn}
+            <Button
+              type="submit"
+              disabled={isPending}
+              aria-label={isPending ? "Signing in" : "Log in"}
+            >
+              {isPending ? <Spinner /> : localization.auth.signIn}
             </Button>
           </FieldGroup>
         </form>

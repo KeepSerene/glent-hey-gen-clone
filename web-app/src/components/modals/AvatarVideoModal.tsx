@@ -11,7 +11,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "~/components/ui/dialog";
-import { Button } from "~/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
@@ -328,20 +327,19 @@ function AvatarVideoModal({
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onOpenStateChange}>
-        <DialogContent className="flex max-h-[calc(100dvh-2.5rem)] w-[calc(100vw-1.5rem)] max-w-5xl flex-col overflow-hidden p-0 sm:max-h-[90dvh] sm:w-[95vw] sm:rounded-[24px]">
+        <DialogContent className="flex max-h-[calc(100dvh-2rem)] w-[calc(100vw-1.5rem)] flex-col overflow-hidden p-0 sm:max-h-[90dvh] sm:w-[95vw] sm:max-w-full sm:rounded-xl">
           {/* Ambient glow */}
           <div
             aria-hidden
             className={cn(
-              "pointer-events-none absolute -top-20 -left-20 z-0 size-80 rounded-full opacity-[0.12] blur-[70px] dark:opacity-[0.15]",
+              "pointer-events-none absolute -top-20 -left-20 -z-10 size-80 rounded-full opacity-[0.12] blur-[70px] dark:opacity-[0.15]",
               themeColor === "blue" ? "bg-blue-500" : "bg-emerald-500",
             )}
           />
 
-          <div className="relative z-10 flex size-full flex-col overflow-y-auto">
-            {/* Header section with responsive padding */}
+          <div className="flex size-full flex-col overflow-y-auto">
             <DialogHeader className="px-5 pt-12 pb-4 sm:px-8 sm:pt-8 sm:pb-6">
-              <DialogTitle className="flex items-start gap-2.5 text-xl font-semibold tracking-tight sm:items-center sm:gap-3 sm:text-2xl">
+              <DialogTitle className="flex items-end gap-2 font-semibold tracking-tight sm:items-center sm:gap-3 sm:text-2xl">
                 {/* Staggered dash accent */}
                 <span aria-hidden className="mt-1 flex shrink-0 gap-1 sm:mt-0">
                   <span
@@ -372,7 +370,7 @@ function AvatarVideoModal({
                 </span>
               </DialogTitle>
 
-              <DialogDescription className="text-sm sm:text-base">
+              <DialogDescription className="text-xs sm:text-base">
                 Transform a single photo and script into a natural talking
                 video.
               </DialogDescription>
@@ -454,10 +452,9 @@ function AvatarVideoModal({
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <span className="block w-full">
-                          <Button
+                          <button
                             type="button"
-                            size="lg"
-                            className="w-full"
+                            className="btn-highlight w-full shrink-0"
                             disabled={!canGenerate || isSubmitting}
                             onClick={handleGenerate}
                           >
@@ -472,7 +469,7 @@ function AvatarVideoModal({
                                 Generate avatar video
                               </>
                             )}
-                          </Button>
+                          </button>
                         </span>
                       </TooltipTrigger>
 

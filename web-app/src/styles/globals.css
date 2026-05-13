@@ -299,6 +299,44 @@
 }
 
 @layer components {
+  /* ── Highlight button ───────────────── */
+  .btn-highlight {
+    @apply text-primary-foreground relative z-10 flex touch-manipulation items-center justify-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium whitespace-nowrap transition-colors outline-none select-none;
+    @apply focus-visible:ring-ring focus-visible:ring-offset-background focus-visible:ring-2 focus-visible:ring-offset-2;
+  }
+
+  .btn-highlight::before,
+  .btn-highlight::after {
+    @apply absolute right-0 bottom-0 -z-10 transition-all duration-400 ease-out content-[''];
+  }
+
+  /* Main solid bg */
+  .btn-highlight::before {
+    @apply bg-primary h-full w-full translate-x-0 translate-y-0 rounded-lg;
+  }
+
+  /* Frosted glass decorative blob */
+  .btn-highlight::after {
+    @apply h-8.75 w-8.75 translate-x-2.5 translate-y-2.5 rounded-full backdrop-blur-[5px];
+    background: color-mix(in srgb, var(--primary-foreground) 20%, transparent);
+  }
+
+  .btn-highlight:hover::before {
+    @apply size-[110%] translate-x-[5%] translate-y-[20%];
+  }
+
+  .btn-highlight:hover::after {
+    @apply size-full translate-x-0 translate-y-0 rounded-lg;
+  }
+
+  .btn-highlight:active::after {
+    @apply translate-y-[5%] transition-none;
+  }
+
+  .btn-highlight:disabled {
+    @apply pointer-events-none opacity-50;
+  }
+
   /* ── Sonner Toasts — M3 Snackbar ───────────────────────────────── */
   [data-sonner-toaster] {
     --width: 364px;
