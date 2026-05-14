@@ -150,7 +150,7 @@ model GenerationEvent {
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  // WHERE userId = ? AND type = ? AND createdAt >= <24h ago>
+  // WHERE userId = ? AND type = ? AND createdAt >= <1d ago> OR <1w ago>
   @@index([userId, type, createdAt])
   @@map("generation_event")
 }
