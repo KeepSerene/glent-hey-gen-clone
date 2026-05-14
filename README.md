@@ -97,6 +97,8 @@ glent-hey-gen-clone/
 │   │   └── styles/         # Global CSS with Tailwind & shadcn theme
 │   ├── public/             # Static assets (favicon, hero illustrations)
 │   └── package.json        # Dependencies & scripts
+|   ├── .env                # Environment variables
+|   ├── .env.example        # Environment variables template
 │
 ├── modal-workers/          # Python Modal serverless GPU workers
 │   ├── multilingual-tts/   # ChatterboxTTS worker
@@ -107,10 +109,10 @@ glent-hey-gen-clone/
 │   │   ├── video.py
 │   │   └── requirements.txt
 │   └── .env                # Modal secrets & R2 credentials
+|   ├── .env.example        # Environment variables template
 │
-├── .env.example            # Environment variables template
 ├── docker-compose.yml      # (optional) local PostgreSQL
-└── README.md               # You are here
+└── README.md               # The project readme
 ```
 
 ---
