@@ -89,7 +89,7 @@ const Hero = ({ isAuthenticated }: HeroProps) => (
             <>
               <Button size="lg" asChild className="gap-2">
                 <Link href="/auth/sign-in">
-                  Start for Free
+                  Start for free
                   <ArrowRight className="size-4" />
                 </Link>
               </Button>
