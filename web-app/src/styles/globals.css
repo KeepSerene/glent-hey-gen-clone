@@ -85,8 +85,8 @@
   --primary-foreground: #ffffff;
 
   /* secondaryContainer */
-  --secondary: #bdd0f7;
-  --secondary-foreground: #283450;
+  --secondary: #d3e3fd;
+  --secondary-foreground: #0842a0;
 
   /* surfaceVariant */
   --muted: #e0e2ec;
@@ -176,8 +176,8 @@
   --primary: #aac7ff;
   --primary-foreground: #0a305f;
 
-  --secondary: #546480;
-  --secondary-foreground: #e0e8ff;
+  --secondary: #1f3760;
+  --secondary-foreground: #d3e3fd;
 
   --muted: #44474e;
   --muted-foreground: #c4c6d0;

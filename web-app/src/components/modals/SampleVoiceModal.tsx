@@ -154,7 +154,7 @@ function SampleVoiceModal({
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="custom" className="p-2">
+          <TabsContent value="custom">
             <AudioInput
               onAudioReady={(audioBlob: Blob) => {
                 const file = new File([audioBlob], "custom_voice.wav", {

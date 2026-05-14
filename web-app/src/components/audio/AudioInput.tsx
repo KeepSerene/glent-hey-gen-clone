@@ -122,7 +122,7 @@ function AudioInput({ onAudioReady }: AudioInputProps) {
   return (
     <div className="flex flex-col gap-4">
       {audioSrcUrl ? (
-        <div className="flex flex-col items-center gap-2">
+        <div className="flex flex-col items-center gap-4">
           <audio src={audioSrcUrl} controls className="w-full" />
 
           <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2">
@@ -137,7 +137,7 @@ function AudioInput({ onAudioReady }: AudioInputProps) {
 
             <Button
               type="button"
-              variant="ghost"
+              variant="secondary"
               size="lg"
               onClick={() => {
                 setAudioBlob(null);
@@ -177,7 +177,7 @@ function AudioInput({ onAudioReady }: AudioInputProps) {
               </Button>
             </div>
           ) : (
-            <Button size="lg" onClick={startRecording}>
+            <Button variant="secondary" size="lg" onClick={startRecording}>
               <Mic className="size-4" />
               Record audio
             </Button>
