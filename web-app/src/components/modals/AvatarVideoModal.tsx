@@ -452,7 +452,7 @@ function AvatarVideoModal({
                   )}
 
                   {/* Generate button */}
-                  <div className="mt-auto pt-2">
+                  <div className="mt-auto">
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <span className="inline-block w-full sm:w-auto">
