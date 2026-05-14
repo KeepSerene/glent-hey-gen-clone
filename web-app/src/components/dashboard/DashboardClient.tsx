@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import {
   DASHBOARD_ACTIONS,
-  DAILY_LIMITS,
+  type DAILY_LIMITS,
   GENERATION_COSTS,
   DASHBOARD_ACTION_THEMES,
 } from "~/lib/constants";
@@ -40,7 +40,7 @@ function DashboardClient({ recentItems }: DashboardClientProps) {
   const { data: quota } = useGenerationQuota();
 
   const isAvatarLimitReached = quota?.["avatar-video"].isExceeded ?? false;
-  const isVoiceoverLimitReached = quota?.["voiceover"].isExceeded ?? false;
+  const isVoiceoverLimitReached = quota?.voiceover.isExceeded ?? false;
   const isAvatarNoCredits = quota
     ? quota.credits < GENERATION_COSTS["avatar-video"]
     : false;
@@ -88,15 +88,13 @@ function DashboardClient({ recentItems }: DashboardClientProps) {
             comingSoon,
           }) => {
             const limited = isCardLimited(mode);
-            const theme = DASHBOARD_ACTION_THEMES[mode as ActionMode];
+            const theme = DASHBOARD_ACTION_THEMES[mode];
 
             return (
               <li key={label} className="flex size-full">
                 <button
                   type="button"
-                  onClick={() =>
-                    !comingSoon && handleModalOpen(mode as ActionMode)
-                  }
+                  onClick={() => !comingSoon && handleModalOpen(mode)}
                   disabled={comingSoon}
                   className={cn(
                     "group bg-card focus-visible:ring-offset-background relative flex w-full flex-col items-start gap-6 overflow-hidden rounded-[24px] border p-6 text-left transition-all duration-300 ease-out focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
@@ -203,7 +201,7 @@ function DashboardClient({ recentItems }: DashboardClientProps) {
         isOpen={voiceStudioOpen}
         onOpenStateChange={setVoiceStudioOpen}
         isLimitReached={isVoiceoverLimitReached}
-        resetsAt={quota?.["voiceover"].resetsAt ?? null}
+        resetsAt={quota?.voiceover.resetsAt ?? null}
         isNoCredits={isVoiceNoCredits}
         themeColor="emerald"
       />

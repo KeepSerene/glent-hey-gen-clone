@@ -43,7 +43,7 @@ export function Settings({ className, view, path, hideNav }: SettingsProps) {
     [viewPaths.settings],
   );
 
-  const currentView = view || (path ? settingsPathViews[path] : undefined);
+  const currentView = view ?? (path ? settingsPathViews[path] : undefined);
 
   return (
     <Tabs

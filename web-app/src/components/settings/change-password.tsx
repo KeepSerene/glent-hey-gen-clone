@@ -128,7 +128,8 @@ function ChangePasswordForm({
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
-      toast.error(error.error?.message || error.message);
+      const errError = error.error as { message?: string } | undefined;
+      toast.error(errError?.message ?? error.message);
     },
     onSuccess: () => {
       setCurrentPassword("");

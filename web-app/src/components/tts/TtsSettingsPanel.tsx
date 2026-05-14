@@ -151,7 +151,7 @@ function TtsSettingsPanel({
                 </TooltipTrigger>
 
                 <TooltipContent className="max-w-52 text-xs">
-                  Set a specific number to lock in the voice's pacing and
+                  Set a specific number to lock in the voice&apos;s pacing and
                   inflection, making it reproducible. Leave at 0 for a random
                   performance every time.
                 </TooltipContent>

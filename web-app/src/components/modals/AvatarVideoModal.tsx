@@ -130,7 +130,7 @@ function AvatarVideoModal({
 
     if (!file) return;
 
-    if (!ALLOWED_IMAGE_TYPES.includes(file.type as any)) {
+    if (!(ALLOWED_IMAGE_TYPES as readonly string[]).includes(file.type)) {
       setAvatarError("Only JPG, PNG, or WEBP allowed.");
       return;
     }
@@ -183,7 +183,11 @@ function AvatarVideoModal({
     if (!audio) return;
 
     try {
-      audio.paused ? await audio.play() : audio.pause();
+      if (audio.paused) {
+        await audio.play();
+      } else {
+        audio.pause();
+      }
     } catch (err) {
       console.error("Failed to play audio:", err);
       toast.error("Oops! Failed to play audio. Try again.");

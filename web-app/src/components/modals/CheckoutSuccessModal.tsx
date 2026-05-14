@@ -64,7 +64,7 @@ export default function CheckoutSuccessModal() {
             onClick={handleClose}
             className="w-full"
           >
-            Let's go
+            Let&apos;s go
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

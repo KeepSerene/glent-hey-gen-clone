@@ -48,12 +48,12 @@ export function UserView({ className, isPending, user }: UserViewProps) {
 
       <div className="grid flex-1 text-left text-sm leading-tight">
         <span className="text-foreground truncate font-medium">
-          {resolvedUser?.displayUsername ||
-            resolvedUser?.name ||
+          {resolvedUser?.displayUsername ??
+            resolvedUser?.name ??
             resolvedUser?.email}
         </span>
 
-        {(resolvedUser?.displayUsername || resolvedUser?.name) && (
+        {(resolvedUser?.displayUsername ?? resolvedUser?.name) && (
           <Tooltip>
             <TooltipTrigger asChild>
               <span className="text-muted-foreground truncate text-xs">

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://pub-7c4555bc118048e2bc8551884359e9a8.r2.dev/samples/avatars/avatar-01.jpg" alt="Glent Banner" width="120" />
+  <img src="web-app/public/images/logo-email.png" alt="Glent logo" width="120" />
 </p>
 
 <h1 align="center">Glent · AI Avatar Video & Voice Studio</h1>
@@ -13,12 +13,12 @@
   <a href="#-features"><img src="https://img.shields.io/badge/Features-8A2BE2?style=flat-square" alt="Features"></a>
   <a href="#-tech-stack"><img src="https://img.shields.io/badge/Tech_Stack-T3+Modal-3178C6?style=flat-square&logo=typescript" alt="Tech stack"></a>
   <a href="#-author"><img src="https://img.shields.io/badge/Author-Dhrubajyoti_Bhattacharjee-0a66c2?style=flat-square&logo=linkedin" alt="Author"></a>
-  <a href="#-license"><img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License"></a>
+  <a href="#-license"><img src="https://img.shields.io/badge/License-Apache2.0-green?style=flat-square" alt="License"></a>
 </p>
 
 <p align="center">
-  <img src="web-app/public/images/illustration-light.webp" alt="Glent Light Preview" width="49%" />
-  <img src="web-app/public/images/illustration-dark.webp" alt="Glent Dark Preview" width="49%" />
+  <img src="web-app/public/images/illustration-light.webp" alt="Glent light preview" width="49%" />
+  <img src="web-app/public/images/illustration-dark.webp" alt="Glent dark preview" width="49%" />
 </p>
 
 ---
@@ -83,10 +83,10 @@
 
 ---
 
-## 🗂️ Project Structure
+## 🗂️ Project Structure (Tentative!)
 
 ```text
-glent/
+glent-hey-gen-clone/
 ├── web-app/                # Next.js T3 application
 │   ├── src/
 │   │   ├── app/            # App router pages & layouts
@@ -249,23 +249,21 @@ This runs the Inngest CLI locally, enabling your server actions to send events.
    modal token set --token-id YOUR_TOKEN_ID --token-secret YOUR_TOKEN_SECRET
    ```
 
-2. Navigate to `modal-workers/` and set up your `.env` file with the same R2 & Modal secrets used in the web app.
+2. Navigate to `modal-workers/` and set up your `.env` file with the necessary R2 & Modal secrets.
 
 3. Deploy the TTS worker:
 
    ```bash
-   cd multilingual-tts
-   modal deploy tts.py
+   modal deploy -m multilingual-tts.tts
    ```
 
 4. Deploy the Video worker:
 
    ```bash
-   cd ../video-generation
-   modal deploy video.py
+   modal deploy video-generation/video.py
    ```
 
-5. Copy the deployed endpoint URLs (e.g., `https://your-username--glent-mtl-tts-generate-speech.modal.run`) into your `NEXT_PUBLIC_...` env vars.
+5. Copy the deployed endpoint URLs (e.g., `https://your-username--glent-mtl-tts-generate-speech.modal.run`) into your env vars.
 
 > **Important**: The workers need access to your R2 bucket. The `glent-r2-secret` Modal secret must contain all required keys (`R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_PRIVATE_BUCKET`, plus AWS compat aliases). See `video.py` for the exact names.
 

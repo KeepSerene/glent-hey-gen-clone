@@ -55,8 +55,12 @@ export function SignIn({ className }: SignInProps) {
     onError: (error, { email }) => {
       setPassword("");
 
-      if (error.error?.code === "EMAIL_NOT_VERIFIED") {
-        toast.error(error.error?.message || error.message, {
+      const errError = error.error as
+        | { code?: string; message?: string }
+        | undefined;
+
+      if (errError?.code === "EMAIL_NOT_VERIFIED") {
+        toast.error(errError?.message ?? error.message, {
           action: {
             label: localization.auth.resend,
             onClick: () =>
@@ -67,7 +71,7 @@ export function SignIn({ className }: SignInProps) {
           },
         });
       } else {
-        toast.error(error.error?.message || error.message);
+        toast.error(errError?.message ?? error.message);
       }
     },
     onSuccess: () => navigate({ to: redirectTo }),

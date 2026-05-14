@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Check, Info, Loader2, Sparkles, Zap } from "lucide-react";
+import { Check, Info, Loader2, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import { cn } from "~/lib/utils";

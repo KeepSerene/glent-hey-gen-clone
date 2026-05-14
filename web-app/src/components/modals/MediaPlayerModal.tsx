@@ -51,12 +51,14 @@ export default function MediaPlayerModal({
           throw new Error("Asset fetch failed");
         }
 
-        const data = await res.json();
+        const data = (await res.json()) as { url: string };
 
         if (isMounted) {
           setPlayerUrl(data.url);
         }
       } catch (err) {
+        console.error("Error in fetching asset:", err);
+
         if (isMounted) {
           toast.error("Could not load the player. Try again.");
           onClose();
@@ -122,7 +124,8 @@ export default function MediaPlayerModal({
                   </span>
                 </DialogTitle>
               </TooltipTrigger>
-              <TooltipContent>{item && item.title}</TooltipContent>
+
+              <TooltipContent>{item?.title}</TooltipContent>
             </Tooltip>
 
             <DialogDescription className="sr-only">
@@ -170,13 +173,13 @@ export default function MediaPlayerModal({
             {playerUrl && item && (
               <Button
                 size="lg"
-                asChild
                 className={cn(
                   "w-full rounded-full font-semibold tracking-wide shadow-none transition-all duration-300 sm:w-auto",
                   themeColor === "blue"
                     ? "bg-blue-500/10 text-blue-700 hover:bg-blue-500/20! dark:text-blue-400 dark:hover:bg-blue-500/25!"
                     : "bg-emerald-500/10 text-emerald-700 hover:bg-emerald-500/20! dark:text-emerald-400 dark:hover:bg-emerald-500/25!",
                 )}
+                asChild
               >
                 <a href={`/api/assets/${item.type}/${item.id}?download=1`}>
                   <DownloadCloud className="size-4" />

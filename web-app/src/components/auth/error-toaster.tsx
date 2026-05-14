@@ -9,14 +9,17 @@ export function ErrorToaster() {
   useEffect(() => {
     queryClient.getQueryCache().config.onError = (error) => {
       const err = error as BetterFetchError;
-      if (err?.error) toast.error(err.error.message);
+      const errError = err?.error as { message?: string } | undefined;
+
+      if (errError?.message) toast.error(errError.message);
     };
 
     queryClient.setMutationDefaults([], {
       onError: (error) => {
-        toast.error(
-          (error as BetterFetchError)?.error?.message || error.message,
-        );
+        const errError = (error as BetterFetchError)?.error as
+          | { message?: string }
+          | undefined;
+        toast.error(errError?.message ?? error.message);
       },
     });
   }, [queryClient]);

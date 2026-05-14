@@ -57,7 +57,7 @@ export async function getPresignedDownloadUrl(
   key: string,
   expiresIn = 60,
 ): Promise<string> {
-  const raw = key.split("/").pop() || "download";
+  const raw = key.split("/").pop() ?? "download";
   const extDotIndex = raw.lastIndexOf(".");
   const filename =
     extDotIndex !== -1

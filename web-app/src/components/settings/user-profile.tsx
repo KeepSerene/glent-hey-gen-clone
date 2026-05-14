@@ -41,7 +41,7 @@ export function UserProfile({ className }: UserProfileProps) {
   const currentUsername =
     (usernameConfig?.displayUsername
       ? session?.user?.displayUsername
-      : session?.user?.username) || "";
+      : session?.user?.username) ?? "";
 
   const [username, setUsername] = useState(currentUsername);
 
@@ -165,8 +165,9 @@ export function UserProfile({ className }: UserProfileProps) {
                 )}
 
                 <FieldError>
-                  {usernameError?.error?.message ||
-                    usernameError?.message ||
+                  {(usernameError?.error as { message?: string } | undefined)
+                    ?.message ??
+                    usernameError?.message ??
                     (usernameData?.available === false &&
                       localization.auth.usernameTaken)}
                 </FieldError>

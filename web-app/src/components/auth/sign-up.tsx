@@ -44,7 +44,8 @@ export function SignUp({ className }: SignUpProps) {
   const { mutate: signUpEmail, isPending } = useSignUpEmail({
     onError: (error) => {
       setPassword("");
-      toast.error(error.error?.message || error.message, { duration: 8000 });
+      const errError = error.error as { message?: string } | undefined;
+      toast.error(errError?.message ?? error.message, { duration: 8000 });
     },
     onSuccess: () => {
       if (emailAndPassword?.requireEmailVerification) {

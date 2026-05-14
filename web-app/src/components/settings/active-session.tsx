@@ -54,7 +54,7 @@ export function ActiveSession({ activeSession }: ActiveSessionProps) {
   });
 
   const isCurrentSession = activeSession.token === session?.session.token;
-  const ua = Bowser.parse(activeSession.userAgent || "");
+  const ua = Bowser.parse(activeSession.userAgent ?? "");
   const isMobile =
     ua.platform.type === "mobile" || ua.platform.type === "tablet";
 
@@ -71,7 +71,7 @@ export function ActiveSession({ activeSession }: ActiveSessionProps) {
 
         <div className="flex min-w-0 flex-col">
           <span className="truncate text-sm font-medium">
-            {ua.browser.name || "Unknown Browser"}
+            {ua.browser.name ?? "Unknown Browser"}
             {ua.os.name ? `, ${ua.os.name}` : ""}
           </span>
 

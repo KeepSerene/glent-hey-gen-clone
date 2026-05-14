@@ -26,7 +26,7 @@ export function Auth({ className, view, path }: AuthProps) {
     Object.entries(viewPaths.auth).map(([k, v]) => [v, k]),
   ) as Record<string, AuthView>;
 
-  const currentView = view || (path ? authPathViews[path] : undefined);
+  const currentView = view ?? (path ? authPathViews[path] : undefined);
 
   switch (currentView) {
     case "signIn":

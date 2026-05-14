@@ -1,7 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import type { Area } from "react-easy-crop";
-import { SUPPORTED_LANGUAGES } from "./constants";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -29,7 +28,7 @@ function createImage(url: string): Promise<HTMLImageElement> {
     const img = new Image();
     img.crossOrigin = "anonymous";
     img.onload = () => resolve(img);
-    img.onerror = (error) => reject(error);
+    img.onerror = () => reject(new Error("Failed to load image"));
     img.src = url;
   });
 }
@@ -112,8 +111,8 @@ function encodeWav(samples: Float32Array, sampleRate: number): ArrayBuffer {
   // Convert Float32 [-1, 1] -> Int16 and write samples
   let offset = 44;
 
-  for (let i = 0; i < samples.length; i++) {
-    const clamped = Math.max(-1, Math.min(1, samples[i]!));
+  for (const sample of samples) {
+    const clamped = Math.max(-1, Math.min(1, sample));
     view.setInt16(
       offset,
       clamped < 0 ? clamped * 0x8000 : clamped * 0x7fff,
@@ -225,10 +224,11 @@ export function formatResetTime(resetsAt: string | null): string {
 export function getWaveformBars(id: string, count = 20): number[] {
   let hash = 0;
 
-  for (let i = 0; i < id.length; i++) {
-    hash = Math.imul(hash, 31) + id.charCodeAt(i);
+  for (const char of id) {
+    hash = Math.imul(hash, 31) + char.charCodeAt(0);
     hash |= 0;
   }
+
   return Array.from({ length: count }, (_, i) => {
     const x = Math.abs(Math.imul(hash, i * 1664525 + 1013904223));
 
