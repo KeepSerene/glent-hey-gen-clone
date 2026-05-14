@@ -194,8 +194,8 @@ GMAIL_USER="your-email@gmail.com"
 GMAIL_APP_PASSWORD="xxxx xxxx xxxx xxxx"
 
 # Inngest (optional – for production)
-INNGEST_EVENT_KEY="..."
-INNGEST_SIGNING_KEY="..."
+INNGEST_EVENT_KEY="dummy_key_for_linting"
+INNGEST_SIGNING_KEY="dummy_key_for_linting"
 
 # Polar.sh
 POLAR_ACCESS_TOKEN="..."

@@ -153,6 +153,13 @@
   --toast-icon-warning: #f4be6c;
   --toast-icon-info: #aac7ff;
   --toast-icon-loading: #c4c6d0;
+
+  /* ─── Toast action button ───────────────────────────────────── */
+  --toast-action-bg: rgba(170, 199, 255, 0.14);
+  --toast-action-fg: #aac7ff;
+  --toast-action-border: rgba(170, 199, 255, 0.28);
+  --toast-action-hover-bg: rgba(170, 199, 255, 0.24);
+  --toast-action-focus-ring: #aac7ff;
 }
 
 .dark {
@@ -225,6 +232,13 @@
   --toast-icon-warning: #b5620a;
   --toast-icon-info: #415f91;
   --toast-icon-loading: #5e5e61;
+
+  /* ─── Toast action button ───────────────────────────────────── */
+  --toast-action-bg: rgba(65, 95, 145, 0.1);
+  --toast-action-fg: #415f91;
+  --toast-action-border: rgba(65, 95, 145, 0.28);
+  --toast-action-hover-bg: rgba(65, 95, 145, 0.2);
+  --toast-action-focus-ring: #415f91;
 }
 
 @layer base {
@@ -385,6 +399,46 @@
     to {
       transform: rotate(360deg);
     }
+  }
+
+  /* ── Sonner toast action button ─────────────────────────────── */
+  [data-sonner-toast] [data-button] {
+    background-color: var(--toast-action-bg) !important;
+    color: var(--toast-action-fg) !important;
+    border: 1px solid var(--toast-action-border) !important;
+    border-radius: var(--radius-sm) !important;
+    font-family: var(--font-sans) !important;
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
+    padding: 0.25rem 0.625rem !important;
+    text-decoration: underline !important;
+    text-underline-offset: 3px !important;
+    text-decoration-color: color-mix(
+      in srgb,
+      var(--toast-action-fg) 50%,
+      transparent
+    ) !important;
+    transition:
+      background-color 0.2s ease,
+      text-decoration-color 0.2s ease !important;
+    outline: none !important;
+  }
+
+  [data-sonner-toast] [data-button]:hover {
+    background-color: var(--toast-action-hover-bg) !important;
+    text-decoration-color: var(--toast-action-fg) !important;
+  }
+
+  [data-sonner-toast] [data-button]:focus-visible {
+    background-color: var(--toast-action-hover-bg) !important;
+    box-shadow:
+      0 0 0 2px var(--toast-bg),
+      0 0 0 4px var(--toast-action-focus-ring) !important;
+    text-decoration-color: var(--toast-action-fg) !important;
+  }
+
+  [data-sonner-toast] [data-button]:active {
+    opacity: 0.8 !important;
   }
 }
 

@@ -19,7 +19,7 @@ const AudioInputModal = ({
   onAudioRecorded,
 }: AudioInputModalProps) => (
   <Dialog open={isOpen} onOpenChange={onOpenStateChange}>
-    <DialogContent className="max-w-md overflow-hidden">
+    <DialogContent className="w-[calc(100vw-2rem)] max-w-md overflow-hidden">
       {/* Accent glow */}
       <div
         aria-hidden

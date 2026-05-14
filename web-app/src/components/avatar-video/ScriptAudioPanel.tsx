@@ -63,7 +63,7 @@ function ScriptAudioPanel({
         <div className="flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-100 p-3.5 text-sm text-amber-900 shadow-sm dark:border-amber-900/50 dark:bg-amber-950/30 dark:text-amber-200">
           <AlertTriangle className="mt-0.5 size-5 shrink-0 text-amber-600 dark:text-amber-500" />
 
-          <p className="leading-relaxed">
+          <p className="text-xs sm:text-sm sm:leading-relaxed">
             <strong>Important:</strong> Audio must be in{" "}
             <strong>English</strong>. Other languages may break lip-sync and
             waste credits.
@@ -134,7 +134,7 @@ function ScriptAudioPanel({
       <div className="flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-3.5 text-sm text-amber-900 shadow-sm dark:border-amber-900/50 dark:bg-amber-950/30 dark:text-amber-200">
         <AlertTriangle className="mt-0.5 size-5 shrink-0 text-amber-600 dark:text-amber-500" />
 
-        <p className="leading-relaxed">
+        <p className="text-xs sm:text-sm sm:leading-relaxed">
           <strong>Important:</strong> Script must be in <strong>English</strong>
           . Other languages may break lip-sync and waste credits.
         </p>

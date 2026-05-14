@@ -44,16 +44,16 @@ export default function CheckoutSuccessModal() {
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogContent className="max-w-md">
-        <AlertDialogHeader className="flex flex-col items-center">
+        <AlertDialogHeader className="flex flex-col items-center text-center">
           <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-full bg-emerald-50 dark:bg-emerald-500/10">
             <CheckCircle className="size-6 text-emerald-600 dark:text-emerald-500" />
           </div>
 
-          <AlertDialogTitle className="text-xl font-semibold">
+          <AlertDialogTitle className="mx-auto text-xl font-semibold">
             Payment successful!
           </AlertDialogTitle>
 
-          <AlertDialogDescription className="mt-2 text-center">
+          <AlertDialogDescription className="mx-auto text-center">
             You&apos;re all set to create more magic with Glent.
           </AlertDialogDescription>
         </AlertDialogHeader>

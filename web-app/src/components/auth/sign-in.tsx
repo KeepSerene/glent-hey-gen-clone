@@ -61,6 +61,7 @@ export function SignIn({ className }: SignInProps) {
 
       if (errError?.code === "EMAIL_NOT_VERIFIED") {
         toast.error(errError?.message ?? error.message, {
+          duration: 8000,
           action: {
             label: localization.auth.resend,
             onClick: () =>
