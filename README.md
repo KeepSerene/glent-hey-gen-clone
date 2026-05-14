@@ -9,11 +9,14 @@
 </p>
 
 <p align="center">
-  <a href="#-live-demo"><img src="https://img.shields.io/badge/Live_Demo-https://glent.vercel.app-0a0a0a?style=flat-square&logo=vercel" alt="Live demo"></a>
-  <a href="#-features"><img src="https://img.shields.io/badge/Features-8A2BE2?style=flat-square" alt="Features"></a>
-  <a href="#-tech-stack"><img src="https://img.shields.io/badge/Tech_Stack-T3+Modal-3178C6?style=flat-square&logo=typescript" alt="Tech stack"></a>
-  <a href="#-author"><img src="https://img.shields.io/badge/Author-Dhrubajyoti_Bhattacharjee-0a66c2?style=flat-square&logo=linkedin" alt="Author"></a>
-  <a href="#-license"><img src="https://img.shields.io/badge/License-Apache2.0-green?style=flat-square" alt="License"></a>
+  <img src="https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white" alt="Next.js">
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript">
+  <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS">
+  <img src="https://img.shields.io/badge/Prisma-2D3748?style=flat-square&logo=prisma&logoColor=white" alt="Prisma">
+  <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white" alt="PostgreSQL">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/Cloudflare_R2-F38020?style=flat-square&logo=cloudflare&logoColor=white" alt="Cloudflare R2">
+  <img src="https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white" alt="Vercel">
 </p>
 
 <p align="center">
