@@ -455,10 +455,10 @@ function AvatarVideoModal({
                   <div className="mt-auto pt-2">
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <span className="max-sm:block max-sm:w-full sm:ml-auto">
+                        <span className="inline-block w-full sm:w-auto">
                           <button
                             type="button"
-                            className="btn-highlight shrink-0 max-sm:w-full sm:ml-auto"
+                            className="btn-highlight mr-auto w-full sm:w-auto"
                             disabled={!canGenerate || isSubmitting}
                             onClick={handleGenerate}
                           >
