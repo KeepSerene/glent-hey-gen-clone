@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     "text-to-speech",
     "HeyGen clone",
     "AI video generator",
-    "multilingual voiceover",
+    "Multilingual voiceover",
     "Hallo3",
     "ChatterboxTTS",
   ],
