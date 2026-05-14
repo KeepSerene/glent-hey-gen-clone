@@ -111,7 +111,6 @@ glent-hey-gen-clone/
 │   └── .env                # Modal secrets & R2 credentials
 |   ├── .env.example        # Environment variables template
 │
-├── docker-compose.yml      # (optional) local PostgreSQL
 └── README.md               # The project readme
 ```
 
@@ -134,12 +133,12 @@ The production instance is deployed on **Vercel**:
 ## 📸 Screenshots
 
 <p align="center">
-  <strong>Light theme – Dashboard & generation modal</strong><br/>
+  <strong>Light theme illustration</strong><br/>
   <img src="web-app/public/images/illustration-light.webp" alt="Light theme" width="80%" />
 </p>
 
 <p align="center">
-  <strong>Dark theme – Voice studio & history view</strong><br/>
+  <strong>Dark theme illustration</strong><br/>
   <img src="web-app/public/images/illustration-dark.webp" alt="Dark theme" width="80%" />
 </p>
 
